@@ -50,7 +50,7 @@
         },
         {
             "type": "file",
-            "sources": ["../../scripts/ldap/illume-ldap-backup/CONFIG.ldif","../../scripts/ldap/illume-ldap-backup/DATABASE.ldif"],
+            "sources": ["../../scripts/ldap/ldap-backup/CONFIG.ldif","../../scripts/ldap/ldap-backup/DATABASE.ldif"],
             "destination": "/home/ubuntu/"
         },
         {
