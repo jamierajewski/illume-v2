@@ -55,7 +55,7 @@
         },
         {
             "type": "shell",
-            "script": "../../roles/ldap/openLDAP.sh"
+            "script": "../../scripts/ldap/openLDAP.sh"
         }
     ]
 }
