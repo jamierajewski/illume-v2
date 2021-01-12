@@ -8,15 +8,13 @@
             "flavor": "18",
             "ssh_username": "ubuntu",
             "image_name": "illume-bastion",
-            "source_image": "64be26bf-e0d3-4d4c-a0b9-3a2751142f70",
+            "source_image": "59888a3f-9fbb-4c9b-abf8-e3a791be7d86",
             "networks": [
                 "ddbdc508-53dd-4a4f-8be7-c6555fefda62"
             ],
             "floating_ip_pool": "ext-net",
             "use_floating_ip": true,
-            "security_groups": [
-		"illume-bastion"
-	    ]
+            "security_groups": ["illume-bastion"]
         }
     ],
     "provisioners": [
