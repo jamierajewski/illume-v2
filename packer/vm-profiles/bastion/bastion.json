@@ -48,8 +48,7 @@
         },
         {
             "type": "shell",
-            "script": "../../scripts/docker/docker.sh",
-            "expect_disconnect": true        
+            "script": "../../scripts/podman/podman.sh"
         }
     ]
 }
