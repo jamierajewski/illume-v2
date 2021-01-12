@@ -1,0 +1,67 @@
+{
+    "variables": {
+        "ssh_key_source": "{{env `SSH_KEY_SOURCE`}}"
+    },
+    "builders": [
+        {
+            "type": "openstack",
+            "flavor": "18",
+            "ssh_username": "ubuntu",
+            "image_name": "illume-proxy",
+            "source_image": "64be26bf-e0d3-4d4c-a0b9-3a2751142f70",
+            "networks": [
+                "ddbdc508-53dd-4a4f-8be7-c6555fefda62"
+            ],
+            "floating_ip_pool": "ext-net",
+            "use_floating_ip": true,
+            "security_groups": ["illume-bastion"]
+        }
+    ],
+    "provisioners": [
+        {
+            "type": "file",
+            "source": "{{user `ssh_key_source`}}",
+            "destination": "/home/ubuntu/.ssh/illume_key"
+        },
+        {
+            "type": "shell",
+            "inline": ["chmod og-rwx /home/ubuntu/.ssh/illume_key"]
+        },
+        {
+            "type": "file",
+            "source": "../../scripts/ssh/ssh-config",
+            "destination": "/home/ubuntu/.ssh/config"
+        },
+        {
+            "type": "shell",
+            "inline": [
+                "sudo apt-get update -y",
+                "sudo apt-get dist-upgrade -y",
+                "sudo reboot"
+            ],
+            "expect_disconnect": true
+        },
+        {
+            "type": "shell",
+            "script": "../../scripts/common/common.sh",
+            "expect_disconnect": true
+        },
+        {
+            "type": "shell",
+            "script": "../../scripts/squid/squid.sh"
+        },
+        {
+            "type": "file",
+            "source": "../../scripts/squid/squid.conf",
+            "destination": "/home/ubuntu/squid.conf"  
+        },
+        {
+            "type": "shell",
+            "inline": [
+                "sudo mv /home/ubuntu/squid.conf /etc/squid/squid.conf",
+                "sudo reboot"
+            ],
+            "expect_disconnect": true
+        }
+    ]
+}
