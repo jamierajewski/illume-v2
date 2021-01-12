@@ -12,6 +12,9 @@ resource "openstack_compute_instance_v2" "illume-openLDAP-v2" {
   security_groups = [
     "illume-internal-v2",
   ]
+  depends_on = [
+    openstack_compute_instance_v2.illume-bastion-v2
+  ]
 
   # boot from volume (created from image)
   # 30GB is the minimum defined somewhere?
