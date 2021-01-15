@@ -13,8 +13,7 @@ resource "openstack_compute_instance_v2" "illume-phpLDAPadmin-v2" {
     "ssh",
     "illume-internal-v2",
   ]
-  depends_on = [ openstack_compute_instance_v2.illume-openLDAP-v2
-  ]
+  depends_on = [ openstack_compute_instance_v2.illume-openLDAP-v2]
 
   # boot from volume (created from image)
   block_device {

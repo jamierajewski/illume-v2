@@ -13,6 +13,7 @@ resource "openstack_compute_instance_v2" "illume-proxy-v2" {
   security_groups = [
     "illume-internal-v2"
   ]
+  depends_on = [ openstack_compute_instance_v2.illume-bastion-v2 ]
   image_id = data.openstack_images_image_v2.proxy-image.id
 
   # boot device (ephemeral)
