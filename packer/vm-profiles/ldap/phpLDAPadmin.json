@@ -14,9 +14,7 @@
             ],
             "floating_ip_pool": "ext-net",
             "use_floating_ip": true,
-            "security_groups": [
-		"illume-bastion"
-	    ]
+            "security_groups": ["ssh", "egress"]
         }
     ],
     "provisioners": [
