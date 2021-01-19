@@ -5,16 +5,16 @@
     "builders": [
         {
             "type": "openstack",
-            "flavor": "25",
+            "flavor": "c4-8GB-90",
             "ssh_username": "ubuntu",
             "image_name": "illume-ingress",
-            "source_image": "59888a3f-9fbb-4c9b-abf8-e3a791be7d86",
+            "source_image_name": "Ubuntu-20.04.1-Focal-x64-2020-10",
             "networks": [
                 "ddbdc508-53dd-4a4f-8be7-c6555fefda62"
             ],
             "floating_ip_pool": "ext-net",
             "use_floating_ip": true,
-            "security_groups": ["illume-bastion"]
+            "security_groups": ["ssh", "egress"]
         }
     ],
     "provisioners": [
@@ -45,6 +45,20 @@
             "type": "shell",
             "script": "../../scripts/common/common.sh",
             "expect_disconnect": true
+        },
+        {
+            "type": "shell",
+            "script": "../../scripts/cvmfs/cvmfs.sh"
+        },
+        {
+            "type": "file",
+            "source": "../../scripts/cvmfs/default.local",
+            "destination": "/home/ubuntu/default.local"
+        },
+        {
+            "type": "shell",
+            "script": "../../scripts/ldap/ldap-client.sh"
+        
         },
         {
             "type": "shell",
