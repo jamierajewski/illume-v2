@@ -7,12 +7,9 @@ data "openstack_images_image_v2" "bastion-image" {
 
 resource "openstack_compute_instance_v2" "illume-bastion-v2" {
   name = "illume-bastion-v2"
-  flavor_id       = "911a8099-d343-4cf3-a483-27b35a5b9bd4"
+  flavor_name     = "p2-8gb"
   key_pair        = "illume-new"
-  security_groups = [
-    "illume-bastion",
-    "illume-internal-v2"
-  ]
+  security_groups = ["illume-bastion", "illume-internal-v2"]
 
   # boot from volume (created from image)
   block_device {
@@ -21,7 +18,7 @@ resource "openstack_compute_instance_v2" "illume-bastion-v2" {
     volume_size           = "120"
     boot_index            = 0
     destination_type      = "volume"
-    delete_on_termination = true
+    delete_on_termination = false
   }
 
   network {
@@ -31,6 +28,7 @@ resource "openstack_compute_instance_v2" "illume-bastion-v2" {
 
 resource "openstack_networking_floatingip_v2" "illume-bastion-v2" {
   pool = var.floating-ip-pool
+  address = "142.244.110.150"
 }
 
 resource "openstack_compute_floatingip_associate_v2" "illume-bastion-v2" {
