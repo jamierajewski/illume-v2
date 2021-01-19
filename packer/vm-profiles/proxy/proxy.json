@@ -29,7 +29,7 @@
         },
         {
             "type": "file",
-            "source": "../../scripts/ssh/ssh-config",
+            "source": "../../bootstrap/ssh/ssh-config",
             "destination": "/home/ubuntu/.ssh/config"
         },
         {
@@ -43,16 +43,16 @@
         },
         {
             "type": "shell",
-            "script": "../../scripts/common/common.sh",
+            "script": "../../bootstrap/common/common.sh",
             "expect_disconnect": true
         },
         {
             "type": "shell",
-            "script": "../../scripts/squid/squid.sh"
+            "script": "../../bootstrap/squid/squid.sh"
         },
         {
             "type": "file",
-            "source": "../../scripts/squid/squid.conf",
+            "source": "../../bootstrap/squid/squid.conf",
             "destination": "/home/ubuntu/squid.conf"  
         }
     ]

@@ -29,7 +29,7 @@
         },
         {
             "type": "file",
-            "source": "../../scripts/ssh/ssh-config",
+            "source": "../../bootstrap/ssh/ssh-config",
             "destination": "/home/ubuntu/.ssh/config"
         },
         {
@@ -43,26 +43,26 @@
         },
         {
             "type": "shell",
-            "script": "../../scripts/common/common.sh",
+            "script": "../../bootstrap/common/common.sh",
             "expect_disconnect": true
         },
         {
             "type": "shell",
-            "script": "../../scripts/cvmfs/cvmfs.sh"
+            "script": "../../bootstrap/cvmfs/cvmfs.sh"
         },
         {
             "type": "file",
-            "source": "../../scripts/cvmfs/default.local",
+            "source": "../../bootstrap/cvmfs/default.local",
             "destination": "/home/ubuntu/default.local"
         },
         {
             "type": "shell",
-            "script": "../../scripts/ldap/ldap-client.sh"
+            "script": "../../bootstrap/ldap/ldap-client.sh"
         
         },
         {
             "type": "shell",
-            "script": "../../scripts/podman/podman.sh"
+            "script": "../../bootstrap/podman/podman.sh"
         }
     ]
 }
