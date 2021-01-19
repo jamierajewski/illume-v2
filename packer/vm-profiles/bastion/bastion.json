@@ -5,10 +5,10 @@
     "builders": [
         {
             "type": "openstack",
-            "flavor": "18",
+            "flavor": "c4-8GB-90",
             "ssh_username": "ubuntu",
             "image_name": "illume-bastion",
-            "source_image": "59888a3f-9fbb-4c9b-abf8-e3a791be7d86",
+            "source_image_name": "Ubuntu-20.04.1-Focal-x64-2020-10",
             "networks": [
                 "ddbdc508-53dd-4a4f-8be7-c6555fefda62"
             ],
