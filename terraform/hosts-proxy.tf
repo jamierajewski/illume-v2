@@ -8,11 +8,9 @@ resource "openstack_compute_instance_v2" "illume-proxy-v2" {
   count = 2
   name  = format("illume-proxy-%02d-v2", count.index + 1)
 
-  flavor_id = "19"
+  flavor_name = "c2-8GB-90"
   key_pair    = "illume-new"
-  security_groups = [
-    "illume-internal-v2"
-  ]
+  security_groups = ["illume-internal-v2", "egress"]
   depends_on = [ openstack_compute_instance_v2.illume-bastion-v2 ]
   image_id = data.openstack_images_image_v2.proxy-image.id
 
@@ -25,13 +23,13 @@ resource "openstack_compute_instance_v2" "illume-proxy-v2" {
     delete_on_termination = true
   }
 
-  # Ephemeral storage (180GB)
+  # Ephemeral storage (90GB)
   block_device {
     boot_index            = -1
     delete_on_termination = true
     destination_type      = "local"
     source_type           = "blank"
-    volume_size           = 180
+    volume_size           = 90
   }
 
   # mount ephemeral storage #0 to /var/spool/squid
@@ -44,6 +42,31 @@ EOF
 
   network {
     name = var.network
+  }
+
+  provisioner "remote-exec" {
+    # Do final squid configuration here now that cache space is attached
+    
+    inline = [
+      "sudo mv /home/ubuntu/squid.conf /etc/squid/squid.conf",
+      "sudo chown -R squid /var/spool/squid /var/log/squid",
+      "sudo squid -z",
+      "sudo systemctl restart squid.service"
+    ]
+
+    connection {
+      type = "ssh"
+
+      # Connect via the bastion to get into the internal network
+      bastion_user = var.ssh_user_name
+      bastion_private_key = file(var.ssh_key_file)
+      bastion_host = openstack_networking_floatingip_v2.illume-bastion-v2.address
+
+      # Connection details of these proxy instances
+      user = var.ssh_user_name
+      private_key = file(var.ssh_key_file)
+      host = self.network[0].fixed_ip_v4
+    }
   }
 }
 

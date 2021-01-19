@@ -5,10 +5,10 @@
     "builders": [
         {
             "type": "openstack",
-            "flavor": "18",
+            "flavor": "c4-8GB-90",
             "ssh_username": "ubuntu",
             "image_name": "illume-proxy",
-            "source_image": "64be26bf-e0d3-4d4c-a0b9-3a2751142f70",
+            "source_image_name": "Ubuntu-20.04.1-Focal-minimal-x64-2020-10",
             "networks": [
                 "ddbdc508-53dd-4a4f-8be7-c6555fefda62"
             ],
@@ -54,14 +54,6 @@
             "type": "file",
             "source": "../../scripts/squid/squid.conf",
             "destination": "/home/ubuntu/squid.conf"  
-        },
-        {
-            "type": "shell",
-            "inline": [
-                "sudo mv /home/ubuntu/squid.conf /etc/squid/squid.conf",
-                "sudo reboot"
-            ],
-            "expect_disconnect": true
         }
     ]
 }
