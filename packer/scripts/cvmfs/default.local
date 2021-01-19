@@ -1,0 +1,5 @@
+CVMFS_REPOSITORIES='oasis.opensciencegrid.org,grid.cern.ch,icecube.opensciencegrid.org,sft.cern.ch,snoplus.egi.eu'
+CVMFS_HTTP_PROXY="http://example1:3128|http://example2:3128"
+CVMFS_CACHE_BASE=/var/lib/cvmfs
+CVMFS_QUOTA_LIMIT=72000
+CVMFS_HIDE_MAGIC_XATTRS=yes
