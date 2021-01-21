@@ -66,4 +66,3 @@ sudo rm /home/ubuntu/containers.conf
 
 # Do a final upgrade check
 sudo apt-get update && sudo apt-get upgrade -y
-sudo reboot
