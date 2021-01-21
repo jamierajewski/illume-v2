@@ -58,11 +58,14 @@
         {
             "type": "shell",
             "script": "../../bootstrap/ldap/ldap-client.sh"
-        
         },
         {
             "type": "shell",
             "script": "../../bootstrap/podman/podman.sh"
+        },
+        {
+            "type": "shell",
+            "script": "../../bootstrap/singularity/singularity.sh"
         }
     ]
 }
