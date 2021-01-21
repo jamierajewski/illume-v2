@@ -7,7 +7,7 @@
             "type": "openstack",
             "flavor": "c4-8GB-90",
             "ssh_username": "ubuntu",
-            "image_name": "illume-ingress",
+            "image_name": "illume-worker-nogpu",
             "source_image_name": "illume-interactive",
             "source_image_filter": {
                 "most_recent": true
@@ -18,12 +18,6 @@
             "floating_ip_network": "ext-net",
             "reuse_ips": true,
             "security_groups": ["ssh", "egress"]
-        }
-    ],
-    "provisioners": [
-        {
-            "type": "shell",
-            "script": "../../bootstrap/ldap/ldap-client.sh"
         }
     ]
 }

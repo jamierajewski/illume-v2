@@ -1,17 +1,15 @@
 {
-    "variables": {
-        "ssh_key_source": "{{env `SSH_KEY_SOURCE`}}"
-    },
     "builders": [
         {
             "type": "openstack",
-            "flavor": "c4-8GB-90",
+            "flavor": "c4-29gb-850-1.1080ti",
             "ssh_username": "ubuntu",
-            "image_name": "illume-ingress",
-            "source_image_name": "illume-interactive",
+            "image_name": "illume-worker-gpu",
+            "source_image_name": "illume-worker-nogpu",
             "source_image_filter": {
                 "most_recent": true
             },
+            "force_delete": true,
             "networks": [
                 "ddbdc508-53dd-4a4f-8be7-c6555fefda62"
             ],
@@ -22,8 +20,14 @@
     ],
     "provisioners": [
         {
+            "type": "file",
+            "source": "../../bootstrap/cuda/containers.conf",
+            "destination": "/home/ubuntu/containers.conf"
+        },
+        {
             "type": "shell",
-            "script": "../../bootstrap/ldap/ldap-client.sh"
+            "script": "../../bootstrap/cuda/cuda.sh",
+            "expect_disconnect": true
         }
     ]
 }

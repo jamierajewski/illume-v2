@@ -8,44 +8,19 @@
             "flavor": "c4-8GB-90",
             "ssh_username": "ubuntu",
             "image_name": "illume-phpLDAPadmin",
-            "source_image_name": "Ubuntu-20.04.1-Focal-minimal-x64-2020-10",
+            "source_image_name": "illume-non-interactive",
+            "source_image_filter": {
+                "most_recent": true
+            },
             "networks": [
                 "ddbdc508-53dd-4a4f-8be7-c6555fefda62"
             ],
-            "floating_ip_pool": "ext-net",
-            "use_floating_ip": true,
+            "floating_ip_network": "ext-net",
+            "reuse_ips": true,
             "security_groups": ["ssh", "egress"]
         }
     ],
     "provisioners": [
-        {
-            "type": "file",
-            "source": "{{user `ssh_key_source`}}",
-            "destination": "/home/ubuntu/.ssh/illume_key"
-        },
-        {
-            "type": "shell",
-            "inline": ["chmod og-rwx /home/ubuntu/.ssh/illume_key"]
-        },
-        {
-            "type": "file",
-            "source": "../../bootstrap/ssh/ssh-config",
-            "destination": "/home/ubuntu/.ssh/config"
-        },
-        {
-            "type": "shell",
-            "inline": [
-                "sudo apt-get update -y",
-                "sudo apt-get dist-upgrade -y",
-                "sudo reboot"
-            ],
-            "expect_disconnect": true
-        },
-        {
-            "type": "shell",
-            "script": "../../bootstrap/common/common.sh",
-            "expect_disconnect": true
-        },
         {
             "type": "shell",
             "script": "../../bootstrap/ldap/phpLDAPadmin.sh"
