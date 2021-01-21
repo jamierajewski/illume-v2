@@ -1,0 +1,46 @@
+{
+    "variables": {
+        "ssh_key_source": "{{env `SSH_KEY_SOURCE`}}"
+    },
+    "builders": [
+        {
+            "type": "openstack",
+            "flavor": "c4-8GB-90",
+            "ssh_username": "ubuntu",
+            "image_name": "illume-interactive",
+            "source_image_name": "illume-non-interactive",
+            "source_image_filter": {
+                "most_recent": true
+            },
+            "networks": [
+                "ddbdc508-53dd-4a4f-8be7-c6555fefda62"
+            ],
+            "floating_ip_network": "ext-net",
+            "reuse_ips": true,
+            "security_groups": ["ssh", "egress"]
+        }
+    ],
+    "provisioners": [
+        {
+            "type": "shell",
+            "script": "../../bootstrap/cvmfs/cvmfs.sh"
+        },
+        {
+            "type": "file",
+            "source": "../../bootstrap/cvmfs/default.local",
+            "destination": "/home/ubuntu/default.local"
+        },
+        {
+            "type": "shell",
+            "script": "../../bootstrap/podman/podman.sh"
+        },
+        {
+            "type": "shell",
+            "script": "../../bootstrap/singularity/singularity.sh"
+        },
+        {
+            "type": "shell",
+            "script": "../../bootstrap/user-tools/user-tools.sh"
+        }
+    ]
+}
