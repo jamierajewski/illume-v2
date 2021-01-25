@@ -41,3 +41,31 @@ As with the VM images, the Terraform deployment profiles are set up with depende
 - Once happy, run `terraform apply` which you can then accept if it looks good
 
 You can then view the provisioned instances in the OpenStack dashboard under **Compute** -> **Instances**.
+
+## How to access LDAP interface
+Illume v2 uses phpLDAPadmin as an interface over openLDAP. To access the web interface for easy account management:
+1. Create (if it doesn't already exist) `~/.ssh/config`
+2. Create an entry for the `bastion` host that looks something like this with the public IP and path to key filled in:
+```
+Host bastion                                                                                          
+     HostName xxx.xxx.xxx.xxx (public IP)                                                                            
+     User ubuntu                                                                                         
+     IdentityFile /path/to/key
+```
+3. Test the above to make sure it works by saving it, then run `ssh bastion`
+4. Now that the bastion connection works, create a second entry in `~/.ssh/config` like this:
+```
+Host phpLDAPadmin                                                                                     
+     User ubuntu                                                                                         
+     HostName xxx.xxx.xxx.xxx (fixed IP)                                                                             
+     IdentityFile /path/to/key                                                                      
+     ProxyJump bastion                                                                                
+     LocalForward 8080 localhost:80
+```
+Since the LDAP server and php interface are hosted internally only, we must forward port 80 and then connect via the bastion as that is the only way into the network from the outside (aside from the ingress). `ProxyJump` will perform this intermediate connection.
+5. Once that is working and you have successfully logged into the php instance, move to your web browser and put in 
+```
+http://localhost:8080/phpldapadmin/
+```
+If everything was done correctly then you should have landed on the phpLDAPadmin login page.
+
