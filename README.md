@@ -69,3 +69,43 @@ http://localhost:8080/phpldapadmin/
 ```
 If everything was done correctly then you should have landed on the phpLDAPadmin login page.
 
+## How to Debug
+# LDAP
+LDAP is one of the more complicated parts of the cluster. To ensure that it is working, you can `ssh` into the `openLDAP` instance (via the Bastion since it isn't exposed to the internet) and run
+```
+ldapsearch -x -b cn=First Last,ou=users,dc=illume,dc=systems
+```
+where `First Last` is the users' full name. This line can also be retrieved from phpLDAPadmin's web interface by choosing a user and clicking `Show internal attributes`.
+
+If the LDAP server is successfully running, you should see output like
+```
+# extended LDIF
+#
+# LDAPv3
+# base <cn=First Last,ou=users,dc=illume,dc=systems> with scope subtree
+# filter: (objectclass=*)
+# requesting: ALL
+#
+
+# First Last, users, illume.systems
+dn: cn=Test Man,ou=users,dc=illume,dc=systems
+cn: First Last
+givenName: First
+gidNumber: 501
+homeDirectory: /home/users/flast
+sn: Last
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: top
+uidNumber: 1050
+uid: flast
+loginShell: /bin/bash
+
+# search result
+search: 2
+result: 0 Success
+
+# numResponses: 2
+# numEntries: 1
+```
+
