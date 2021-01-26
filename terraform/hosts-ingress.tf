@@ -85,11 +85,6 @@ EOF
       "sudo systemctl restart nscd"
     ]
 
-    ##TODO
-    # - This is a hacky workaround to allow the deployment to succeed, as the machine needs to reboot
-    #   in order for it to apply the LDAP for logins
-    # on_failure = continue
-
     connection {
       type = "ssh"
 
