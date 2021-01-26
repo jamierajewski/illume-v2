@@ -12,6 +12,7 @@ resource "openstack_compute_instance_v2" "illume-ingress-v2" {
   depends_on = [ openstack_compute_instance_v2.illume-proxy-v2 ]
 
   # boot device (ephemeral)
+  # Use a small size as we will mount the NFS with the larger storage
   block_device {
     uuid                  = data.openstack_images_image_v2.ingress-image.id
     source_type           = "image"
@@ -80,8 +81,14 @@ EOF
       "sudo cvmfs_config probe",
       "sudo sed -i 's/ldap_ip/${openstack_compute_instance_v2.illume-openLDAP-v2.network[0].fixed_ip_v4}/' /etc/ldap.conf",
       "echo ${var.ldap_admin_pass} | sudo tee /etc/ldap.secret > /dev/null",
-      "sudo reboot"
+      "sudo sed -i 's/ldap_ip/${openstack_compute_instance_v2.illume-openLDAP-v2.network[0].fixed_ip_v4}/' /etc/ldap/ldap.conf",
+      "sudo systemctl restart nscd"
     ]
+
+    ##TODO
+    # - This is a hacky workaround to allow the deployment to succeed, as the machine needs to reboot
+    #   in order for it to apply the LDAP for logins
+    # on_failure = continue
 
     connection {
       type = "ssh"

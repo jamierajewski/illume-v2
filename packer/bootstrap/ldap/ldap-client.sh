@@ -15,7 +15,7 @@ ldap-auth-config ldap-auth-config/rootbinddn string cn=admin,dc=illume,dc=system
 ldap-auth-config ldap-auth-config/ldapns/ldap_version select 3
 ldap-auth-config ldap-auth-config/pam_password select md5
 ldap-auth-config ldap-auth-config/dblogin boolean false
-ldap-auth-config ldap-auth-config/ldapns/ldap-server string ldapi:///ldap_ip
+ldap-auth-config ldap-auth-config/ldapns/ldap-server string ldap://ldap_ip:389
 ldap-auth-config ldap-auth-config/dbrootlogin boolean true
 ldap-auth-config ldap-auth-config/binddn string cn=proxyuser,dc=example,dc=net
 EOF
@@ -25,12 +25,17 @@ EOF
 sudo apt-get install libnss-ldap libpam-ldap ldap-utils nscd -y
 
 # Configure client to authenticate against the openLDAP server
-sudo sed '/passwd/ s/$/ ldap/' /etc/nsswitch.conf
-sudo sed '/group/ s/$/ ldap/' /etc/nsswitch.conf
-sudo sed '/^shadow/ s/$/ ldap/' /etc/nsswitch.conf
-sudo sed 's/use_authtok//' /etc/pam.d/common-password
+sudo sed -i '/passwd/ s/$/ ldap/' /etc/nsswitch.conf
+sudo sed -i '/group/ s/$/ ldap/' /etc/nsswitch.conf
+sudo sed -i '/^shadow/ s/$/ ldap/' /etc/nsswitch.conf
+sudo sed -i 's/use_authtok//g' /etc/pam.d/common-password
+
+# Configure the global LDAP config as well
+sudo sed -i 's/^TLS_/#TLS_/' /etc/ldap/ldap.conf
+sudo sed -i 's/^#BASE.*/BASE dc=illume,dc=systems/' /etc/ldap/ldap.conf
+sudo sed -i 's/^#URI.*/URI ldap:\/\/ldap_ip/' /etc/ldap/ldap.conf
 
 # Add rule to create home directory for users if it doesn't exist
-echo "session optional pam_mkhomedir.so skel=/etc/skel umask=077" | sudo tee -a /etc/pam.d/common-session > /dev/null
+echo "session required pam_mkhomedir.so skel=/etc/skel umask=077" | sudo tee -a /etc/pam.d/common-session > /dev/null
 
 # Ensure that terraform will now create the /etc/ldap.secret file with the admin pass
