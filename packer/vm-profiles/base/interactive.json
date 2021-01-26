@@ -40,7 +40,7 @@
         },
         {
             "type": "shell",
-            "script": "../../bootstrap/user-tools/user-tools.sh"
+            "script": "../../bootstrap/tools/user-tools.sh"
         }
     ]
 }

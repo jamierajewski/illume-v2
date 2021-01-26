@@ -8,7 +8,7 @@
             "flavor": "c4-8GB-90",
             "ssh_username": "ubuntu",
             "image_name": "illume-bastion",
-            "source_image_name": "illume-interactive",
+            "source_image_name": "illume-non-interactive",
             "source_image_filter": {
                 "most_recent": true
             },
@@ -18,6 +18,20 @@
             "floating_ip_network": "ext-net",
             "reuse_ips": true,
             "security_groups": ["ssh", "egress"]
+        }
+    ],
+    "provisioners": [
+        {
+            "type": "shell",
+            "script": "../../bootstrap/podman/podman.sh"
+        },
+        {
+            "type": "shell",
+            "script": "../../bootstrap/singularity/singularity.sh"
+        },
+        {
+            "type": "shell",
+            "script": "../../bootstrap/tools/admin-tools.sh"
         }
     ]
 }
