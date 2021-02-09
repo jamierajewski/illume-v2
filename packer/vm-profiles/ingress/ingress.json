@@ -28,6 +28,19 @@
         {
             "type": "shell",
             "inline": ["sudo sed -i 's/^PasswordAuthentication no/PasswordAuthentication yes/g' /etc/ssh/sshd_config"]
+        },
+        {
+            "type": "shell",
+            "script": "../../bootstrap/htcondor/htcondor.sh"
+        },
+        {
+            "type": "file",
+            "source": "../../bootstrap/htcondor/local_configs/submit.local",
+            "destination": "/home/ubuntu/condor_config.local"
+        },
+        {
+            "type": "shell",
+            "inline": ["sudo mv /home/ubuntu/condor_config.local /etc/condor/condor_config.local"]
         }
     ]
 }
