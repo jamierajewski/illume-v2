@@ -20,6 +20,14 @@
     ],
     "provisioners": [
         {
+            "type": "shell",
+            "script": "../../bootstrap/ldap/ldap-client.sh"
+        },
+        {
+            "type": "shell",
+            "inline": ["echo 'AllowGroups root' | sudo tee -a /etc/ssh/sshd_config"]
+        },
+        {
             "type": "file",
             "source": "../../bootstrap/cuda/containers.conf",
             "destination": "/home/ubuntu/containers.conf"

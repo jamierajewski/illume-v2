@@ -19,5 +19,28 @@
             "reuse_ips": true,
             "security_groups": ["ssh", "egress"]
         }
+    ],
+    "provisioners": [
+        {
+            "type": "shell",
+            "script": "../../bootstrap/ldap/ldap-client.sh"
+        },
+        {
+            "type": "shell",
+            "inline": ["echo 'AllowGroups root' | sudo tee -a /etc/ssh/sshd_config"]
+        },
+        {
+            "type": "shell",
+            "script": "../../bootstrap/htcondor/htcondor.sh"
+        },
+        {
+            "type": "file",
+            "source": "../../bootstrap/htcondor/local_configs/execute.local",
+            "destination": "/home/ubuntu/condor_config.local"
+        },
+        {
+            "type": "shell",
+            "inline": ["sudo mv /home/ubuntu/condor_config.local /etc/condor/condor_config.local"]
+        }
     ]
 }
