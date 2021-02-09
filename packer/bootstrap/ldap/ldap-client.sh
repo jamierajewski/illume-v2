@@ -22,6 +22,7 @@ EOF
 
 # Configure client to authenticate using LDAP
 # Source: https://www.techrepublic.com/article/how-to-authenticate-a-linux-client-with-ldap-server/
+sudo apt-get update
 sudo apt-get install libnss-ldap libpam-ldap ldap-utils nscd -y
 
 # Configure client to authenticate against the openLDAP server
