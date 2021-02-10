@@ -36,18 +36,24 @@ resource "openstack_compute_instance_v2" "illume-ingress-v2" {
     volume_size           = 1440
   }
 
-  # split ephemeral storage into 2 parts:
-  # 1368GB - ephemeral0.1 (95%)
+  # split ephemeral storage into 4 parts:
+  # 1224GB - ephemeral0.1 (85%)
   #  72GB - ephemeral0.2 (5%)
+  #  72GB - ephemeral0.3 (5%)
+  #  72GB - ephemeral0.4 (5%)
   # mount ephemeral storage #0.1 to /scratch
-  # mount ephemeral storage #0.2 to /var/lib/cvmfs
+  # mount ephemeral storage #0.2 to /var/log/condor
+  # mount ephemeral storage #0.3 to /var/spool/condor
+  # mount ephemeral storage #0.4 to /var/lib/cvmfs
   user_data = <<EOF
 #cloud-config
 disk_setup:
   ephemeral0:
     table_type: 'gpt'
     layout:
-      - 95
+      - 85
+      - 5
+      - 5
       - 5
     overwrite: true
 
@@ -58,10 +64,18 @@ fs_setup:
   - label: ephemeral0.2
     filesystem: 'ext4'
     device: 'ephemeral0.2'
+  - label: ephemeral0.3
+    filesystem: 'ext4'
+    device: 'ephemeral0.3'
+  - label: ephemeral0.4
+    filesystem: 'ext4'
+    device: 'ephemeral0.4'
 
 mounts:
   - [ ephemeral0.1, /scratch ]
-  - [ ephemeral0.2, /var/lib/cvmfs ]
+  - [ ephemeral0.2, /var/log/condor ]
+  - [ ephemeral0.3, /var/spool/condor ]
+  - [ ephemeral0.4, /var/lib/cvmfs ]
 EOF
 
 
@@ -72,17 +86,33 @@ EOF
   provisioner "remote-exec" {
     # Update the config with proxy info, pulling the IPs from the instances
     # Then update the LDAP with the openLDAP server IP
-    
     inline = [
+      # Set up the new partitions for spool
+      "sudo chown -R condor /var/spool/condor",
+      "sudo chgrp -R condor /var/spool/condor",
+      "sudo chmod -R g+rwx /var/spool/condor",
+      # and log
+      "sudo chown -R condor /var/log/condor",
+      "sudo chgrp -R condor /var/log/condor",
+      "sudo chmod -R g+rwx /var/log/condor",
+      # Set up CVMFS with the proxy IPs
       "sudo sed -i 's/example1/${openstack_compute_instance_v2.illume-proxy-v2[0].network[0].fixed_ip_v4}/' /home/ubuntu/default.local",
       "sudo sed -i 's/example2/${openstack_compute_instance_v2.illume-proxy-v2[1].network[0].fixed_ip_v4}/' /home/ubuntu/default.local",
       "sudo mv /home/ubuntu/default.local /etc/cvmfs/default.local",
       "sudo systemctl restart autofs",
       "sudo cvmfs_config probe",
+      # Set up LDAP with openLDAP IP
       "sudo sed -i 's/ldap_ip/${openstack_compute_instance_v2.illume-openLDAP-v2.network[0].fixed_ip_v4}/' /etc/ldap.conf",
       "echo ${var.ldap_admin_pass} | sudo tee /etc/ldap.secret > /dev/null",
       "sudo sed -i 's/ldap_ip/${openstack_compute_instance_v2.illume-openLDAP-v2.network[0].fixed_ip_v4}/' /etc/ldap/ldap.conf",
-      "sudo systemctl restart nscd"
+      "sudo systemctl restart nscd",
+      # Set up condor with control node's IP and pool password
+      "sudo sed -i 's/condor_host_ip/${openstack_compute_instance_v2.illume-control-v2.network[0].fixed_ip_v4}/' /etc/condor/condor_config.local",
+      "sudo echo '${var.condor_pass}' > /home/ubuntu/pool_pass",
+      "sudo condor_store_cred add -c -p /home/ubuntu/pool_pass",
+      "sudo rm -f /home/ubuntu/pool_pass",
+      "sudo systemctl enable condor",
+      "sudo systemctl start condor",
     ]
 
     connection {
