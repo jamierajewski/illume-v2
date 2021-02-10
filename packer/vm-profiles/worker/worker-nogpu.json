@@ -27,10 +27,6 @@
         },
         {
             "type": "shell",
-            "inline": ["echo 'AllowGroups root' | sudo tee -a /etc/ssh/sshd_config"]
-        },
-        {
-            "type": "shell",
             "script": "../../bootstrap/htcondor/htcondor.sh"
         },
         {
