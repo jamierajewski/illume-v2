@@ -1,10 +1,17 @@
 variable "username" {
+  default = ""
 }
 
 variable "password" {
+  default = ""
 }
 
 variable "ldap_admin_pass" {
+  default = ""
+}
+
+variable "condor_pass" {
+  default = ""
 }
 
 variable "tenant_id" {
@@ -20,7 +27,7 @@ variable "ssh_key_file" {
 }
 
 variable "ssh_user_name" {
-  default = "ubuntu"
+  default = ""
 }
 
 variable "floating-ip-pool" {
@@ -35,3 +42,14 @@ variable "local_subnet" {
   default = ""
 }
 
+variable "region" {
+  default = ""
+}
+
+variable "domain_name" {
+  default = ""
+}
+
+variable "tenant_name" {
+  default = ""
+}

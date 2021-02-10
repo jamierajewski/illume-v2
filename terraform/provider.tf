@@ -1,11 +1,11 @@
 # Configure the OpenStack Provider
 provider "openstack" {
   user_name   = var.username
-  tenant_name = "IceCube"
+  tenant_name = var.tenant_name
   tenant_id   = var.tenant_id
   password    = var.password
   auth_url    = var.auth_url
-  region      = "RegionOne"
-  domain_name = "CCDB"
+  region      = var.region
+  domain_name = var.domain_name
 }
 
