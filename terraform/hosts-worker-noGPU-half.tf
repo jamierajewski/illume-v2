@@ -1,9 +1,10 @@
 resource "openstack_compute_instance_v2" "illume-worker-nogpu-half-v2" {
 
-  count = 1
+  count = 0
   name  = format("illume-worker-nogpu-half-%02d", count.index + 1)
 
   flavor_name = "c8-64GB-720"
+  image_id = data.openstack_images_image_v2.worker-image-nogpu.id
   key_pair    = "illume-new"
   security_groups = [ "illume-internal-v2" ]
   depends_on = [ openstack_compute_instance_v2.illume-proxy-v2 ]
@@ -86,13 +87,11 @@ EOF
       "sudo mv /home/ubuntu/default.local /etc/cvmfs/default.local",
       "sudo systemctl restart autofs",
       "sudo cvmfs_config probe",
-      # Enable LDAP so that we can see usernames in debugging jobs etc with openLDAP IP...
+      # Set up LDAP with openLDAP IP
       "sudo sed -i 's/ldap_ip/${openstack_compute_instance_v2.illume-openLDAP-v2.network[0].fixed_ip_v4}/' /etc/ldap.conf",
       "echo ${var.ldap_admin_pass} | sudo tee /etc/ldap.secret > /dev/null",
       "sudo sed -i 's/ldap_ip/${openstack_compute_instance_v2.illume-openLDAP-v2.network[0].fixed_ip_v4}/' /etc/ldap/ldap.conf",
       "sudo systemctl restart nscd",
-      # ...but disable SSH so non-root users can't log in manually to workers
-      "echo 'AllowGroups root' | sudo tee -a /etc/ssh/sshd_config",
       # Set up condor with control node's IP and the pool password
       "sudo sed -i 's/condor_host_ip/${openstack_compute_instance_v2.illume-control-v2.network[0].fixed_ip_v4}/' /etc/condor/condor_config.local",
       "sudo echo '${var.condor_pass}' > /home/ubuntu/pool_pass",
@@ -100,6 +99,8 @@ EOF
       "sudo rm -f /home/ubuntu/pool_pass",
       "sudo systemctl enable condor",
       "sudo systemctl start condor",
+      # Disable SSH so non-root users can't log in manually to workers
+      "echo 'AllowGroups root' | sudo tee -a /etc/ssh/sshd_config",
     ]
 
     connection {

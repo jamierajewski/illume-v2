@@ -78,7 +78,6 @@ mounts:
   - [ ephemeral0.4, /var/lib/cvmfs ]
 EOF
 
-
   network {
     name = var.network
   }
