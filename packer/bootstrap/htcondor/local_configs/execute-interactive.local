@@ -1,0 +1,48 @@
+
+CONDOR_HOST = condor_host_ip
+
+use role : execute
+
+SEC_PASSWORD_FILE = /etc/condor/passwords.d/POOL
+SEC_DAEMON_AUTHENTICATION = REQUIRED
+SEC_DAEMON_INTEGRITY = REQUIRED
+SEC_DAEMON_AUTHENTICATION_METHODS = PASSWORD
+SEC_NEGOTIATOR_AUTHENTICATION = REQUIRED
+SEC_NEGOTIATOR_INTEGRITY = REQUIRED
+SEC_NEGOTIATOR_AUTHENTICATION_METHODS = PASSWORD
+SEC_CLIENT_AUTHENTICATION_METHODS = FS, PASSWORD
+ALLOW_DAEMON = condor_pool@*/*, condor@*/$(IP_ADDRESS)
+ALLOW_NEGOTIATOR = condor_pool@*/condor-cm.example.com
+
+### CUSTOM ADDITIONS ###
+
+# Use a quarter of this node as the interactive-only slot
+SLOT_TYPE_1 = 25%
+SLOT_TYPE_1_START = (InteractiveJob =?= True)
+SLOT_TYPE_1_InteractiveSlot = True
+SLOT1_STARTD_ATTRS = InteractiveSlot
+NUM_SLOTS_TYPE_1 = 1
+
+# Use the rest as a normal dynamic partition
+SLOT_TYPE_2 = 75%
+SLOT_TYPE_2_PARTITIONABLE = TRUE
+NUM_SLOTS_TYPE_2 = 1
+
+# Use the scratch space to store condor files and run jobs from
+EXECUTE = /scratch/condor/execute
+
+# Disable preemption
+PREEMPT=FALSE
+RANK=0
+
+# Enable cgroups
+CGROUP_MEMORY_LIMIT_POLICY = hard
+
+# Enable GPU discovery
+use feature : GPUs
+GPU_DISCOVERY_EXTRA = -extra
+
+# job defaults
+JOB_DEFAULT_REQUESTMEMORY = 2048
+JOB_DEFAULT_REQUESTCPUS = 1
+JOB_DEFAULT_REQUESTDISK = 1024
