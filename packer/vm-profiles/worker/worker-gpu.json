@@ -20,10 +20,6 @@
     ],
     "provisioners": [
         {
-            "type": "shell",
-            "script": "../../bootstrap/ldap/ldap-client.sh"
-        },
-        {
             "type": "file",
             "source": "../../bootstrap/cuda/containers.conf",
             "destination": "/home/ubuntu/containers.conf"
