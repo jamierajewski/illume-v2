@@ -37,36 +37,17 @@ resource "openstack_compute_instance_v2" "illume-proxy-v2" {
 #cloud-config
 mounts:
   - [ ephemeral0, /var/spool/squid ]
-EOF
 
+runcmd:
+  # Do final squid configuration here now that cache space is attached
+  - sudo mv /home/ubuntu/squid.conf /etc/squid/squid.conf
+  - sudo chown -R squid /var/spool/squid /var/log/squid
+  - sudo squid -z
+  - sudo systemctl restart squid.service
+EOF
 
   network {
     name = var.network
-  }
-
-  provisioner "remote-exec" {
-    # Do final squid configuration here now that cache space is attached
-    
-    inline = [
-      "sudo mv /home/ubuntu/squid.conf /etc/squid/squid.conf",
-      "sudo chown -R squid /var/spool/squid /var/log/squid",
-      "sudo squid -z",
-      "sudo systemctl restart squid.service"
-    ]
-
-    connection {
-      type = "ssh"
-
-      # Connect via the bastion to get into the internal network
-      bastion_user = var.ssh_user_name
-      bastion_private_key = file(var.ssh_key_file)
-      bastion_host = openstack_networking_floatingip_v2.illume-bastion-v2.address
-
-      # Connection details of these proxy instances
-      user = var.ssh_user_name
-      private_key = file(var.ssh_key_file)
-      host = self.network[0].fixed_ip_v4
-    }
   }
 }
 

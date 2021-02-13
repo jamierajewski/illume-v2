@@ -1,0 +1,60 @@
+#cloud-config
+disk_setup:
+  ephemeral0:
+    table_type: 'gpt'
+    layout:
+      - 85
+      - 5
+      - 5
+      - 5
+    overwrite: true
+
+fs_setup:
+  - label: ephemeral0.1
+    filesystem: 'ext4'
+    device: 'ephemeral0.1'
+  - label: ephemeral0.2
+    filesystem: 'ext4'
+    device: 'ephemeral0.2'
+  - label: ephemeral0.3
+    filesystem: 'ext4'
+    device: 'ephemeral0.3'
+  - label: ephemeral0.4
+    filesystem: 'ext4'
+    device: 'ephemeral0.4'
+
+mounts:
+  - [ ephemeral0.1, /scratch ]
+  - [ ephemeral0.2, /var/log/condor ]
+  - [ ephemeral0.3, /var/spool/condor ]
+  - [ ephemeral0.4, /var/lib/cvmfs ]
+
+runcmd:
+  # Allow everyone to access scratch
+  - sudo chmod -R a+rwx /scratch
+  # Set up the new partitions for spool
+  - sudo chown -R condor /var/spool/condor
+  - sudo chgrp -R condor /var/spool/condor
+  - sudo chmod -R g+rwx /var/spool/condor
+  # And set the log dir with proper permissions
+  - sudo chown -R condor /var/log/condor
+  - sudo chgrp -R condor /var/log/condor
+  - sudo chmod -R g+rwx /var/log/condor
+  # Set up CVMFS with the proxy IPs
+  - sudo sed -i 's/example1/${proxy1_IP}/' /home/ubuntu/default.local
+  - sudo sed -i 's/example2/${proxy2_IP}/' /home/ubuntu/default.local
+  - sudo mv /home/ubuntu/default.local /etc/cvmfs/default.local
+  - sudo systemctl restart autofs
+  - sudo cvmfs_config probe
+  # Set up LDAP with openLDAP IP
+  - sudo sed -i 's/ldap_ip/${openLDAP_IP}/' /etc/ldap.conf
+  - echo ${LDAP_admin_pass} | sudo tee /etc/ldap.secret > /dev/null
+  - sudo sed -i 's/ldap_ip/${openLDAP_IP}/' /etc/ldap/ldap.conf
+  - sudo systemctl restart nscd
+  # Set up condor with control node's IP and the pool password
+  - sudo sed -i 's/condor_host_ip/${condor_control_IP}/' /etc/condor/condor_config.local
+  - sudo echo '${condor_pool_pass}' > /home/ubuntu/pool_pass
+  - sudo condor_store_cred add -c -p /home/ubuntu/pool_pass
+  - sudo rm -f /home/ubuntu/pool_pass
+  - sudo systemctl enable condor
+  - sudo systemctl start condor

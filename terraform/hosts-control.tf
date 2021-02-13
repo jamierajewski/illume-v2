@@ -33,61 +33,10 @@ resource "openstack_compute_instance_v2" "illume-control-v2" {
     volume_size           = 90
   }
 
-  # split ephemeral storage into 1 part:
-  #  90GB - ephemeral0.1 (100%)
-  # mount ephemeral storage #0.1 to /var/lib/condor
-  user_data = <<EOF
-#cloud-config
-disk_setup:
-  ephemeral0:
-    table_type: 'gpt'
-    layout:
-      - 100
-    overwrite: true
-
-fs_setup:
-  - label: ephemeral0.1
-    filesystem: 'ext4'
-    device: 'ephemeral0.1'
-
-mounts:
-  - [ ephemeral0.1, /var/lib/condor ]
-EOF
-
   network {
     name = var.network
   }
 
-  provisioner "remote-exec" {
-
-    inline = [
-      # Set up the condor log directory on the large partition
-      "sudo chown -R condor /var/log/condor",
-      "sudo chgrp -R condor /var/log/condor",
-      "sudo chmod -R g+rwx /var/log/condor",
-      # Add condor CM IP to config and start, with token auto approval
-      "sudo sed -i 's/condor_host_ip/${self.network[0].fixed_ip_v4}/' /etc/condor/condor_config.local",
-      # Enable Condor and the auto-approval service, and reboot for them to take effect
-      "sudo echo '${var.condor_pass}' > /home/ubuntu/pool_pass",
-      "sudo condor_store_cred add -c -p /home/ubuntu/pool_pass",
-      "sudo rm -f /home/ubuntu/pool_pass",
-      "sudo systemctl enable condor",
-      "sudo systemctl start condor",
-    ]
-
-    connection {
-      type = "ssh"
-
-      # Connect via the bastion to get into the internal network
-      bastion_user = var.ssh_user_name
-      bastion_private_key = file(var.ssh_key_file)
-      bastion_host = openstack_networking_floatingip_v2.illume-bastion-v2.address
-
-      # Connection details of this ingress instance
-      user = var.ssh_user_name
-      private_key = file(var.ssh_key_file)
-      host = self.network[0].fixed_ip_v4
-    }
-  }
+  user_data = local.control-template
 }
 

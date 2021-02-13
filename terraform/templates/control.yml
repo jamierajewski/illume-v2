@@ -1,0 +1,28 @@
+#cloud-config
+disk_setup:
+  ephemeral0:
+    table_type: 'gpt'
+    layout:
+      - 100
+    overwrite: true
+
+fs_setup:
+  - label: ephemeral0.1
+    filesystem: 'ext4'
+    device: 'ephemeral0.1'
+
+mounts:
+  - [ ephemeral0.1 /var/lib/condor ]
+
+runcmd:
+  # And set the log dir with proper permissions
+  - sudo chown -R condor /var/log/condor
+  - sudo chgrp -R condor /var/log/condor
+  - sudo chmod -R g+rwx /var/log/condor
+  # Set up condor with control node's IP and the pool password
+  - sudo sed -i "s/condor_host_ip/$(hostname -i | awk '{print $1}')/" /etc/condor/condor_config.local
+  - sudo echo '${condor_pool_pass}' > /home/ubuntu/pool_pass
+  - sudo condor_store_cred add -c -p /home/ubuntu/pool_pass
+  - sudo rm -f /home/ubuntu/pool_pass
+  - sudo systemctl enable condor
+  - sudo systemctl start condor

@@ -31,92 +31,10 @@ resource "openstack_compute_instance_v2" "illume-worker-nogpu-quarter-v2" {
     volume_size           = 360
   }
 
-  # split ephemeral storage into 2 parts:
-  #  180GB - ephemeral0.1 (50%)
-  #  72GB - ephemeral0.2 (20%)
-  #  108GB - ephemeral0.3 (30%)
-  # mount ephemeral storage #0.1 to /scratch
-  # mount ephemeral storage #0.2 to /var/lib/condor
-  # mount ephemeral storage #0.2 to /var/lib/cvmfs
-  user_data = <<EOF
-#cloud-config
-disk_setup:
-  ephemeral0:
-    table_type: 'gpt'
-    layout:
-      - 50
-      - 20
-      - 30
-    overwrite: true
-
-fs_setup:
-  - label: ephemeral0.1
-    filesystem: 'ext4'
-    device: 'ephemeral0.1'
-  - label: ephemeral0.2
-    filesystem: 'ext4'
-    device: 'ephemeral0.2'
-  - label: ephemeral0.3
-    filesystem: 'ext4'
-    device: 'ephemeral0.3'
-
-mounts:
-  - [ ephemeral0.1, /scratch ]
-  - [ ephemeral0.2, /var/lib/condor ]
-  - [ ephemeral0.3, /var/lib/cvmfs ]
-EOF
-
-
   network {
     name = var.network
   }
 
-  provisioner "remote-exec" {
-    inline = [
-      # Set up condor to use scratch securely
-      "sudo chmod -R a+rwx /scratch",
-      "sudo mkdir -p /scratch/condor/execute",
-      "sudo chown -R condor /scratch/condor",
-      "sudo chgrp -R condor /scratch/condor",
-      "sudo chmod -R g+rwx /scratch/condor",
-      # And set the log dir with proper permissions
-      "sudo chown -R condor /var/log/condor",
-      "sudo chgrp -R condor /var/log/condor",
-      "sudo chmod -R g+rwx /var/log/condor",
-      # Set up CVMFS with the proxy IPs
-      "sudo sed -i 's/example1/${openstack_compute_instance_v2.illume-proxy-v2[0].network[0].fixed_ip_v4}/' /home/ubuntu/default.local",
-      "sudo sed -i 's/example2/${openstack_compute_instance_v2.illume-proxy-v2[1].network[0].fixed_ip_v4}/' /home/ubuntu/default.local",
-      "sudo mv /home/ubuntu/default.local /etc/cvmfs/default.local",
-      "sudo systemctl restart autofs",
-      "sudo cvmfs_config probe",
-      # Set up LDAP with openLDAP IP
-      "sudo sed -i 's/ldap_ip/${openstack_compute_instance_v2.illume-openLDAP-v2.network[0].fixed_ip_v4}/' /etc/ldap.conf",
-      "echo ${var.ldap_admin_pass} | sudo tee /etc/ldap.secret > /dev/null",
-      "sudo sed -i 's/ldap_ip/${openstack_compute_instance_v2.illume-openLDAP-v2.network[0].fixed_ip_v4}/' /etc/ldap/ldap.conf",
-      "sudo systemctl restart nscd",
-      # Set up condor with control node's IP and the pool password
-      "sudo sed -i 's/condor_host_ip/${openstack_compute_instance_v2.illume-control-v2.network[0].fixed_ip_v4}/' /etc/condor/condor_config.local",
-      "sudo echo '${var.condor_pass}' > /home/ubuntu/pool_pass",
-      "sudo condor_store_cred add -c -p /home/ubuntu/pool_pass",
-      "sudo rm -f /home/ubuntu/pool_pass",
-      "sudo systemctl enable condor",
-      "sudo systemctl start condor",
-      # Disable SSH so non-root users can't log in manually to workers
-      "echo 'AllowGroups root' | sudo tee -a /etc/ssh/sshd_config",
-    ]
-
-    connection {
-      type = "ssh"
-
-      # Connect via the bastion to get into the internal network
-      bastion_user = var.ssh_user_name
-      bastion_private_key = file(var.ssh_key_file)
-      bastion_host = openstack_networking_floatingip_v2.illume-bastion-v2.address
-
-      # Connection details of this ingress instance
-      user = var.ssh_user_name
-      private_key = file(var.ssh_key_file)
-      host = self.network[0].fixed_ip_v4
-    }
-  }
+  # Use template to do setup including partitions and post-provision config 
+  user_data = local.worker-quarter-template
 }
