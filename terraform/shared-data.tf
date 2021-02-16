@@ -15,6 +15,21 @@ locals {
     partition_1 = 90
     partition_2 = 5
     partition_3 = 5
+    interactive_command = "echo"
+    proxy1_IP = openstack_compute_instance_v2.illume-proxy-v2[0].network[0].fixed_ip_v4
+    proxy2_IP = openstack_compute_instance_v2.illume-proxy-v2[1].network[0].fixed_ip_v4
+    openLDAP_IP = openstack_compute_instance_v2.illume-openLDAP-v2.network[0].fixed_ip_v4
+    LDAP_admin_pass = var.ldap_admin_pass
+    condor_control_IP = openstack_compute_instance_v2.illume-control-v2.network[0].fixed_ip_v4
+    condor_pool_pass = var.condor_pass
+  })
+
+  worker-interactive-template = templatefile("${path.module}/templates/worker.yml", 
+  {
+    partition_1 = 90
+    partition_2 = 5
+    partition_3 = 5
+    interactive_command = "sudo mv /etc/condor/condor_config_interactive.local /etc/condor/condor_config.local"
     proxy1_IP = openstack_compute_instance_v2.illume-proxy-v2[0].network[0].fixed_ip_v4
     proxy2_IP = openstack_compute_instance_v2.illume-proxy-v2[1].network[0].fixed_ip_v4
     openLDAP_IP = openstack_compute_instance_v2.illume-openLDAP-v2.network[0].fixed_ip_v4
@@ -28,6 +43,7 @@ locals {
     partition_1 = 70
     partition_2 = 15
     partition_3 = 15
+    interactive_command = "echo"
     proxy1_IP = openstack_compute_instance_v2.illume-proxy-v2[0].network[0].fixed_ip_v4
     proxy2_IP = openstack_compute_instance_v2.illume-proxy-v2[1].network[0].fixed_ip_v4
     openLDAP_IP = openstack_compute_instance_v2.illume-openLDAP-v2.network[0].fixed_ip_v4
@@ -41,6 +57,7 @@ locals {
     partition_1 = 50
     partition_2 = 20
     partition_3 = 30
+    interactive_command = "echo"
     proxy1_IP = openstack_compute_instance_v2.illume-proxy-v2[0].network[0].fixed_ip_v4
     proxy2_IP = openstack_compute_instance_v2.illume-proxy-v2[1].network[0].fixed_ip_v4
     openLDAP_IP = openstack_compute_instance_v2.illume-openLDAP-v2.network[0].fixed_ip_v4

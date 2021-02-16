@@ -58,3 +58,6 @@ runcmd:
   - sudo rm -f /home/ubuntu/pool_pass
   - sudo systemctl enable condor
   - sudo systemctl start condor
+  # Add ubuntu user to new ssh group to allow sshing into condor nodes
+  - sudo groupadd ssh-condor
+  - sudo usermod -a -G ssh-condor ubuntu

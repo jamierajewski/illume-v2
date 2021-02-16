@@ -26,3 +26,7 @@ runcmd:
   - sudo rm -f /home/ubuntu/pool_pass
   - sudo systemctl enable condor
   - sudo systemctl start condor
+  # Disable SSH so regular users can't log in manually
+  - sudo groupadd ssh-condor
+  - sudo usermod -a -G ssh-condor ubuntu
+  - echo 'AllowGroups ssh-condor' | sudo tee -a /etc/ssh/sshd_config

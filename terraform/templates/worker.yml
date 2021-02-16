@@ -25,8 +25,8 @@ mounts:
   - [ ephemeral0.3 /var/lib/cvmfs ]
 
 runcmd:
-  # Sleep for 30 seconds before starting to allow the control to fully set up
-  - sleep 30
+  # If this is set as having an interactive slot, swap out the condor config; otherwise do nothing
+  - ${interactive_command}
   # Set up condor to use scratch securely
   - sudo chmod -R a+rwx /scratch
   - sudo mkdir -p /scratch/condor/execute
@@ -48,6 +48,8 @@ runcmd:
   - echo ${LDAP_admin_pass} | sudo tee /etc/ldap.secret > /dev/null
   - sudo sed -i 's/ldap_ip/${openLDAP_IP}/' /etc/ldap/ldap.conf
   - sudo systemctl restart nscd
+  # Sleep for 30 seconds before starting to allow the control to fully start up before joining
+  - sleep 30
   # Set up condor with control node's IP and the pool password
   - sudo sed -i 's/condor_host_ip/${condor_control_IP}/' /etc/condor/condor_config.local
   - sudo echo '${condor_pool_pass}' > /home/ubuntu/pool_pass
@@ -55,5 +57,7 @@ runcmd:
   - sudo rm -f /home/ubuntu/pool_pass
   - sudo systemctl enable condor
   - sudo systemctl start condor
-  # Disable SSH so non-root users can't log in manually to workers
-  - echo 'AllowGroups root' | sudo tee -a /etc/ssh/sshd_config
+  # Disable SSH so regular users can't log in manually
+  - sudo groupadd ssh-condor
+  - sudo usermod -a -G ssh-condor ubuntu
+  - echo 'AllowGroups ssh-condor' | sudo tee -a /etc/ssh/sshd_config
