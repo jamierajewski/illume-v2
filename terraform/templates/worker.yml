@@ -25,6 +25,8 @@ mounts:
   - [ ephemeral0.3 /var/lib/cvmfs ]
 
 runcmd:
+  # Sleep for 30 seconds before starting to allow the control to fully set up
+  - sleep 30
   # Set up condor to use scratch securely
   - sudo chmod -R a+rwx /scratch
   - sudo mkdir -p /scratch/condor/execute
@@ -52,6 +54,6 @@ runcmd:
   - sudo condor_store_cred add -c -p /home/ubuntu/pool_pass
   - sudo rm -f /home/ubuntu/pool_pass
   - sudo systemctl enable condor
-  - sudo systemctl restart condor
+  - sudo systemctl start condor
   # Disable SSH so non-root users can't log in manually to workers
   - echo 'AllowGroups root' | sudo tee -a /etc/ssh/sshd_config
