@@ -63,6 +63,7 @@ Host phpLDAPadmin
      LocalForward 8080 localhost:80
 ```
 Since the LDAP server and php interface are hosted internally only, we must forward port 80 and then connect via the bastion as that is the only way into the network from the outside (aside from the ingress). `ProxyJump` will perform this intermediate connection.
+
 5. Once that is working and you have successfully logged into the php instance, move to your web browser and put in 
 ```
 http://localhost:8080/phpldapadmin/
