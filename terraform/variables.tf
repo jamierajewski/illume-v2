@@ -1,55 +1,72 @@
 variable "username" {
-  default = ""
+  description = "OpenStack username"
+  type = string
 }
 
 variable "password" {
-  default = ""
+  description = "OpenStack password"
+  type = string
+  sensitive = true
 }
 
 variable "ldap_admin_pass" {
-  default = ""
+  description = "LDAP administrator password"
+  type = string
+  sensitive = true
 }
 
 variable "condor_pass" {
-  default = ""
+  description = "Condor pool password"
+  type = string
+  sensitive = true
 }
 
 variable "tenant_id" {
-  default = ""
+  description = "OpenStack Tenant ID (found in OpenStack RC file)"
+  type = string
 }
 
 variable "auth_url" {
-  default = ""
+  description = "Authorization URL (found in OpenStack RC file)"
+  type = string
 }
 
 variable "ssh_key_file" {
-  default = ""
+  description = "Absolute path to SSH key to add to instances"
+  type = string
 }
 
 variable "ssh_user_name" {
-  default = ""
+  description = "Username to use in conjunction with SSH key"
+  type = string
 }
 
-variable "floating-ip-pool" {
-  default = ""
+variable "floating_ip_pool" {
+  description = "Pool to pull floating IP's from (found on OpenStack)"
+  type = string
 }
 
 variable "network" {
-  default = ""
+  description = "Name of the network to attach instances to"
+  type = string
 }
 
 variable "local_subnet" {
-  default = ""
+  description = "Subnet of the cluster"
+  type = string
 }
 
 variable "region" {
-  default = ""
+  description = "Region where the instances will be hosted (found in OpenStack RC file)"
+  default = "RegionOne"
 }
 
 variable "domain_name" {
-  default = ""
+  description = "Domain which will host the instances (found in OpenStack RC file)"
+  type = string
 }
 
 variable "tenant_name" {
-  default = ""
+  description = "Name of the tenant (found in the OpenStack RC file)"
+  type = string
 }
