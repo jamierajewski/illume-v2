@@ -41,6 +41,15 @@
         {
             "type": "shell",
             "inline": ["sudo mv /home/ubuntu/condor_config.local /etc/condor/condor_config.local"]
+        },
+        {
+            "type": "file",
+            "source": "../../bootstrap/htcondor/local_configs/execute-interactive.local",
+            "destination": "/home/ubuntu/condor_config_interactive.local"
+        },
+        {
+            "type": "shell",
+            "inline": ["sudo mv /home/ubuntu/condor_config_interactive.local /etc/condor/condor_config_interactive.local"]
         }
     ]
 }
