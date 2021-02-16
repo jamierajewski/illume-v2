@@ -12,7 +12,7 @@ resource "openstack_compute_instance_v2" "illume-control-v2" {
   security_groups = ["illume-internal-v2"]
   depends_on = [ openstack_compute_instance_v2.illume-proxy-v2 ]
 
-  # boot from volume (created from image)
+  # Boot from volume (created from image)
   block_device {
     uuid                  = data.openstack_images_image_v2.control-image.id
     source_type           = "image"
@@ -22,9 +22,8 @@ resource "openstack_compute_instance_v2" "illume-control-v2" {
     delete_on_termination = true
   }
 
-  # assign all ephemeral storage for this flavor (90GB),
+  # Assign all ephemeral storage for this flavor (3400GB),
   # then split it up into partitions.
-
   block_device {
     boot_index            = -1
     delete_on_termination = true

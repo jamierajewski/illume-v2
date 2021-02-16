@@ -14,7 +14,7 @@ resource "openstack_compute_instance_v2" "illume-proxy-v2" {
   depends_on = [ openstack_compute_instance_v2.illume-bastion-v2 ]
   image_id = data.openstack_images_image_v2.proxy-image.id
 
-  # boot device (ephemeral)
+  # Boot device (ephemeral)
   block_device {
     uuid                  = data.openstack_images_image_v2.proxy-image.id
     source_type           = "image"
@@ -32,7 +32,7 @@ resource "openstack_compute_instance_v2" "illume-proxy-v2" {
     volume_size           = 90
   }
 
-  # mount ephemeral storage #0 to /var/spool/squid
+  # Mount ephemeral storage #0 to /var/spool/squid
   user_data = <<EOF
 #cloud-config
 mounts:

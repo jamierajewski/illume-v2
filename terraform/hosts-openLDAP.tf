@@ -16,7 +16,7 @@ resource "openstack_compute_instance_v2" "illume-openLDAP-v2" {
     openstack_compute_instance_v2.illume-bastion-v2
   ]
 
-  # boot from volume (created from image)
+  # Boot from volume (created from image)
   # 30GB is the minimum defined somewhere?
   block_device {
     uuid                  = data.openstack_images_image_v2.openLDAP-image.id

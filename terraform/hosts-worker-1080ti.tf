@@ -1,6 +1,6 @@
 resource "openstack_compute_instance_v2" "illume-worker-1080ti-v2" {
 
-  count = 2
+  count = 1
   name  = format("illume-worker-1080ti-%02d-v2", count.index + 1)
 
   flavor_name = "c16-116gb-3400-4.1080ti"
@@ -11,7 +11,7 @@ resource "openstack_compute_instance_v2" "illume-worker-1080ti-v2" {
   # automatically authenticate to it
   depends_on = [ openstack_compute_instance_v2.illume-control-v2 ]
 
-  # boot device (ephemeral)
+  # Boot device (ephemeral)
   block_device {
     uuid                  = data.openstack_images_image_v2.worker-image-gpu.id
     source_type           = "image"
@@ -20,9 +20,8 @@ resource "openstack_compute_instance_v2" "illume-worker-1080ti-v2" {
     delete_on_termination = true
   }
 
-  # assign all ephemeral storage for this flavor (3400GB),
+  # Assign all ephemeral storage for this flavor (3400GB),
   # then split it up into partitions.
-
   block_device {
     boot_index            = -1
     delete_on_termination = true

@@ -27,7 +27,7 @@ resource "openstack_compute_instance_v2" "illume-bastion-v2" {
 }
 
 resource "openstack_networking_floatingip_v2" "illume-bastion-v2" {
-  pool = var.floating-ip-pool
+  pool = var.floating_ip_pool
 }
 
 resource "openstack_compute_floatingip_associate_v2" "illume-bastion-v2" {
