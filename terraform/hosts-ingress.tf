@@ -3,6 +3,12 @@ data "openstack_images_image_v2" "ingress-image" {
   most_recent = true
 }
 
+resource "openstack_blockstorage_volume_v3" "ingress-volume" {
+  name = "ingress-volume"
+  size = "30"
+  image_id = data.openstack_images_image_v2.ingress-image.id
+}
+
 resource "openstack_compute_instance_v2" "illume-ingress-v2" {
 
   name  = "illume-ingress-v2"
@@ -14,20 +20,18 @@ resource "openstack_compute_instance_v2" "illume-ingress-v2" {
   # boot device (ephemeral)
   # Use a small size as we will mount the NFS with the larger storage
   block_device {
-    uuid                  = data.openstack_images_image_v2.ingress-image.id
-    source_type           = "image"
-    volume_size           = "30"
+    uuid                  = openstack_blockstorage_volume_v3.ingress-volume.id
+    source_type           = "volume"
     boot_index            = 0
     destination_type      = "volume"
-    delete_on_termination = true
+    delete_on_termination = false
   }
 
   # Check out this article for creating a shared dir for podman images:
   # https://www.redhat.com/sysadmin/image-stores-podman
 
-  # assign all ephemeral storage for this flavor (1440GB),
+  # Assign all ephemeral storage for this flavor (1440GB),
   # then split it up into partitions.
-
   block_device {
     boot_index            = -1
     delete_on_termination = true
@@ -43,7 +47,7 @@ resource "openstack_compute_instance_v2" "illume-ingress-v2" {
   user_data = local.ingress-template
 }
 
-# attach a floating IP to this one
+# Attach a floating IP to this instance
 resource "openstack_networking_floatingip_v2" "illume-ingress-v2" {
   pool = var.floating_ip_pool
 }

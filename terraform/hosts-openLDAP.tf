@@ -5,6 +5,14 @@ data "openstack_images_image_v2" "openLDAP-image" {
   most_recent = true
 }
 
+# Create a named volume so that we can detach and reattach for maintenance
+# This contains the LDAP database, so we want to keep it safe
+resource "openstack_blockstorage_volume_v3" "openLDAP-volume" {
+  name = "openLDAP-volume"
+  size = "30"
+  image_id = data.openstack_images_image_v2.openLDAP-image.id
+}
+
 resource "openstack_compute_instance_v2" "illume-openLDAP-v2" {
   name = "illume-openLDAP-v2"
   flavor_id       = "11"
@@ -17,14 +25,12 @@ resource "openstack_compute_instance_v2" "illume-openLDAP-v2" {
   ]
 
   # Boot from volume (created from image)
-  # 30GB is the minimum defined somewhere?
   block_device {
-    uuid                  = data.openstack_images_image_v2.openLDAP-image.id
-    source_type           = "image"
-    volume_size           = "30"
+    uuid                  = openstack_blockstorage_volume_v3.openLDAP-volume.id
+    source_type           = "volume"
     boot_index            = 0
     destination_type      = "volume"
-    delete_on_termination = true
+    delete_on_termination = false
   }
 
   network {

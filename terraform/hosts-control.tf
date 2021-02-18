@@ -22,7 +22,7 @@ resource "openstack_compute_instance_v2" "illume-control-v2" {
     delete_on_termination = true
   }
 
-  # Assign all ephemeral storage for this flavor (3400GB),
+  # Assign all ephemeral storage for this flavor (90GB),
   # then split it up into partitions.
   block_device {
     boot_index            = -1

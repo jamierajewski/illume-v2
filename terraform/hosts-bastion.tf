@@ -5,6 +5,13 @@ data "openstack_images_image_v2" "bastion-image" {
   most_recent = true
 }
 
+# Create a named volume so that we can detach and reattach for maintenance
+resource "openstack_blockstorage_volume_v3" "bastion-volume" {
+  name = "bastion-volume"
+  size = "120"
+  image_id = data.openstack_images_image_v2.bastion-image.id
+}
+
 resource "openstack_compute_instance_v2" "illume-bastion-v2" {
   name = "illume-bastion-v2"
   flavor_name     = "p2-8gb"
@@ -13,9 +20,8 @@ resource "openstack_compute_instance_v2" "illume-bastion-v2" {
 
   # boot from volume (created from image)
   block_device {
-    uuid                  = data.openstack_images_image_v2.bastion-image.id
-    source_type           = "image"
-    volume_size           = "120"
+    uuid                  = openstack_blockstorage_volume_v3.bastion-volume.id
+    source_type           = "volume"
     boot_index            = 0
     destination_type      = "volume"
     delete_on_termination = false
