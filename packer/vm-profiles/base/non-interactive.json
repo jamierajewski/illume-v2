@@ -28,18 +28,11 @@
             "inline": ["chmod og-rwx /home/ubuntu/.ssh/illume_key"]
         },
         {
-            "type": "file",
-            "source": "../../bootstrap/ssh/ssh-config",
-            "destination": "/home/ubuntu/.ssh/config"
-        },
-        {
             "type": "shell",
             "inline": [
                 "sudo apt-get update -y",
-                "sudo apt-get dist-upgrade -y",
-                "sudo reboot"
-            ],
-            "expect_disconnect": true
+                "sudo apt-get dist-upgrade -y"
+            ]
         },
         {
             "type": "shell",

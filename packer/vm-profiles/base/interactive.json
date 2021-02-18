@@ -40,7 +40,8 @@
         },
         {
             "type": "shell",
-            "script": "../../bootstrap/tools/user-tools.sh"
+            "script": "../../bootstrap/tools/user-tools.sh",
+            "expect_disconnect": true
         }
     ]
 }
