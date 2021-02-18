@@ -19,7 +19,7 @@ resource "openstack_compute_instance_v2" "illume-ingress-v2" {
     volume_size           = "30"
     boot_index            = 0
     destination_type      = "volume"
-    delete_on_termination = false
+    delete_on_termination = true
   }
 
   # Check out this article for creating a shared dir for podman images:
