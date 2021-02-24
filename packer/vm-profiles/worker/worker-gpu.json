@@ -15,7 +15,10 @@
             ],
             "floating_ip_network": "ext-net",
             "reuse_ips": true,
-            "security_groups": ["ssh", "egress"]
+            "security_groups": ["ssh", "egress"],
+            "metadata": {
+                "img_hide_hypervisor_id": "true"
+            }
         }
     ],
     "provisioners": [
