@@ -1,6 +1,6 @@
 Host $hostname $host_ip
-  Port 22
+  Hostname $host_ip
   User $ssh_username
-  ProxyCommand ssh -W %h:%p $bastion_host_public
+  ProxyJump $proxy_jump
   IdentityFile $ssh_keyfile
   StrictHostKeyChecking no

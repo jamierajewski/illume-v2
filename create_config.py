@@ -11,33 +11,26 @@ from string import Template
 worker_kinds = ['nogpu-quarter', 'nogpu-half', 'nogpu-whole', '1080ti', 'titanx', 'titanxp', '980', '980ti', 'interactive']
 
 def create_ssh_config(data, outfile):
+
+    # Add universal options here first
+    result = "Host *\n  IdentitiesOnly yes\n\n"
+
     ssh_username = data['ssh-username']['value']
     ssh_keyfile  = data['ssh-key-file']['value']
     bastion_host_public = data['bastion-address-public']['value']
-    bastion_host        = data['bastion-address']['value']
+    bastion_hostname = "illume-bastion-v2"
 
     # Substitute vars in template
-    filein = open("packer/bootstrap/ssh/ssh.cfg.template")
-    src = Template(filein.read())
-    del filein
-    d = {
-        'ssh_username':ssh_username,
-        'ssh_keyfile':ssh_keyfile,
-        'bastion_host_public':bastion_host_public,
-        'bastion_host':bastion_host,
-        }
-    result = src.substitute(d) + "\n"
-
     filein = open("packer/bootstrap/ssh/ssh.cfg.template.per_host")
     src = Template(filein.read())
     del filein
 
     d = {
-        'hostname':"illume-bastion-v2",
-        'host_ip':bastion_host,
+        'hostname':bastion_hostname,
+        'host_ip':bastion_host_public,
         'ssh_username':ssh_username,
         'ssh_keyfile':ssh_keyfile,
-        'bastion_host_public':bastion_host_public,
+        'proxy_jump': 'None',
         }
     result += src.substitute(d) + "\n"
 
@@ -47,7 +40,7 @@ def create_ssh_config(data, outfile):
             'host_ip':address,
             'ssh_username':ssh_username,
             'ssh_keyfile':ssh_keyfile,
-            'bastion_host_public':bastion_host_public,
+            'proxy_jump':bastion_hostname,
             }
         result += src.substitute(d) + "\n"
 
@@ -57,7 +50,7 @@ def create_ssh_config(data, outfile):
             'host_ip':address,
             'ssh_username':ssh_username,
             'ssh_keyfile':ssh_keyfile,
-            'bastion_host_public':bastion_host_public,
+            'proxy_jump':bastion_hostname,
             }
         result += src.substitute(d) + "\n"
     for worker_kind in worker_kinds:
@@ -67,7 +60,7 @@ def create_ssh_config(data, outfile):
                 'host_ip':address,
                 'ssh_username':ssh_username,
                 'ssh_keyfile':ssh_keyfile,
-                'bastion_host_public':bastion_host_public,
+                'proxy_jump':bastion_hostname,
                 }
             result += src.substitute(d) + "\n"
     for idx, address in enumerate(data['illume-ingress-addresses']['value']):
@@ -76,7 +69,7 @@ def create_ssh_config(data, outfile):
             'host_ip':address,
             'ssh_username':ssh_username,
             'ssh_keyfile':ssh_keyfile,
-            'bastion_host_public':bastion_host_public,
+            'proxy_jump':bastion_hostname,
             }
         result += src.substitute(d) + "\n"
 
@@ -86,7 +79,7 @@ def create_ssh_config(data, outfile):
             'host_ip':address,
             'ssh_username':ssh_username,
             'ssh_keyfile':ssh_keyfile,
-            'bastion_host_public':bastion_host_public,
+            'proxy_jump':bastion_hostname,
             }
         result += src.substitute(d) + "\n"
 
@@ -96,7 +89,7 @@ def create_ssh_config(data, outfile):
             'host_ip':address,
             'ssh_username':ssh_username,
             'ssh_keyfile':ssh_keyfile,
-            'bastion_host_public':bastion_host_public,
+            'proxy_jump':bastion_hostname,
             }
         result += src.substitute(d) + "\n"
 
