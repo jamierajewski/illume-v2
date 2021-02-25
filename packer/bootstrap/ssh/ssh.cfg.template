@@ -1,0 +1,10 @@
+Host $bastion_host_public
+  Hostname $bastion_host_public
+  Port 22
+  User $ssh_username
+  IdentityFile $ssh_keyfile
+  StrictHostKeyChecking no
+  ControlMaster auto
+  ControlPath ~/.ssh/ansible-%r@%h:%p
+  ControlPersist 15m
+  ProxyCommand None

@@ -26,6 +26,10 @@ output "illume-worker-1080ti-addresses" {
   value = openstack_compute_instance_v2.illume-worker-1080ti-v2.*.network.0.fixed_ip_v4
 }
 
+output "illume-worker-interactive-addresses" {
+  value = openstack_compute_instance_v2.illume-worker-interactive-v2.*.network.0.fixed_ip_v4
+}
+
 output "illume-worker-titanx-addresses" {
   value = openstack_compute_instance_v2.illume-worker-titanx-v2.*.network.0.fixed_ip_v4
 }
