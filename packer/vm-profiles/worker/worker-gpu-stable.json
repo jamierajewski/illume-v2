@@ -29,7 +29,7 @@
         },
         {
             "type": "shell",
-            "script": "../../bootstrap/cuda/cuda.sh",
+            "script": "../../bootstrap/cuda/cuda-stable.sh",
             "expect_disconnect": true
         },
         {
