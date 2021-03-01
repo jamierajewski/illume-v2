@@ -22,6 +22,15 @@
     ],
     "provisioners": [
         {
+            "type": "file",
+            "source": "../../bootstrap/welcome/01-illume-welcome",
+            "destination": "/home/ubuntu/01-illume-welcome"
+        },
+        {
+            "type": "shell",
+            "script": "../../bootstrap/welcome/welcome.sh"
+        },
+        {
             "type": "shell",
             "script": "../../bootstrap/cvmfs/cvmfs.sh"
         },
