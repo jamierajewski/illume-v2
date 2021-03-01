@@ -4,7 +4,7 @@
             "type": "openstack",
             "flavor": "c4-29gb-850-1.1080ti",
             "ssh_username": "ubuntu",
-            "image_name": "illume-worker-gpu",
+            "image_name": "illume-worker-gpu-stable",
             "source_image_name": "illume-worker-nogpu",
             "source_image_filter": {
                 "most_recent": true
