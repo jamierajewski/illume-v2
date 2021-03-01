@@ -61,3 +61,5 @@ runcmd:
   - sudo groupadd ssh-condor
   - sudo usermod -a -G ssh-condor ubuntu
   - echo 'AllowGroups ssh-condor' | sudo tee -a /etc/ssh/sshd_config
+  # Reboot node to get the Nvidia stuff to work
+  - sudo reboot
