@@ -17,7 +17,10 @@ sudo sed -i 's/^GSSAPIAuthentication.*/GSSAPIAuthentication no\n/g' /etc/ssh/ssh
 
 # Create system-wide profile override for custom additions
 echo "#!/bin/bash" | sudo tee /etc/profile.d/custom.sh > /dev/null
+# Alias for safe rm
+echo 'alias rm="rm -i"' | sudo tee -a /etc/profile.d/custom.sh > /dev/null
 sudo chmod +x /etc/profile.d/custom.sh
+
 
 # Enable rpc service
 sudo systemctl add-wants multi-user.target rpc-statd.service
