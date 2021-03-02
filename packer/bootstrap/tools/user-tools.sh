@@ -12,7 +12,14 @@ sudo apt-get install -y build-essential \
     jq valgrind subversion htop \
     default-jre default-jdk
 
-# Golang already installed in singularity.sh
+# Install golang, used to compile Singularity among other things
+wget https://golang.org/dl/go1.15.7.linux-amd64.tar.gz
+sudo tar -C /usr/local -xzf go1.15.7.linux-amd64.tar.gz
+echo 'export PATH=$PATH:/usr/local/go/bin' | sudo tee -a /etc/profile.d/custom.sh > /dev/null
+source /etc/profile.d/custom.sh
+# Verify it works
+go version
+rm -f go1.15.7.linux-amd64.tar.gz
 
 # Install Rust
 curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs -o rust-setup.sh

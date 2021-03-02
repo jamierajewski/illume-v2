@@ -35,6 +35,11 @@
             "script": "../../bootstrap/cvmfs/cvmfs.sh"
         },
         {
+            "type": "shell",
+            "script": "../../bootstrap/tools/user-tools.sh",
+            "expect_disconnect": true
+        },
+        {
             "type": "file",
             "source": "../../bootstrap/cvmfs/default.local",
             "destination": "/home/ubuntu/default.local"
@@ -46,11 +51,6 @@
         {
             "type": "shell",
             "script": "../../bootstrap/singularity/singularity.sh"
-        },
-        {
-            "type": "shell",
-            "script": "../../bootstrap/tools/user-tools.sh",
-            "expect_disconnect": true
         }
     ]
 }

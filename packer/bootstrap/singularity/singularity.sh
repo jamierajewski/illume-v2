@@ -10,14 +10,7 @@ set -ex
 sudo apt-get update && sudo apt-get install -y build-essential uuid-dev \
     libgpgme-dev squashfs-tools libseccomp-dev wget pkg-config git cryptsetup-bin
 
-# Install golang, used to compile Singularity
-wget https://golang.org/dl/go1.15.7.linux-amd64.tar.gz
-sudo tar -C /usr/local -xzf go1.15.7.linux-amd64.tar.gz
-echo 'export PATH=$PATH:/usr/local/go/bin' | sudo tee -a /etc/profile.d/custom.sh > /dev/null
-source /etc/profile.d/custom.sh
-# Verify it works
-go version
-rm -f go1.15.7.linux-amd64.tar.gz
+# Golang already installed in user-tools.sh
 
 # Download Singularity 3.7.0
 export VERSION=3.7.0
