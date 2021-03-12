@@ -15,10 +15,10 @@
             ],
             "floating_ip_network": "ext-net",
             "reuse_ips": true,
-            "security_groups": ["ssh", "egress"],
             "metadata": {
                 "img_hide_hypervisor_id": "true"
-            }
+            },
+            "security_groups": ["ssh", "egress"]
         }
     ],
     "provisioners": [
@@ -34,7 +34,12 @@
         },
         {
             "type": "shell",
-            "script": "../../bootstrap/cuda/cuda-container.sh"
+            "script": "../../bootstrap/cuda/cuda-container.sh",
+            "expect_disconnect": true
+        },
+        {
+            "type": "shell",
+            "script": "../../bootstrap/monitoring/nvidia-exporter.sh"
         }
     ]
 }
