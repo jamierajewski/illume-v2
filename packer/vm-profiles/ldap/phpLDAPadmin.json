@@ -5,7 +5,7 @@
     "builders": [
         {
             "type": "openstack",
-            "flavor": "c4-8GB-90",
+            "flavor": "c2-4GB-45",
             "ssh_username": "ubuntu",
             "image_name": "illume-phpLDAPadmin",
             "source_image_name": "illume-non-interactive",

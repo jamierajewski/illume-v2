@@ -1,13 +1,80 @@
+# Source:
+# https://medium.com/@pasquier.simon/monitoring-your-openstack-instances-with-prometheus-a7ff4324db6c
 global:
   scrape_interval: 15s
+  evaluation_interval: 15s
+
+rule_files: []
 
 scrape_configs:
-  - job_name: 'nvidia_exporter'
-    scrape_interval: 15s
-    static_configs:
-      - targets: ['localhost:9445']
 
-  - job_name: 'node_exporter'
-    scrape_interval: 15s
+  # Scrape Prometheus itself
+  - job_name: 'prometheus'
     static_configs:
-      - targets: ['localhost:9100']
+      - targets: ['localhost:9090']
+
+  # Scrape OpenStack instances that have the Nvidia exporter (all Illume v2 GPU workers)
+  - job_name: 'nvidia_exporter'
+    openstack_sd_configs:
+      - identity_endpoint: os_idendpoint
+        username: os_username
+        project_name: os_project_name
+        project_id: os_project_id
+        password: os_password
+        region: os_region
+        domain_name: os_domain_name
+        port: 9445
+        role: instance
+    
+    relabel_configs:
+      # Keep only active instances
+      - source_labels: [__meta_openstack_instance_status]
+        action: keep
+        regex: ACTIVE
+      
+      # Keep only instances which are flagged for scraping
+      - source_labels: [__meta_openstack_tag_prometheus_nvidia_scrape]
+        action: keep
+        regex: 'true'      
+      
+      # Update the scraping port if required
+      - source_labels:
+        - __address__
+        - __meta_openstack_tag_prometheus_nvidia_port
+        action: replace
+        regex: ([^:]+)(?::\d+)?;(\d+)
+        replacement: $1:$2
+        target_label: __address__
+
+  # Scrape OpenStack instances that have the node exporter (all Illume v2 instances)
+  - job_name: 'node_exporter'
+    openstack_sd_configs:
+      - identity_endpoint: os_idendpoint
+        username: os_username
+        project_name: os_project_name
+        project_id: os_project_id
+        password: os_password
+        region: os_region
+        domain_name: os_domain_name
+        port: 9100
+        role: instance
+    
+    relabel_configs:
+      # Keep only active instances
+      - source_labels: [__meta_openstack_instance_status]
+        action: keep
+        regex: ACTIVE
+      
+      # Keep only instances which are flagged for scraping
+      - source_labels: [__meta_openstack_tag_prometheus_node_scrape]
+        action: keep
+        regex: 'true'      
+      
+      # Update the scraping port if required
+      - source_labels:
+        - __address__
+        - __meta_openstack_tag_prometheus_node_port
+        action: replace
+        regex: ([^:]+)(?::\d+)?;(\d+)
+        replacement: $1:$2
+        target_label: __address__

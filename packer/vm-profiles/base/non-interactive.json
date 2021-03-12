@@ -5,7 +5,7 @@
     "builders": [
         {
             "type": "openstack",
-            "flavor": "c4-8GB-90",
+            "flavor": "c2-4GB-45",
             "ssh_username": "ubuntu",
             "image_name": "illume-non-interactive",
             "source_image_name": "Ubuntu-20.04.1-Focal-x64-2020-10",
@@ -38,6 +38,10 @@
             "type": "shell",
             "script": "../../bootstrap/common/common.sh",
             "expect_disconnect": true
+        },
+        {
+            "type": "shell",
+            "script": "../../bootstrap/monitoring/node-exporter.sh"
         }
     ]
 }

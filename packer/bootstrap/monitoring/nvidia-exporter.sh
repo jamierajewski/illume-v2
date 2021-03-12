@@ -7,6 +7,9 @@ set -ex
 
 sudo useradd --no-create-home --shell /sbin/nologin nvidia_exporter
 
+# Source profile with Golang in the path
+source /etc/profile.d/custom.sh
+
 # No specific version as this was last updated in 2018 - just pull the latest
 go get github.com/mindprince/nvidia_gpu_prometheus_exporter
 

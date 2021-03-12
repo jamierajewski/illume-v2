@@ -5,6 +5,8 @@ set -ex
 # Source: 
 # https://www.scaleway.com/en/docs/configure-prometheus-monitoring-with-grafana/
 
+# To configure automatic scraping of nodes, refer to the following guide:
+# https://medium.com/@pasquier.simon/monitoring-your-openstack-instances-with-prometheus-a7ff4324db6c
 export PROM_VER=2.25.0
 
 # Create service accounts for Prometheus and the exporters
@@ -12,6 +14,9 @@ sudo useradd --no-create-home --shell /sbin/nologin prometheus
 
 sudo mkdir /etc/prometheus
 sudo mkdir /var/lib/prometheus
+
+# Move the config file to the proper location (ownership gets fixed below)
+sudo mv prometheus.yml /etc/prometheus/prometheus.yml
 
 # Fetch Prometheus
 wget https://github.com/prometheus/prometheus/releases/download/v${PROM_VER}/prometheus-${PROM_VER}.linux-amd64.tar.gz
@@ -25,7 +30,7 @@ sudo chown prometheus:prometheus /usr/local/bin/promtool
 
 # Move the libs to the config location and change ownership
 sudo cp -r prometheus-${PROM_VER}.linux-amd64/console* /etc/prometheus
-sudo chown -R prometheus:prometheus /etc/prometheus/console*
+sudo chown -R prometheus:prometheus /etc/prometheus
 
 # Change permission of lib
 sudo chown -R prometheus:prometheus /var/lib/prometheus
