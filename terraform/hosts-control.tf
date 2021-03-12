@@ -32,6 +32,11 @@ resource "openstack_compute_instance_v2" "illume-control-v2" {
     volume_size           = 90
   }
 
+  metadata = {
+                "prometheus_node_port": 9100,
+                "prometheus_node_scrape": "true"
+  }
+  
   network {
     name = var.network
   }

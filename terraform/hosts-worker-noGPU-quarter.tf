@@ -1,6 +1,6 @@
 resource "openstack_compute_instance_v2" "illume-worker-nogpu-quarter-v2" {
 
-  count = 0
+  count = 4
   name  = format("illume-worker-nogpu-quarter-%02d-v2", count.index + 1)
 
   flavor_name = "c4-32GB-360"
@@ -30,6 +30,11 @@ resource "openstack_compute_instance_v2" "illume-worker-nogpu-quarter-v2" {
     volume_size           = 360
   }
 
+  metadata = {
+                "prometheus_node_port": 9100,
+                "prometheus_node_scrape": "true"
+  }
+  
   network {
     name = var.network
   }

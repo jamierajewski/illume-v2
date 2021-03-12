@@ -28,6 +28,14 @@ resource "openstack_compute_instance_v2" "illume-worker-titanx-v2" {
     volume_size           = 3400
   }
 
+  metadata = {
+      "img_hide_hypervisor_id": "true",
+      "prometheus_node_port": 9100,
+      "prometheus_node_scrape": "true",
+      "prometheus_nvidia_port": 9445,
+      "prometheus_nvidia_scrape": "true"
+  }
+  
   network {
     name = var.network
   }

@@ -2,7 +2,7 @@ resource "openstack_compute_instance_v2" "illume-worker-interactive-v2" {
 
   # This will be a regular instance of whatever flavor is chosen, but it
   # will reserve a quarter of its resources for an interactive-only slot
-  count = 1
+  count = 0
   name  = format("illume-worker-interactive-%02d-v2", count.index + 1)
 
   flavor_name = "c16-116gb-3400-4.1080ti"
@@ -32,6 +32,14 @@ resource "openstack_compute_instance_v2" "illume-worker-interactive-v2" {
     volume_size           = 3400
   }
 
+  metadata = {
+      "img_hide_hypervisor_id": "true",
+      "prometheus_node_port": 9100,
+      "prometheus_node_scrape": "true",
+      "prometheus_nvidia_port": 9445,
+      "prometheus_nvidia_scrape": "true"
+  }
+  
   network {
     name = var.network
   }

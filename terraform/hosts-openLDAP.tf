@@ -33,6 +33,11 @@ resource "openstack_compute_instance_v2" "illume-openLDAP-v2" {
     delete_on_termination = false
   }
 
+  metadata = {
+                "prometheus_node_port": 9100,
+                "prometheus_node_scrape": "true"
+  }
+  
   network {
     name = var.network
   }

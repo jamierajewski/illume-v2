@@ -28,6 +28,11 @@ resource "openstack_compute_instance_v2" "illume-worker-nogpu-half-v2" {
     volume_size           = 720
   }
 
+  metadata = {
+                "prometheus_node_port": 9100,
+                "prometheus_node_scrape": "true"
+  }
+  
   network {
     name = var.network
   }

@@ -46,6 +46,11 @@ runcmd:
   - sudo systemctl restart squid.service
 EOF
 
+  metadata = {
+                "prometheus_node_port": 9100,
+                "prometheus_node_scrape": "true"
+  }
+  
   network {
     name = var.network
   }
