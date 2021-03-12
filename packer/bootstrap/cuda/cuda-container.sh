@@ -52,3 +52,5 @@ debug = "/tmp/nvidia-container-runtime.log"
 # The configuration is already done in the premade config, so put it in the right place
 cat /home/ubuntu/containers.conf | sudo tee /etc/containers/containers.conf > /dev/null
 sudo rm /home/ubuntu/containers.conf
+
+sudo reboot
