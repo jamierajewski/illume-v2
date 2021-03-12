@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 
 # Originally written by Claudio Kopper
 # Modifications by Jamie Rajewski
@@ -86,6 +86,16 @@ def create_ssh_config(data, outfile):
     for idx, address in enumerate(data['illume-phpLDAPadmin-addresses']['value']):
         d = {
             'hostname':"illume-phpLDAPadmin-{:02d}-v2".format(idx+1),
+            'host_ip':address,
+            'ssh_username':ssh_username,
+            'ssh_keyfile':ssh_keyfile,
+            'proxy_jump':bastion_hostname,
+            }
+        result += src.substitute(d) + "\n"
+
+    for idx, address in enumerate(data['illume-monitor-addresses']['value']):
+        d = {
+            'hostname':"illume-monitor-{:02d}-v2".format(idx+1),
             'host_ip':address,
             'ssh_username':ssh_username,
             'ssh_keyfile':ssh_keyfile,
