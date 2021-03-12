@@ -62,6 +62,10 @@ output "illume-ingress-addresses" {
   value = openstack_compute_instance_v2.illume-ingress-v2.*.network.0.fixed_ip_v4
 }
 
+output "illume-monitor-addresses" {
+  value = openstack_compute_instance_v2.illume-monitor-v2.*.network.0.fixed_ip_v4
+}
+
 output "illume-ingress-addresses-public" {
   value = openstack_networking_floatingip_v2.illume-ingress-v2.*.address
 }
