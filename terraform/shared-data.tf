@@ -85,4 +85,15 @@ locals {
     condor_control_IP = openstack_compute_instance_v2.illume-control-v2.network[0].fixed_ip_v4
     condor_pool_pass = var.condor_pass
   })
+
+  monitor-template = templatefile("${path.module}/templates/monitor.yml",
+  {
+    id_endpoint = var.id_endpoint
+    username = var.username
+    password = var.password
+    project_name = var.tenant_name
+    project_id = var.project_id
+    region = var.region
+    domain_name = var.domain_name
+  })
 }

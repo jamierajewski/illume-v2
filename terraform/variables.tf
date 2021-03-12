@@ -66,7 +66,17 @@ variable "domain_name" {
   type = string
 }
 
+variable "project_id" {
+  description = "Project ID, found on OpenStack"
+  type = string
+}
+
 variable "tenant_name" {
   description = "Name of the tenant (found in the OpenStack RC file)"
+  type = string
+}
+
+variable "id_endpoint" {
+  description = "Same as auth_url, but with backslashes delimited (to avoid issues with sed in the monitor.yml cloud-init)"
   type = string
 }

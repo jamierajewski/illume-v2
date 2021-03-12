@@ -1,0 +1,31 @@
+#cloud-config
+disk_setup:
+  ephemeral0:
+    table_type: 'gpt'
+    layout:
+      - 100
+    overwrite: true
+
+fs_setup:
+  - label: ephemeral0.1
+    filesystem: 'ext4'
+    device: 'ephemeral0.1'
+
+mounts:
+  - [ ephemeral0.1 /var/lib/prometheus ]
+
+runcmd:
+  # Fill in the OpenStack information into the prometheus config
+  - sudo sed -i 's/os_idendpoint/${id_endpoint}/g' /etc/prometheus/prometheus.yml
+  - sudo sed -i 's/os_username/${username}/g' /etc/prometheus/prometheus.yml
+  - sudo sed -i 's/os_password/${password}/g' /etc/prometheus/prometheus.yml
+  - sudo sed -i 's/os_project_name/${project_name}/g' /etc/prometheus/prometheus.yml
+  - sudo sed -i 's/os_project_id/${project_id}/g' /etc/prometheus/prometheus.yml
+  - sudo sed -i 's/os_region/${region}/g' /etc/prometheus/prometheus.yml
+  - sudo sed -i 's/os_domain_name/${domain_name}/g' /etc/prometheus/prometheus.yml
+  # Restart Prometheus to take effect
+  - sudo systemctl restart proemetheus
+  # Disable SSH so regular users can't log in manually
+  - sudo groupadd ssh-condor
+  - sudo usermod -a -G ssh-condor ubuntu
+  - echo 'AllowGroups ssh-condor' | sudo tee -a /etc/ssh/sshd_config
