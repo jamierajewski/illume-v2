@@ -21,6 +21,14 @@ echo "#!/bin/bash" | sudo tee /etc/profile.d/custom.sh > /dev/null
 echo 'alias rm="rm -i"' | sudo tee -a /etc/profile.d/custom.sh > /dev/null
 sudo chmod +x /etc/profile.d/custom.sh
 
+# Install golang, used to compile Singularity among other things
+wget https://golang.org/dl/go1.15.7.linux-amd64.tar.gz
+sudo tar -C /usr/local -xzf go1.15.7.linux-amd64.tar.gz
+echo 'export PATH=$PATH:/usr/local/go/bin' | sudo tee -a /etc/profile.d/custom.sh > /dev/null
+source /etc/profile.d/custom.sh
+# Verify it works
+go version
+rm -f go1.15.7.linux-amd64.tar.gz
 
 # Enable rpc service
 sudo systemctl add-wants multi-user.target rpc-statd.service

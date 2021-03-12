@@ -20,6 +20,8 @@ rm -f singularity-${VERSION}.tar.gz
 cd singularity
 
 # Install
+# Source custom profile which puts Golang on the path
+source /etc/profile.d/custom.sh
 ./mconfig
 make -C ./builddir
 sudo make -C ./builddir install
