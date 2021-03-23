@@ -18,8 +18,3 @@ sudo apt-get install -y adduser libfontconfig1
 wget https://dl.grafana.com/oss/release/grafana_${GRAF_VER}_amd64.deb
 sudo dpkg -i grafana_${GRAF_VER}_amd64.deb
 sudo rm -f grafana_${GRAF_VER}_amd64.deb
-
-# Enable and start the service
-sudo systemctl daemon-reload
-sudo systemctl enable grafana-server
-sudo systemctl start grafana-server

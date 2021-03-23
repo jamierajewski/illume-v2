@@ -56,9 +56,5 @@ ExecStart=/usr/local/bin/prometheus \
 WantedBy=multi-user.target
 EOT
 
-sudo systemctl daemon-reload
-sudo systemctl start prometheus
-sudo systemctl enable prometheus
-
 # Cleanup
 sudo rm -rf /home/ubuntu/prometheus-*

@@ -13,10 +13,11 @@ scrape_configs:
     static_configs:
       - targets: ['localhost:9090']
 
-  # Scrape OpenStack instances that have the Nvidia exporter (all Illume v2 GPU workers)
+  #Scrape OpenStack instances that have the Nvidia exporter (all Illume v2 GPU workers)
   - job_name: 'nvidia_exporter'
+    honor_labels: true
     openstack_sd_configs:
-      - identity_endpoint: os_idendpoint
+      - identity_endpoint: 'os_idendpoint'
         username: os_username
         project_name: os_project_name
         project_id: os_project_id
@@ -26,6 +27,7 @@ scrape_configs:
         port: 9445
         role: instance
     
+    # These are applied BEFORE scraping
     relabel_configs:
       # Keep only active instances
       - source_labels: [__meta_openstack_instance_status]
@@ -38,7 +40,7 @@ scrape_configs:
         regex: 'true'      
       
       # Update the scraping port if required
-      - source_labels:
+      - source_labels: 
         - __address__
         - __meta_openstack_tag_prometheus_nvidia_port
         action: replace
@@ -46,10 +48,15 @@ scrape_configs:
         replacement: $1:$2
         target_label: __address__
 
+      #Replace the default instance by the OpenStack instance name
+      - source_labels: [__meta_openstack_instance_name]
+        target_label: instance
+
   # Scrape OpenStack instances that have the node exporter (all Illume v2 instances)
   - job_name: 'node_exporter'
+    honor_labels: true
     openstack_sd_configs:
-      - identity_endpoint: os_idendpoint
+      - identity_endpoint: 'os_idendpoint'
         username: os_username
         project_name: os_project_name
         project_id: os_project_id
@@ -78,3 +85,7 @@ scrape_configs:
         regex: ([^:]+)(?::\d+)?;(\d+)
         replacement: $1:$2
         target_label: __address__
+        
+      #Replace the default instance by the OpenStack instance name
+      - source_labels: [__meta_openstack_instance_name]
+        target_label: instance
