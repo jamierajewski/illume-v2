@@ -2,7 +2,7 @@
 Rebuilding Illume cluster using VM workflow
 
 ## Prerequisites
-- Packer 1.6.4+
+- Packer 1.7.0+
 - Terraform 0.14.5+
 - OpenStack RC File (can be retrieved by logging into OpenStack -> click username in the top right -> Download `OpenStack RC File V3`)
 - An SSH key pair for provisioning
