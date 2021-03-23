@@ -91,18 +91,8 @@ You will be prompted to change the password - do so now.
 11. In the bar that says "Import via grafana.com", input **1860** and click load. This should fill in information telling you that you are trying to import a Node Exporter dashboard
 12. In the dropdown at the bottom, select the Prometheus instance we just set up and click import.
 13. Repeat the above steps for importing but this time use the ID **10703** which is for the Nvidia exporter.
-14. It is now functional and we can see all of our nodes, but they show up as "hostname:port" pairs which is not very useful, so let's change it to the instance name that we gave it in OpenStack
-15. **[NOTE - This part doesn't work properly yet. It will change the names, but then Grafana can no longer scrape the data properly]** In the Node Exporter dashboard, click "dashboard settings" and then "variables", and finally, the "node" variable
-16. There should be an expression in place that puts together the current name and looks like
-```
-label_values(node_uname_info{job="$job"}, instance)
-```
-Change that to be
-```
-label_values(node_uname_info{job="$job"}, nodename)
-```
-and hit "Update". You should see a preview at the bottom showing the proper names now.
-17. On the left sidebar, click "Save Dashboard" and in the popup, check "Save current variable values as dashboard default". The Node exporter should now show proper identifiable names.
+
+Once saved, the dashboards are successfully set up.
 
 ## How to access LDAP interface
 Illume v2 uses **phpLDAPadmin** as an interface over **openLDAP**. To access the web interface for easy account management:
