@@ -1,9 +1,4 @@
 
-variable "ssh_key_source" {
-  type    = string
-  default = "${env("SSH_KEY_SOURCE")}"
-}
-
 source "openstack" "interactive" {
   flavor              = "c2-4GB-45"
   floating_ip_network = "ext-net"
