@@ -8,14 +8,14 @@ Rebuilding Illume cluster using VM workflow
 - An SSH key pair for provisioning
 - (Optional) [OpenStack Client](https://docs.openstack.org/newton/user-guide/common/cli-install-openstack-command-line-clients.html) - This is helpful for retrieving information from OpenStack like flavors etc.
 
-Fill in `/setup-env.sh` with your SSH key location and the path to the OpenStack RC file, and then run it. You also need to create a file called `/terraform/variables.tfvars` with assignments for the secret variables in `/terraform/variables.tf`. You can also leave the fields as
+Fill in `/setup-env.sh` with your SSH key location and the path to the OpenStack RC file, and then run it. You also need to create a file called `/terraform/variables.tfvars` with assignments for the secret variables in `/terraform/variables.tf`. You can also leave the fields in `/terraform/variables.tf` as
 ```
 {
     default = ""
 }
 ```
 
-if you want to be prompted for them each time you run a Terraform command. DO NOT FILL IN `/terraform/variables.tf` AND IF YOU DO, **DO NOT COMMIT WITH YOUR INFORMATION FILLED IN**.
+if you want to be prompted for them each time you run a Terraform command. DO NOT FILL IN `/terraform/variables.tf`; instead, fill in `/terraform/variables.tfvars` which allows you to keep your credentials separated from the variable template. **DO NOT COMMIT WITH YOUR INFORMATION FILLED IN**.
 
 ## Rebuild VM Images
 The VM images are located under `/packer/vm-profiles`. The images are dependent on one another in sensical ways to keep build times down the higher up the stack you go, while also keeping the profiles themselves concise and lacking repetition. The hierarchy is as follows:
@@ -23,6 +23,7 @@ The VM images are located under `/packer/vm-profiles`. The images are dependent 
 ```
  non-interactive ->|-> openLDAP
                    |-> proxy
+                   |-> monitor
                    |-> control
                    |-> phpLDAPadmin
                    |-> interactive ->|-> bastion
