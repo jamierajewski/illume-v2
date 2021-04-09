@@ -1,5 +1,5 @@
 # illume-v2
-Rebuilding Illume cluster using VM workflow
+Rebuilding Illume cluster using VM workflow. Created to be as generic as possible to allow for use elsewhere.
 
 ## Prerequisites
 - Packer 1.7.0+
