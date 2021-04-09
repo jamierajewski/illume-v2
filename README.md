@@ -50,8 +50,8 @@ images that depend on it, giving them all numpy.
 As with the VM images, the Terraform deployment profiles are set up with dependencies so that post-provisioning can be done once the appropriate instances are deployed. However, Terraform takes care of building them in the correct order so you only need to:
 - Navigate to `/terraform`
 - Run `terraform init`
-- Run `terraform plan` to verify your changes
-- Once happy, run `terraform apply` which you can then accept if it looks good
+- Run `terraform plan -var-file="variables.tfvars"` to verify your changes. This will fill in the variables with your `.tfvars` file created above
+- Once happy, run `terraform apply -var-file="variables.tfvars"` which you can then accept if it looks good
 
 You can then view the provisioned instances in the OpenStack dashboard under **Compute** -> **Instances**.
 
