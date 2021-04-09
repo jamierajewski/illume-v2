@@ -4,7 +4,7 @@ source "openstack" "worker_gpu" {
   floating_ip_network = "ext-net"
   force_delete        = true
   image_name          = "illume-worker-gpu"
-  metadata {
+  metadata = {
     img_hide_hypervisor_id = "true"
   }
   networks        = ["ddbdc508-53dd-4a4f-8be7-c6555fefda62"]
