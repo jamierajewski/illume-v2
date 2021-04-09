@@ -1,6 +1,11 @@
 # illume-v2
 Rebuilding Illume cluster using VM workflow. Created to be as generic as possible to allow for use elsewhere.
 
+[![license](https://img.shields.io/github/license/jamierajewski/illume-v2?color=success&style=plastic)](https://github.com/jamierajewski/illume-v2/blob/main/LICENSE)
+[![issues](https://img.shields.io/github/issues/jamierajewski/illume-v2?color=critical&style=plastic)](https://github.com/jamierajewski/illume-v2/issues)
+[![stars](https://img.shields.io/github/stars/jamierajewski/illume-v2?color=yellow&style=plastic)](https://github.com/jamierajewski/illume-v2/stargazers)
+[![forks](https://img.shields.io/github/forks/jamierajewski/illume-v2?style=plastic)](https://github.com/jamierajewski/illume-v2/network/members)
+
 ## Table of Contents
 
 - [Prerequisites](#prerequisites)
