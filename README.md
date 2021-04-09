@@ -1,6 +1,18 @@
 # illume-v2
 Rebuilding Illume cluster using VM workflow. Created to be as generic as possible to allow for use elsewhere.
 
+## Table of Contents
+
+- [Prerequisites](#prerequisites)
+- [Rebuild VM Images](#rebuild-vm-images)
+- [Deploying to OpenStack](#deploying-to-openstack)
+- [Monitoring](#monitoring)
+- [How to access LDAP interface](#how-to-access-ldap-interface)
+- [How to Debug](#how-to-debug)
+  * [LDAP](#ldap)
+- [Authors and acknowledgements](#authors-and-acknowledgements)
+
+
 ## Prerequisites
 - Packer 1.7.0+
 - Terraform 0.14.5+
@@ -43,7 +55,7 @@ As with the VM images, the Terraform deployment profiles are set up with depende
 
 You can then view the provisioned instances in the OpenStack dashboard under **Compute** -> **Instances**.
 
-## Monitoring, and how to set up Grafana for visualization
+## Monitoring
 Illume v2 uses **Prometheus** to scrape data from nodes, and **Grafana** to visualize that data. Currently, there are only two exporters in use:
 - **Node exporter**, which advertises tons of hardware, OS and networking data (runs on ALL nodes)
 - **Nvidia exporter**, which advertises various data related to GPUs (only runs on GPU workers)
@@ -163,5 +175,5 @@ result: 0 Success
 # numEntries: 1
 ```
 
-# Authors and acknowledgements
+## Authors and acknowledgements
 Thanks to Claudio Kopper and David Schultz for mentoring and helping me - without them, this would not have been possible.
