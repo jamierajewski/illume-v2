@@ -123,8 +123,8 @@ http://localhost:8080/phpldapadmin/
 ```
 If everything was done correctly then you should have landed on the phpLDAPadmin login page.
 
-## How to Debug
-# LDAP
+# How to Debug
+## LDAP
 LDAP is one of the more complicated parts of the cluster. To ensure that it is working, you can `ssh` into the `openLDAP` instance (via the Bastion since it isn't exposed to the internet) and run
 ```
 ldapsearch -x -b cn=First Last,ou=users,dc=illume,dc=systems
@@ -163,3 +163,5 @@ result: 0 Success
 # numEntries: 1
 ```
 
+# Authors and acknowledgements
+Thanks to Claudio Kopper and David Schultz for mentoring and helping me - without them, this would not have been possible.
