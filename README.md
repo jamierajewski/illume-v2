@@ -8,6 +8,7 @@ Rebuilding Illume cluster using VM workflow. Created to be as generic as possibl
 
 ## Table of Contents
 
+- [Overview](#overview)
 - [Prerequisites](#prerequisites)
 - [Rebuild VM Images](#rebuild-vm-images)
 - [Deploying to OpenStack](#deploying-to-openstack)
@@ -17,6 +18,19 @@ Rebuilding Illume cluster using VM workflow. Created to be as generic as possibl
   * [LDAP](#ldap)
 - [Authors and acknowledgements](#authors-and-acknowledgements)
 
+
+## Overview
+
+Illume is the infrastructure-as-code ready to deploy on OpenStack for HPC workloads. It contains:
+- [HTCondor](https://htcondor.readthedocs.io/en/latest/overview/index.html), a batch scheduler for running user jobs
+- [openLDAP](https://www.openldap.org/) and [phpLDAPadmin](http://phpldapadmin.sourceforge.net/wiki/index.php/Main_Page) for user account management
+- [Prometheus](https://prometheus.io/docs/introduction/overview/) and [Grafana](https://grafana.com/), for monitoring physical hardware health (and potentially jobs, in the future)
+- [CVMFS](https://cvmfs.readthedocs.io/en/stable/), for access to global project repositories of software and libraries
+- [Squid Proxy](http://www.squid-cache.org/) for caching (particularly for CVMFS)
+- [Nvidia CUDA](https://developer.nvidia.com/cuda-zone) drivers and libraries for accelerating workloads with GPUs
+- [Rootless Podman](https://podman.io/#what-is-podman-podman-is-a-daemonless-container-engine-for-developing-managing-and-running-oci-containers-on-your-linux-system-containers-can-either-be-run-as-root-or-in-rootless-mode-simply-put-alias-dockerpodman-more-details-here) and [Singularity](https://sylabs.io/guides/3.7/user-guide/introduction.html) for safe container workloads
+
+This is achieved with a two-stage process - using [Packer](https://www.packer.io/) to prebuild VM images with all appropriate software, and then deploying them via [Terraform](https://www.terraform.io/). Both of these are easily configurable to suit your needs.
 
 ## Prerequisites
 - Packer 1.7.0+
