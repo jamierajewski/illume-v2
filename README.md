@@ -30,7 +30,9 @@ Illume is the infrastructure-as-code ready to deploy on OpenStack for HPC worklo
 - [Nvidia CUDA](https://developer.nvidia.com/cuda-zone) drivers and libraries for accelerating workloads with GPUs
 - [Rootless Podman](https://podman.io/#what-is-podman-podman-is-a-daemonless-container-engine-for-developing-managing-and-running-oci-containers-on-your-linux-system-containers-can-either-be-run-as-root-or-in-rootless-mode-simply-put-alias-dockerpodman-more-details-here) and [Singularity](https://sylabs.io/guides/3.7/user-guide/introduction.html) for safe container workloads
 
-This is achieved with a two-stage process - using [Packer](https://www.packer.io/) to prebuild VM images with all appropriate software, and then deploying them via [Terraform](https://www.terraform.io/). Both of these are easily configurable to suit your needs.
+This is achieved with a two-stage process - using [Packer](https://www.packer.io/) to prebuild VM images with all appropriate software, and then deploying them via [Terraform](https://www.terraform.io/). Both of these are easily configurable to suit your needs; within the `/packer` directory you will find `/bootstrap`, which contains groups of scripts and configuration files used to install certain tools, and `/vm-profiles`, which contains the image definitions composed of these bootstrap scripts.
+
+In the `/terraform` directory, you will find a collection of `host-` profiles, which are the profiles of the instances we want to create on the hardware. These can easily be scaled and customized to fit your hardware, and even modified (with a bit of work) to suit other infrastructure providers like AWS, as [Terraform offers API's for many of them](https://registry.terraform.io/browse/providers).
 
 ## Prerequisites
 - Packer 1.7.0+
