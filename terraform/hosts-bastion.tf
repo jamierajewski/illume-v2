@@ -35,6 +35,15 @@ resource "openstack_compute_instance_v2" "illume-bastion-v2" {
   network {
     name = var.network
   }
+  
+  # Enable and start fail2ban
+  user_data = <<EOF
+#cloud-config
+runcmd:
+  # Enable and start fail2ban
+  - sudo systemctl enable fail2ban
+  - sudo systemctl start fail2ban
+EOF
 }
 
 resource "openstack_networking_floatingip_v2" "illume-bastion-v2" {

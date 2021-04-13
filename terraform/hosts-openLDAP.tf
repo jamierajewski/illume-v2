@@ -41,4 +41,12 @@ resource "openstack_compute_instance_v2" "illume-openLDAP-v2" {
   network {
     name = var.network
   }
+
+  user_data = <<EOF
+#cloud-config
+runcmd:
+  # Enable and start fail2ban
+  - sudo systemctl enable fail2ban
+  - sudo systemctl start fail2ban
+EOF
 }

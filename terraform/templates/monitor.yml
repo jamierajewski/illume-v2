@@ -34,3 +34,6 @@ runcmd:
   - sudo groupadd ssh-condor
   - sudo usermod -a -G ssh-condor ubuntu
   - echo 'AllowGroups ssh-condor' | sudo tee -a /etc/ssh/sshd_config
+  # Enable and start fail2ban
+  - sudo systemctl enable fail2ban
+  - sudo systemctl start fail2ban

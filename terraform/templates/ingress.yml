@@ -61,3 +61,6 @@ runcmd:
   # Add ubuntu user to new ssh group to allow sshing into condor nodes
   - sudo groupadd ssh-condor
   - sudo usermod -a -G ssh-condor ubuntu
+  # Enable and start fail2ban
+  - sudo systemctl enable fail2ban
+  - sudo systemctl start fail2ban

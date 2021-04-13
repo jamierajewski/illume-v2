@@ -32,7 +32,10 @@ resource "openstack_compute_instance_v2" "illume-proxy-v2" {
     volume_size           = 90
   }
 
-  # Mount ephemeral storage #0 to /var/spool/squid
+  network {
+    name = var.network
+  }
+  
   user_data = <<EOF
 #cloud-config
 mounts:
@@ -44,15 +47,14 @@ runcmd:
   - sudo chown -R squid /var/spool/squid /var/log/squid
   - sudo squid -z
   - sudo systemctl restart squid.service
+  # Enable and start fail2ban
+  - sudo systemctl enable fail2ban
+  - sudo systemctl start fail2ban
 EOF
 
   metadata = {
                 "prometheus_node_port": 9100,
                 "prometheus_node_scrape": "true"
-  }
-  
-  network {
-    name = var.network
   }
 }
 
