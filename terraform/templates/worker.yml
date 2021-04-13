@@ -64,3 +64,9 @@ runcmd:
   # Enable and start fail2ban
   - sudo systemctl enable fail2ban
   - sudo systemctl start fail2ban
+
+  # Reboot node to get the Nvidia stuff to work
+power_state:
+  mode: reboot
+  message: 'cloud-init finished; now rebooting...'
+  delay: now
