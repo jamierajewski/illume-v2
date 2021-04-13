@@ -45,11 +45,11 @@ build {
   }
 
   provisioner "file" {
-    destination = "/home/ubuntu/fail2ban.local"
-    source      = "../../bootstrap/ssh/fail2ban.local"
+    destination = "/home/ubuntu/jail.local"
+    source      = "../../bootstrap/ssh/jail.local"
   }
 
   provisioner "shell" {
-    inline = ["sudo mv /home/ubuntu/fail2ban.local /etc/fail2ban/fail2ban.local"]
+    inline = ["sudo mv /home/ubuntu/jail.local /etc/fail2ban/jail.local"]
   }
 }
