@@ -40,4 +40,16 @@ build {
     script = "../../bootstrap/monitoring/node-exporter.sh"
   }
 
+  provisioner "shell" {
+    script = "../../bootstrap/ssh/fail2ban.sh"
+  }
+
+  provisioner "file" {
+    destination = "/home/ubuntu/fail2ban.local"
+    source      = "../../bootstrap/ssh/fail2ban.local"
+  }
+
+  provisioner "shell" {
+    inline = ["sudo mv /home/ubuntu/fail2ban.local /etc/fail2ban/fail2ban.local"]
+  }
 }

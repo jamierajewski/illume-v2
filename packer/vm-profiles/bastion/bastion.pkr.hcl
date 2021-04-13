@@ -27,5 +27,4 @@ build {
   provisioner "shell" {
     script = "../../bootstrap/tools/admin-tools.sh"
   }
-
 }

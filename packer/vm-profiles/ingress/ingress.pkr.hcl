@@ -36,5 +36,4 @@ build {
   provisioner "shell" {
     inline = ["sudo mv /home/ubuntu/condor_config.local /etc/condor/condor_config.local"]
   }
-
 }
