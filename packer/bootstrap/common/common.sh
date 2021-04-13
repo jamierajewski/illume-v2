@@ -33,4 +33,7 @@ rm -f go1.15.7.linux-amd64.tar.gz
 # Enable rpc service
 sudo systemctl add-wants multi-user.target rpc-statd.service
 
+# Install unattended-upgrades to automatically install security patches daily
+sudo apt-get install unattended-upgrades
+
 sudo reboot
