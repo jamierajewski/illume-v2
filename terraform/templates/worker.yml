@@ -49,7 +49,7 @@ runcmd:
   - sudo sed -i 's/ldap_ip/${openLDAP_IP}/' /etc/ldap/ldap.conf
   - sudo systemctl restart nscd
   # Use a ping loop to check if network is up before starting to allow the control to fully start up
-  - for i in {1..50}; do ping -c1 www.google.com &> /dev/null && break; done
+  - for i in {1..50}; do ping -c1 ${condor_control_IP} &> /dev/null && break; done
   # Set up condor with control node's IP and the pool password
   - sudo sed -i 's/condor_host_ip/${condor_control_IP}/' /etc/condor/condor_config.local
   - sudo echo '${condor_pool_pass}' > /home/ubuntu/pool_pass
