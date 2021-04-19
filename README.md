@@ -29,6 +29,7 @@ Illume is the infrastructure-as-code ready to deploy on OpenStack for HPC worklo
 - [Squid Proxy](http://www.squid-cache.org/) for caching (particularly for CVMFS)
 - [Nvidia CUDA](https://developer.nvidia.com/cuda-zone) drivers and libraries for accelerating workloads with GPUs
 - [Rootless Podman](https://podman.io/#what-is-podman-podman-is-a-daemonless-container-engine-for-developing-managing-and-running-oci-containers-on-your-linux-system-containers-can-either-be-run-as-root-or-in-rootless-mode-simply-put-alias-dockerpodman-more-details-here) and [Singularity](https://sylabs.io/guides/3.7/user-guide/introduction.html) for safe container workloads
+- [Anaconda](https://www.anaconda.com/) and [Jupyter](https://jupyter.org/) for a wide range of tools for users
 
 Illume is designed for use with NFS for storage, but it shouldn't be too difficult to support other types.
 
