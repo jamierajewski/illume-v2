@@ -10,7 +10,7 @@ Rebuilding Illume cluster using VM workflow. Created to be as generic as possibl
 
 - [Overview](#overview)
 - [Prerequisites](#prerequisites)
-- [Rebuild VM Images](#rebuild-vm-images)
+- [Build VM Images](#build-vm-images)
 - [Deploying to OpenStack](#deploying-to-openstack)
 - [Monitoring](#monitoring)
 - [How to access LDAP interface](#how-to-access-ldap-interface)
@@ -29,14 +29,17 @@ Illume is the infrastructure-as-code ready to deploy on OpenStack for HPC worklo
 - [Squid Proxy](http://www.squid-cache.org/) for caching (particularly for CVMFS)
 - [Nvidia CUDA](https://developer.nvidia.com/cuda-zone) drivers and libraries for accelerating workloads with GPUs
 - [Rootless Podman](https://podman.io/#what-is-podman-podman-is-a-daemonless-container-engine-for-developing-managing-and-running-oci-containers-on-your-linux-system-containers-can-either-be-run-as-root-or-in-rootless-mode-simply-put-alias-dockerpodman-more-details-here) and [Singularity](https://sylabs.io/guides/3.7/user-guide/introduction.html) for safe container workloads
+- [Anaconda](https://www.anaconda.com/) and [Jupyter](https://jupyter.org/) for a wide range of tools for users
 
-This is achieved with a two-stage process - using [Packer](https://www.packer.io/) to prebuild VM images with all appropriate software, and then deploying them via [Terraform](https://www.terraform.io/). Both of these are easily configurable to suit your needs; within the `/packer` directory you will find `/bootstrap`, which contains groups of scripts and configuration files used to install certain tools, and `/vm-profiles`, which contains the image definitions composed of these bootstrap scripts.
+Illume is designed for use with NFS for storage, but it shouldn't be too difficult to support other types.
+
+This is achieved with a two-stage process - using [Packer](https://www.packer.io/) to build VM images with all appropriate software, and then deploying them via [Terraform](https://www.terraform.io/). Both of these are easily configurable to suit your needs; within the `/packer` directory you will find `/bootstrap`, which contains groups of scripts and configuration files used to install certain tools, and `/vm-profiles`, which contains the image definitions composed of these bootstrap scripts.
 
 In the `/terraform` directory, you will find a collection of `host-` profiles, which are the profiles of the instances we want to create on the hardware. These can easily be scaled and customized to fit your hardware, and even modified (with a bit of work) to suit other infrastructure providers like AWS, as [Terraform offers API's for many of them](https://registry.terraform.io/browse/providers).
 
 ## Prerequisites
 - Packer 1.7.0+
-- Terraform 0.14.5+
+- Terraform 0.15+
 - OpenStack RC File (can be retrieved by logging into OpenStack -> click username in the top right -> Download `OpenStack RC File V3`)
 - An SSH key pair for provisioning
 - (Optional) [OpenStack Client](https://docs.openstack.org/newton/user-guide/common/cli-install-openstack-command-line-clients.html) - This is helpful for retrieving information from OpenStack like flavors etc.
@@ -50,7 +53,7 @@ Fill in `/setup-env.sh` with your SSH key location and the path to the OpenStack
 
 if you want to be prompted for them each time you run a Terraform command. DO NOT FILL IN `/terraform/variables.tf`; instead, fill in `/terraform/variables.tfvars` which allows you to keep your credentials separated from the variable template. **DO NOT COMMIT WITH YOUR INFORMATION FILLED IN**.
 
-## Rebuild VM Images
+## Build VM Images
 The VM images are located under `/packer/vm-profiles`. The images are dependent on one another in sensical ways to keep build times down the higher up the stack you go, while also keeping the profiles themselves concise and lacking repetition. The hierarchy is as follows:
 
 ```
@@ -81,8 +84,7 @@ Illume v2 uses **Prometheus** to scrape data from nodes, and **Grafana** to visu
 - **Node exporter**, which advertises tons of hardware, OS and networking data (runs on ALL nodes)
 - **Nvidia exporter**, which advertises various data related to GPUs (only runs on GPU workers)
 
-I have added metadata to the Packer images where appropriate to allow Prometheus to distinguish which nodes to scrape what information from, and one could add
-even more if they wish to add more exporters or rules.
+I have added metadata to the Packer images where appropriate to allow Prometheus to distinguish which nodes to scrape what information from, and one could add even more if they wish to add more exporters or rules.
 
 Grafana cannot be set up automatically, and so one must log in and configure the dashboard accordingly. The steps to do so are:
 1. Create (if it doesn't already exist) `~/.ssh/config`
