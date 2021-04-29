@@ -80,3 +80,20 @@ variable "id_endpoint" {
   description = "Same as auth_url, but with backslashes delimited (to avoid issues with sed in the monitor.yml cloud-init)"
   type = string
 }
+
+// Instance counts
+variable "name_counts" {
+  description = "A map containing the counts for each type of instance. Changing these will change the amount deployed"
+  type = map(number)
+  default = {
+    "interactive" = 0
+    "1080ti"      = 2
+    "980"         = 0
+    "980ti"       = 0
+    "titanxp"     = 0
+    "titanx"      = 0
+    "whole"       = 1
+    "half"        = 0
+    "quarter"     = 0
+  }
+}

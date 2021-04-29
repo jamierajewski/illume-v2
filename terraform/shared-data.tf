@@ -8,7 +8,7 @@ data "openstack_images_image_v2" "worker-image-nogpu" {
   most_recent = true
 }
 
-# Fill out the templates here which we can then pass to the appropriate instances
+# Render templates which will then be passed to the appropriate instance
 locals {
   worker-whole-template = templatefile("${path.module}/templates/worker.yml", 
   {
@@ -96,4 +96,67 @@ locals {
     region = var.region
     domain_name = var.domain_name
   })
+}
+
+# Workers mapped to information for instantiation
+locals {
+  worker_flavors  = {
+    "1080ti"      = {
+      flavor   = "c16-116gb-3400-4.1080ti"
+      gpu      = true
+      template = local.worker-whole-template
+    }
+    "interactive" = {
+      flavor   = "c16-116gb-3400-4.1080ti"
+      gpu      = true
+      template = local.worker-interactive-template
+    }
+    "980"         = {
+      flavor   = "c16-116gb-3400-4.980"
+      gpu      = true
+      template = local.worker-whole-template
+    }
+    "980ti"       = {
+      flavor   = "c16-116gb-3400-4.980ti"
+      gpu      = true
+      template = local.worker-whole-template
+    }
+    "titanx"      = {
+      flavor   = "c16-116gb-3400-4.titanx"
+      gpu      = true
+      template = local.worker-whole-template
+    }
+    "titanxp"     = {
+      flavor   = "c16-116gb-3400-4.titanxp"
+      gpu      = true
+      template = local.worker-whole-template
+    }
+    "whole"       = {
+      flavor   = "c16-128GB-1440-1socket"
+      gpu      = false
+      template = local.worker-whole-template
+    }
+    "half"        = {
+      flavor   = "c8-64GB-720"
+      gpu      = false
+      template = local.worker-half-template
+    }
+    "quarter"      = {
+      flavor   = "c4-32GB-360"
+      gpu      = false
+      template = local.worker-quarter-template
+    }
+  }
+
+  // Build a list of all instances to deploy, with mappings like
+  // "illume-worker-1080ti-01-v2": {flavor, gpu, template}
+  // Flatten will merge all the lists, and merge will merge each instance map
+  // into one large map (the ... at the end specifies that I want to merge a list of objects)
+  worker_instances = merge(flatten([
+    for name, count in var.name_counts : [
+      for i in range(count) : {
+        format("illume-worker-%s-%02d-v2", name, i+1) = local.worker_flavors[name]
+      }
+    ]
+  ])...) 
 }
