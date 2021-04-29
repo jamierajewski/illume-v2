@@ -8,8 +8,6 @@ import json
 import subprocess
 from string import Template
 
-worker_kinds = ['nogpu-quarter', 'nogpu-half', 'nogpu-whole', '1080ti', 'titanx', 'titanxp', '980', '980ti', 'interactive']
-
 def create_ssh_config(data, outfile):
 
     # Add universal options here first
@@ -53,16 +51,15 @@ def create_ssh_config(data, outfile):
             'proxy_jump':bastion_hostname,
             }
         result += src.substitute(d) + "\n"
-    for worker_kind in worker_kinds:
-        for idx, address in enumerate(data['illume-worker-{}-addresses'.format(worker_kind)]['value']):
-            d = {
-                'hostname':"illume-worker-{}-{:02d}-v2".format(worker_kind, idx+1),
-                'host_ip':address,
-                'ssh_username':ssh_username,
-                'ssh_keyfile':ssh_keyfile,
-                'proxy_jump':bastion_hostname,
-                }
-            result += src.substitute(d) + "\n"
+    for instance in data['illume-worker-addresses']['value']:
+        d = {
+            'hostname':instance,
+            'host_ip':data['illume-worker-addresses']['value'][instance],
+            'ssh_username':ssh_username,
+            'ssh_keyfile':ssh_keyfile,
+            'proxy_jump':bastion_hostname,
+            }
+        result += src.substitute(d) + "\n"
     for idx, address in enumerate(data['illume-ingress-addresses']['value']):
         d = {
             'hostname':"illume-ingress-{:02d}-v2".format(idx+1),
