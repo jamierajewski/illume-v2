@@ -11,7 +11,7 @@ resource "openstack_compute_instance_v2" "illume-workers-v2" {
   security_groups = [ "illume-internal-v2" ]
   # Depends on the control as it has to be started up first so that we can
   # automatically authenticate to it
-  depends_on = [ openstack_compute_instance_v2.illume-control-v2 ]
+  depends_on = [ openstack_compute_instance_v2.illume-ingress-v2 ]
 
   # Boot device (ephemeral)
   block_device {

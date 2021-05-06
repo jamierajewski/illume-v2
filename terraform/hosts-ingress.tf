@@ -15,7 +15,7 @@ resource "openstack_compute_instance_v2" "illume-ingress-v2" {
   flavor_name = "c10-128GB-1440"
   key_pair    = "illume-new"
   security_groups = [ "illume-internal-v2", "illume" ]
-  depends_on = [ openstack_compute_instance_v2.illume-proxy-v2 ]
+  depends_on = [ openstack_compute_instance_v2.illume-control-v2 ]
 
   # boot device (ephemeral)
   # Use a small size as we will mount the NFS with the larger storage
