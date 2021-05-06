@@ -24,26 +24,13 @@ build {
     inline = ["sudo sed -i 's/^PasswordAuthentication no/PasswordAuthentication yes/g' /etc/ssh/sshd_config"]
   }
 
-  provisioner "shell" {
-    script = "../../bootstrap/htcondor/htcondor.sh"
-  }
-
   provisioner "file" {
     destination = "/home/ubuntu/condor_config.local"
     source      = "../../bootstrap/htcondor/local_configs/execute.local"
-  }
-
-  provisioner "shell" {
-    inline = ["sudo mv /home/ubuntu/condor_config.local /etc/condor/condor_config.local"]
   }
 
   provisioner "file" {
     destination = "/home/ubuntu/condor_config_interactive.local"
     source      = "../../bootstrap/htcondor/local_configs/execute-interactive.local"
   }
-
-  provisioner "shell" {
-    inline = ["sudo mv /home/ubuntu/condor_config_interactive.local /etc/condor/condor_config_interactive.local"]
-  }
-
 }

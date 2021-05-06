@@ -16,17 +16,8 @@ source "openstack" "control" {
 build {
   sources = ["source.openstack.control"]
 
-  provisioner "shell" {
-    script = "../../bootstrap/htcondor/htcondor.sh"
-  }
-
   provisioner "file" {
     destination = "/home/ubuntu/condor_config.local"
     source      = "../../bootstrap/htcondor/local_configs/central.local"
   }
-
-  provisioner "shell" {
-    inline = ["sudo mv /home/ubuntu/condor_config.local /etc/condor/condor_config.local"]
-  }
-
 }

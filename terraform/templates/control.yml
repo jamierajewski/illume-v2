@@ -15,15 +15,14 @@ mounts:
   - [ ephemeral0.1 /var/lib/condor ]
 
 runcmd:
+  # Set up condor with control node's IP and the pool password
+  - sudo curl -fsSL https://get.htcondor.com | GET_HTCONDOR_PASSWORD=${condor_pool_pass} /bin/bash -s -- --no-dry-run --central-manager $(hostname -i | awk '{print $1}')
+  - sudo mv /home/ubuntu/condor_config.local /etc/condor/condor_config.local
   # And set the log dir with proper permissions
   - sudo chown -R condor /var/log/condor
   - sudo chgrp -R condor /var/log/condor
   - sudo chmod -R g+rwx /var/log/condor
-  # Set up condor with control node's IP and the pool password
-  - sudo sed -i "s/condor_host_ip/$(hostname -i | awk '{print $1}')/" /etc/condor/condor_config.local
-  - sudo echo '${condor_pool_pass}' > /home/ubuntu/pool_pass
-  - sudo condor_store_cred add -c -p /home/ubuntu/pool_pass
-  - sudo rm -f /home/ubuntu/pool_pass
+  # Enable Condor to start on system boot
   - sudo systemctl enable condor
   - sudo systemctl start condor
   # Disable SSH so regular users can't log in manually
