@@ -2,7 +2,7 @@
 
 set -ex
 
-# Install latest Singularity (3.7.0) along with prereqs
+# Install latest Singularity along with prereqs
 # Source:
 # https://sylabs.io/guides/3.7/admin-guide/installation.html#installation-on-linux
 
@@ -12,8 +12,8 @@ sudo apt-get update && sudo apt-get install -y build-essential uuid-dev \
 
 # Golang already installed in user-tools.sh
 
-# Download Singularity 3.7.0
-export VERSION=3.7.0
+# Download Singularity
+export VERSION=3.7.3
 wget https://github.com/hpcng/singularity/releases/download/v${VERSION}/singularity-${VERSION}.tar.gz
 tar -xzf singularity-${VERSION}.tar.gz
 rm -f singularity-${VERSION}.tar.gz
