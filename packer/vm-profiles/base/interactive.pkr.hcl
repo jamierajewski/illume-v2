@@ -26,12 +26,15 @@ build {
   }
 
   provisioner "shell" {
-    script = "../../bootstrap/cvmfs/cvmfs.sh"
+    script = "../../bootstrap/podman/podman.sh"
   }
 
   provisioner "shell" {
-    expect_disconnect = true
-    script            = "../../bootstrap/tools/user-tools.sh"
+    script = "../../bootstrap/singularity/singularity.sh"
+  }
+
+  provisioner "shell" {
+    script = "../../bootstrap/cvmfs/cvmfs.sh"
   }
 
   provisioner "file" {
@@ -40,11 +43,7 @@ build {
   }
 
   provisioner "shell" {
-    script = "../../bootstrap/podman/podman.sh"
+    expect_disconnect = true
+    script            = "../../bootstrap/tools/user-tools.sh"
   }
-
-  provisioner "shell" {
-    script = "../../bootstrap/singularity/singularity.sh"
-  }
-
 }
