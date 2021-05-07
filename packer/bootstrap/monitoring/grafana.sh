@@ -10,7 +10,7 @@ set -ex
 # 1. Nvidia Metrics (https://grafana.com/grafana/dashboards/10703)
 # 2. Node Exporter Full (https://grafana.com/grafana/dashboards/1860)
 
-export GRAF_VER=7.4.3
+export GRAF_VER=7.5.5
 
 # Fetch and install pinned Grafana release - the installation will also create
 # the 'Grafana' user which will run the service
