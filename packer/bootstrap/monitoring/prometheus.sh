@@ -7,7 +7,7 @@ set -ex
 
 # To configure automatic scraping of nodes, refer to the following guide:
 # https://medium.com/@pasquier.simon/monitoring-your-openstack-instances-with-prometheus-a7ff4324db6c
-export PROM_VER=2.25.0
+export PROM_VER=2.26.0
 
 # Create service accounts for Prometheus and the exporters
 sudo useradd --no-create-home --shell /sbin/nologin prometheus
