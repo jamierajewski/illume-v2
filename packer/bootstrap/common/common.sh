@@ -3,6 +3,7 @@
 set -ex
 
 # Common across all nodes
+export GOVERSION=1.16.4
 
 # Dependencies
 sudo apt-get update
@@ -22,13 +23,13 @@ echo 'alias rm="rm -i"' | sudo tee -a /etc/profile.d/custom.sh > /dev/null
 sudo chmod +x /etc/profile.d/custom.sh
 
 # Install golang, used to compile Singularity among other things
-wget https://golang.org/dl/go1.16.3.linux-amd64.tar.gz
-sudo tar -C /usr/local -xzf go1.16.3.linux-amd64.tar.gz
+wget https://golang.org/dl/go${GOVERSION}.linux-amd64.tar.gz
+sudo tar -C /usr/local -xzf go${GOVERSION}.linux-amd64.tar.gz
 echo 'export PATH=$PATH:/usr/local/go/bin' | sudo tee -a /etc/profile.d/custom.sh > /dev/null
 source /etc/profile.d/custom.sh
 # Verify it works
 go version
-rm -f go1.16.3.linux-amd64.tar.gz
+rm -f go${GOVERSION}.linux-amd64.tar.gz
 
 # Enable rpc service
 sudo systemctl add-wants multi-user.target rpc-statd.service
