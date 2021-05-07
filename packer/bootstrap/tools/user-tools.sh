@@ -4,6 +4,8 @@ set -ex
 
 sudo apt-get update
 
+export ANACONDA_VER=3-2020.11
+
 # Build tools and utilities
 sudo apt-get install -y build-essential \
     vim emacs \
@@ -20,7 +22,7 @@ rm -f rust-setup.sh
 
 # Anaconda - includes all scientific tools that users may wish to use,
 # and can create both python2 and 3 environments
-wget https://repo.anaconda.com/archive/Anaconda3-2020.11-Linux-x86_64.sh -O ~/anaconda.sh
+wget https://repo.anaconda.com/archive/Anaconda${ANACONDA_VER}-Linux-x86_64.sh -O ~/anaconda.sh
 sudo bash ~/anaconda.sh -b -p /opt/anaconda3
 sudo chmod 755 -R /opt/anaconda3/
 echo 'export PATH=$PATH:/opt/anaconda3/bin' | sudo tee -a /etc/profile.d/custom.sh > /dev/null
