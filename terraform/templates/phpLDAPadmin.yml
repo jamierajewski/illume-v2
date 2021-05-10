@@ -1,9 +1,10 @@
 #cloud-config
 runcmd:
   # Set openLDAP config info and restart server
-  - sudo sed -i 's/127.0.0.1/${openLDAP_IP}/' /etc/phpldapadmin/config.php,
-  - sudo sed -i 's/dc=example,dc=com/dc=illume,dc=systems/' /etc/phpldapadmin/config.php,
+  - sudo sed -i 's/127.0.0.1/${openLDAP_IP}/' /etc/phpldapadmin/config.php
+  - sudo sed -i 's/dc=example,dc=com/dc=illume,dc=systems/' /etc/phpldapadmin/config.php
   - sudo systemctl restart apache2
+  - sudo systemctl enable apache2
   # Disable SSH so regular users can't log in manually
   - sudo groupadd ssh-condor
   - sudo usermod -a -G ssh-condor ubuntu
