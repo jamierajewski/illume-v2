@@ -43,6 +43,25 @@ runcmd:
   - sudo chown -R condor /var/log/condor
   - sudo chgrp -R condor /var/log/condor
   - sudo chmod -R g+rwx /var/log/condor
+  # Before mounting the NFS drives, back up the .ssh dir for ubuntu user so we dont lose access
+  - sudo mkdir /backup
+  - sudo cp -r /home/ubuntu/.ssh /backup
+  # Set up NFS mount points
+  - sudo mkdir /data /data2 /illume
+  - echo "${nfs_data1}           /data    nfs auto,nofail,noatime,nolock,intr,tcp,actimeo=1800 0 0" | sudo tee -a /etc/fstab
+  - echo "${nfs_data2}           /data2   nfs auto,nofail,noatime,nolock,intr,tcp,actimeo=1800 0 0" | sudo tee -a /etc/fstab
+  # The home NFS is a few nested directories deep, but it isn't directly mountable
+  # Mount it first, then mount the subdir that actually maps to home
+  - echo "${nfs_home}            /illume  nfs auto,nofail,noatime,nolock,intr,tcp,actimeo=1800 0 0" | sudo tee -a /etc/fstab
+  - echo "/illume/illume/home    /home    none bind" | sudo tee -a /etc/fstab
+  # These will only take effect when the machine restarts, so force a remount
+  - sudo mount -a
+  # Since the original /home partition is hidden under the mount, the ubuntu user can no longer login. Fix that
+  - sudo mkdir /home/ubuntu
+  - sudo cp -r /backup/.ssh /home/ubuntu
+  - sudo cp /etc/skel/.bashrc /home/ubuntu
+  - sudo chown -R ubuntu /home/ubuntu
+  - sudo rm -rf /backup
   # Set up CVMFS with the proxy IPs
   - sudo sed -i 's/example1/${proxy1_IP}/' /home/ubuntu/default.local
   - sudo sed -i 's/example2/${proxy2_IP}/' /home/ubuntu/default.local
@@ -63,3 +82,9 @@ runcmd:
   # Enable and start fail2ban
   - sudo systemctl enable fail2ban
   - sudo systemctl start fail2ban
+
+  # Reboot node to force LDAP modifications to take effect
+power_state:
+  mode: reboot
+  message: 'cloud-init finished; now rebooting...'
+  delay: now
