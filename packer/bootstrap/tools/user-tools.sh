@@ -25,7 +25,7 @@ rm -f rust-setup.sh
 wget https://repo.anaconda.com/archive/Anaconda${ANACONDA_VER}-Linux-x86_64.sh -O ~/anaconda.sh
 sudo bash ~/anaconda.sh -b -p /opt/anaconda3
 sudo chmod 755 -R /opt/anaconda3/
-echo 'export PATH=$PATH:/opt/anaconda3/bin' | sudo tee -a /etc/profile.d/custom.sh > /dev/null
+echo 'export PATH=$PATH:/opt/anaconda3/bin' | sudo tee -a /etc/bash.bashrc > /dev/null
 rm -f ~/anaconda.sh
 
 # Python 3
