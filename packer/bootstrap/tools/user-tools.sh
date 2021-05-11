@@ -12,7 +12,9 @@ sudo apt-get install -y build-essential \
     zsh tcsh \
     postgresql mariadb-server sqlite3 \
     jq valgrind subversion htop \
-    default-jre default-jdk
+    default-jre default-jdk \
+    cgroup-lite \ 
+    bvi mc cmake msmtp rlwrap sshfs
 
 # Install Rust
 curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs -o rust-setup.sh
