@@ -81,17 +81,32 @@ variable "id_endpoint" {
   type = string
 }
 
+variable "nfs_data1" {
+  description = "NFS location for /data1"
+  type = string
+}
+
+variable "nfs_data2" {
+  description = "NFS location for /data2"
+  type = string
+}
+
+variable "nfs_home" {
+  description = "NFS location for /home"
+  type = string
+}
+
 // Instance counts
 variable "name_counts" {
   description = "A map containing the counts for each type of instance. Changing these will change the amount deployed"
   type = map(number)
   default = {
-    "interactive" = 0
-    "1080ti"      = 2
+    "interactive" = 1
+    "1080ti"      = 4
     "980"         = 0
     "980ti"       = 0
-    "titanxp"     = 0
-    "titanx"      = 0
+    "titanxp"     = 6
+    "titanx"      = 6
     "whole"       = 1
     "half"        = 0
     "quarter"     = 0

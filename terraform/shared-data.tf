@@ -22,6 +22,9 @@ locals {
     LDAP_admin_pass = var.ldap_admin_pass
     condor_control_IP = openstack_compute_instance_v2.illume-control-v2.network[0].fixed_ip_v4
     condor_pool_pass = var.condor_pass
+    nfs_data1 = var.nfs_data1
+    nfs_data2 = var.nfs_data2
+    nfs_home = var.nfs_home
   })
 
   worker-interactive-template = templatefile("${path.module}/templates/worker.yml", 
@@ -36,6 +39,9 @@ locals {
     LDAP_admin_pass = var.ldap_admin_pass
     condor_control_IP = openstack_compute_instance_v2.illume-control-v2.network[0].fixed_ip_v4
     condor_pool_pass = var.condor_pass
+    nfs_data1 = var.nfs_data1
+    nfs_data2 = var.nfs_data2
+    nfs_home = var.nfs_home
   })
 
   worker-half-template = templatefile("${path.module}/templates/worker.yml", 
@@ -50,6 +56,9 @@ locals {
     LDAP_admin_pass = var.ldap_admin_pass
     condor_control_IP = openstack_compute_instance_v2.illume-control-v2.network[0].fixed_ip_v4
     condor_pool_pass = var.condor_pass
+    nfs_data1 = var.nfs_data1
+    nfs_data2 = var.nfs_data2
+    nfs_home = var.nfs_home
   })
 
   worker-quarter-template = templatefile("${path.module}/templates/worker.yml", 
@@ -64,6 +73,9 @@ locals {
     LDAP_admin_pass = var.ldap_admin_pass
     condor_control_IP = openstack_compute_instance_v2.illume-control-v2.network[0].fixed_ip_v4
     condor_pool_pass = var.condor_pass
+    nfs_data1 = var.nfs_data1
+    nfs_data2 = var.nfs_data2
+    nfs_home = var.nfs_home
   })
 
   phpLDAPadmin-template = templatefile("${path.module}/templates/phpLDAPadmin.yml", 
@@ -76,6 +88,13 @@ locals {
     condor_pool_pass = var.condor_pass
   })
 
+  bastion-template = templatefile("${path.module}/templates/bastion.yml", 
+  {
+    nfs_data1 = var.nfs_data1
+    nfs_data2 = var.nfs_data2
+    nfs_home = var.nfs_home
+  })
+
   ingress-template = templatefile("${path.module}/templates/ingress.yml", 
   {
     proxy1_IP = openstack_compute_instance_v2.illume-proxy-v2[0].network[0].fixed_ip_v4
@@ -84,6 +103,9 @@ locals {
     LDAP_admin_pass = var.ldap_admin_pass
     condor_control_IP = openstack_compute_instance_v2.illume-control-v2.network[0].fixed_ip_v4
     condor_pool_pass = var.condor_pass
+    nfs_data1 = var.nfs_data1
+    nfs_data2 = var.nfs_data2
+    nfs_home = var.nfs_home
   })
 
   monitor-template = templatefile("${path.module}/templates/monitor.yml",
