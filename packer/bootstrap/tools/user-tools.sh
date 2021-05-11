@@ -16,12 +16,6 @@ sudo apt-get install -y build-essential \
     cgroup-lite \ 
     bvi mc cmake msmtp rlwrap sshfs
 
-# Install Rust
-curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs -o rust-setup.sh
-chmod +x rust-setup.sh
-./rust-setup.sh -y
-rm -f rust-setup.sh
-
 # Anaconda - includes all scientific tools that users may wish to use,
 # and can create both python2 and 3 environments
 wget https://repo.anaconda.com/archive/Anaconda${ANACONDA_VER}-Linux-x86_64.sh -O ~/anaconda.sh
