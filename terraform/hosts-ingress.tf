@@ -5,7 +5,7 @@ data "openstack_images_image_v2" "ingress-image" {
 
 resource "openstack_blockstorage_volume_v3" "ingress-volume" {
   name = "ingress-volume"
-  size = "30"
+  size = "250"
   image_id = data.openstack_images_image_v2.ingress-image.id
 }
 
@@ -17,14 +17,14 @@ resource "openstack_compute_instance_v2" "illume-ingress-v2" {
   security_groups = [ "illume-internal-v2", "illume" ]
   depends_on = [ openstack_compute_instance_v2.illume-control-v2 ]
 
-  # boot device (ephemeral)
+  # boot device (volume)
   # Use a small size as we will mount the NFS with the larger storage
   block_device {
     uuid                  = openstack_blockstorage_volume_v3.ingress-volume.id
     source_type           = "volume"
     boot_index            = 0
     destination_type      = "volume"
-    delete_on_termination = false
+    delete_on_termination = true
   }
 
   # Check out this article for creating a shared dir for podman images:
