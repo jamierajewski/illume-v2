@@ -18,11 +18,12 @@ resource "openstack_compute_instance_v2" "illume-monitor-v2" {
     volume_size           = 30
     boot_index            = 0
     destination_type      = "volume"
-    delete_on_termination = true
+    delete_on_termination = false
   }
 
   # Assign all ephemeral storage for this flavor (45GB),
   # then split it up into partitions.
+  # Right now, this isn't used for anything since prometheus data is stored on NFS
   block_device {
     boot_index            = -1
     delete_on_termination = true

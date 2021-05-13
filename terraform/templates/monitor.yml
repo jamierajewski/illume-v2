@@ -23,6 +23,15 @@ runcmd:
   - sudo sed -i 's/os_project_id/${project_id}/g' /etc/prometheus/prometheus.yml
   - sudo sed -i 's/os_region/${region}/g' /etc/prometheus/prometheus.yml
   - sudo sed -i 's/os_domain_name/${domain_name}/g' /etc/prometheus/prometheus.yml
+  # The monitoring directories are a few nested directories deep, but it those aren't directly mountable
+  # Mount the root first, then mount the subdirs that actually map to the monitor locations
+  - sudo mkdir /etc/grafana /etc/prometheus /var/lib/prometheus /var/lib/grafana
+  - echo "${nfs_home}                                 /illume               nfs auto,nofail,noatime,nolock,intr,tcp,actimeo=1800 0 0" | sudo tee -a /etc/fstab
+  - echo "/illume/illume/grafana/grafana_etc          /etc/grafana          none bind" | sudo tee -a /etc/fstab
+  - echo "/illume/illume/grafana/grafana_var          /var/lib/grafana      none bind" | sudo tee -a /etc/fstab
+  - echo "/illume/illume/prometheus/prometheus_etc    /etc/prometheus       none bind" | sudo tee -a /etc/fstab
+  - echo "/illume/illume/prometheus/prometheus_var    /var/lib/prometheus   none bind" | sudo tee -a /etc/fstab
+  - sudo mount -a
   # Enable and start Prometheus
   - sudo systemctl daemon-reload
   - sudo systemctl start prometheus
