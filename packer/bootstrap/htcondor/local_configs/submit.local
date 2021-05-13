@@ -6,5 +6,10 @@ JOB_TRANSFORM_SetExp @=end
 ]
 @end
 
+# Make jobs run as the user who submitted them
+SUBMIT_ATTRS = RunAsOwner
+RunAsOwner = True
+UID_DOMAIN = illume
+
 ROTATE_HISTORY_DAILY = True
 MAX_HISTORY_ROTATIONS = 5

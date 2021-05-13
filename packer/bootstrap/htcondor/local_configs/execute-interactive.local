@@ -13,6 +13,10 @@ NUM_SLOTS_TYPE_2 = 1
 # Use the scratch space to store condor files and run jobs from
 EXECUTE = /scratch/condor/execute
 
+# Allow jobs to be run as their owner
+STARTER_ALLOW_RUNAS_OWNER = True
+UID_DOMAIN = illume
+
 # Disable preemption
 PREEMPT=FALSE
 RANK=0
