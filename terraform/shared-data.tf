@@ -95,6 +95,11 @@ locals {
     nfs_home = var.nfs_home
   })
 
+  openLDAP-template = templatefile("${path.module}/templates/openLDAP.yml", 
+  {
+    nfs_home = var.nfs_home
+  })
+
   ingress-template = templatefile("${path.module}/templates/ingress.yml", 
   {
     proxy1_IP = openstack_compute_instance_v2.illume-proxy-v2[0].network[0].fixed_ip_v4
@@ -117,6 +122,7 @@ locals {
     project_id = var.project_id
     region = var.region
     domain_name = var.domain_name
+    nfs_home = var.nfs_home
   })
 }
 

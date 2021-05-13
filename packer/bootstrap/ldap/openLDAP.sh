@@ -22,25 +22,25 @@ sudo apt-get install -y slapd ldap-utils
 # Source: https://serverfault.com/a/796163
 # Steps are followed from 4 onward from the above source
 
-# Stop the LDAP service to make changes safely
-sudo service slapd stop
+# # Stop the LDAP service to make changes safely
+# sudo service slapd stop
 
-# Delete old configuration
-sudo rm -rf /etc/ldap/slapd.d/*
+# # Delete old configuration
+# sudo rm -rf /etc/ldap/slapd.d/*
 
-# Restore configuration
-sudo slapadd -n 0 -F /etc/ldap/slapd.d -l /home/ubuntu/CONFIG.ldif
+# # Restore configuration
+# sudo slapadd -n 0 -F /etc/ldap/slapd.d -l /home/ubuntu/CONFIG.ldif
 
-# Restore database
-sudo slapadd -n 1 -l /home/ubuntu/DATABASE.ldif
+# # Restore database
+# sudo slapadd -n 1 -l /home/ubuntu/DATABASE.ldif
 
-# Change permissions of the slapd.d directory and contents
-sudo chown -R openldap /etc/ldap/slapd.d
-sudo chmod -R 755 /etc/ldap/slapd.d
+# # Change permissions of the slapd.d directory and contents
+# sudo chown -R openldap /etc/ldap/slapd.d
+# sudo chmod -R 755 /etc/ldap/slapd.d
 
-# Change permissions of ldap directory and contents
-sudo chown -R openldap /var/lib/ldap
-sudo chmod -R 755 /var/lib/ldap
+# # Change permissions of ldap directory and contents
+# sudo chown -R openldap /var/lib/ldap
+# sudo chmod -R 755 /var/lib/ldap
 
-# Restart slapd now that we are done
-sudo service slapd start
+# # Restart slapd now that we are done
+# sudo service slapd start

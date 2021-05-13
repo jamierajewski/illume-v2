@@ -5,8 +5,6 @@ data "openstack_images_image_v2" "openLDAP-image" {
   most_recent = true
 }
 
-# Create a named volume so that we can detach and reattach for maintenance
-# This contains the LDAP database, so we want to keep it safe
 resource "openstack_blockstorage_volume_v3" "openLDAP-volume" {
   name = "openLDAP-volume"
   size = "30"
@@ -24,13 +22,13 @@ resource "openstack_compute_instance_v2" "illume-openLDAP-v2" {
     openstack_compute_instance_v2.illume-bastion-v2
   ]
 
-  # Boot from volume (created from image)
+  # Boot volume (created from image)
   block_device {
     uuid                  = openstack_blockstorage_volume_v3.openLDAP-volume.id
     source_type           = "volume"
     boot_index            = 0
     destination_type      = "volume"
-    delete_on_termination = false
+    delete_on_termination = true
   }
 
   metadata = {
@@ -42,11 +40,5 @@ resource "openstack_compute_instance_v2" "illume-openLDAP-v2" {
     name = var.network
   }
 
-  user_data = <<EOF
-#cloud-config
-runcmd:
-  # Enable and start fail2ban
-  - sudo systemctl enable fail2ban
-  - sudo systemctl start fail2ban
-EOF
+  user_data = local.openLDAP-template
 }
