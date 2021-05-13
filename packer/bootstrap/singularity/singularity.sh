@@ -32,7 +32,7 @@ sudo rm -rf /home/ubuntu/singularity /home/ubuntu/go
 
 # Add shell autocompletion
 source /usr/local/etc/bash_completion.d/singularity
-echo "source /usr/local/etc/bash_completion.d/singularity" | sudo tee -a /etc/bash.bashrc > /dev/null
+echo "source /usr/local/etc/bash_completion.d/singularity" | sudo tee -a /etc/profile.d/custom.sh > /dev/null
 
 # Test
 singularity --version

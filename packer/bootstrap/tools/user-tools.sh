@@ -6,14 +6,13 @@ sudo apt-get update
 
 export ANACONDA_VER=3-2020.11
 
-# Build tools and utilities
+# Build tools and utilities, and user tools
 sudo apt-get install -y build-essential \
     vim emacs \
     zsh tcsh \
     postgresql mariadb-server sqlite3 \
     jq valgrind subversion htop \
     default-jre default-jdk \
-    cgroup-lite \ 
     bvi mc cmake msmtp rlwrap sshfs
 
 # Anaconda - includes all scientific tools that users may wish to use,
@@ -21,7 +20,7 @@ sudo apt-get install -y build-essential \
 wget https://repo.anaconda.com/archive/Anaconda${ANACONDA_VER}-Linux-x86_64.sh -O ~/anaconda.sh
 sudo bash ~/anaconda.sh -b -p /opt/anaconda3
 sudo chmod 755 -R /opt/anaconda3/
-echo 'export PATH=$PATH:/opt/anaconda3/bin' | sudo tee -a /etc/bash.bashrc > /dev/null
+echo 'export PATH=$PATH:/opt/anaconda3/bin' | sudo tee -a /etc/profile.d/custom.sh > /dev/null
 rm -f ~/anaconda.sh
 
 # Python 3
