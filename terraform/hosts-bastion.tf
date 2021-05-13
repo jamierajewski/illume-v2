@@ -5,7 +5,7 @@ data "openstack_images_image_v2" "bastion-image" {
   most_recent = true
 }
 
-# Create a named volume so that we can detach and reattach for maintenance
+# Create a small boot device as the home directory for the ubuntu user is under the NFS
 resource "openstack_blockstorage_volume_v3" "bastion-volume" {
   name = "bastion-volume"
   size = "120"
@@ -24,7 +24,7 @@ resource "openstack_compute_instance_v2" "illume-bastion-v2" {
     source_type           = "volume"
     boot_index            = 0
     destination_type      = "volume"
-    delete_on_termination = false
+    delete_on_termination = true
   }
 
   metadata = {
