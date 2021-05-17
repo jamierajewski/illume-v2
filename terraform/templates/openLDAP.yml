@@ -5,8 +5,17 @@ runcmd:
   - sudo systemctl start fail2ban
   # The LDAP directories are a few nested directories deep, but it those aren't directly mountable
   # Mount the root first, then mount the subdirs that actually map to the LDAP locations
-  - sudo mkdir /etc/ldap /var/lib/ldap
+  - sudo systemctl stop slapd
+  - sudo mkdir /illume /etc/ldap /var/lib/ldap
   - echo "${nfs_home}                /illume        nfs auto,nofail,noatime,nolock,intr,tcp,actimeo=1800 0 0" | sudo tee -a /etc/fstab
   - echo "/illume/illume/ldap/ldap_etc    /etc/ldap      none bind" | sudo tee -a /etc/fstab
   - echo "/illume/illume/ldap/ldap_var    /var/lib/ldap  none bind" | sudo tee -a /etc/fstab
   - sudo mount -a
+  # Change permissions
+  - sudo chown -R openldap /etc/ldap/slapd.d
+  - sudo chmod -R 755 /etc/ldap/slapd.d
+  - sudo chown -R openldap /var/lib/ldap
+  - sudo chmod -R 755 /var/lib/ldap
+  # Restart slapd now that we are done
+  - sudo systemctl start slapd
+  - sudo systemctl enable slapd
