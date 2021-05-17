@@ -25,6 +25,7 @@ rm -f ~/anaconda.sh
 
 # Python 3
 sudo apt-get install -y python3-dev python3-pip
+python3 -m pip install virtualenv
 
 # Python 2, libs, tools
 sudo apt-get install -y python2 python2-dev
@@ -32,5 +33,6 @@ sudo apt-get install -y python2 python2-dev
 curl https://bootstrap.pypa.io/pip/2.7/get-pip.py --output get-pip.py
 sudo python2 get-pip.py
 rm -f get-pip.py
+python2 -m pip install virtualenv
 
 sudo reboot
