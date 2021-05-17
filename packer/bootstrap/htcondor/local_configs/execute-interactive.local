@@ -15,6 +15,7 @@ EXECUTE = /scratch/condor/execute
 
 # Allow jobs to be run as their owner
 STARTER_ALLOW_RUNAS_OWNER = True
+TRUST_UID_DOMAIN=True
 UID_DOMAIN = illume
 
 # Disable preemption
