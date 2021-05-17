@@ -43,6 +43,12 @@ runcmd:
   - sudo chown -R condor /var/log/condor
   - sudo chgrp -R condor /var/log/condor
   - sudo chmod -R g+rwx /var/log/condor
+  # Set up CVMFS with the proxy IPs
+  - sudo sed -i 's/example1/${proxy1_IP}/' /home/ubuntu/default.local
+  - sudo sed -i 's/example2/${proxy2_IP}/' /home/ubuntu/default.local
+  - sudo mv /home/ubuntu/default.local /etc/cvmfs/default.local
+  - sudo systemctl restart autofs
+  - sudo cvmfs_config probe
   # Before mounting the NFS drives, back up the .ssh dir for ubuntu user so we dont lose access
   - sudo mkdir /backup
   - sudo cp -r /home/ubuntu/.ssh /backup
@@ -62,12 +68,6 @@ runcmd:
   - sudo cp /etc/skel/.bashrc /home/ubuntu
   - sudo chown -R ubuntu /home/ubuntu
   - sudo rm -rf /backup
-  # Set up CVMFS with the proxy IPs
-  - sudo sed -i 's/example1/${proxy1_IP}/' /home/ubuntu/default.local
-  - sudo sed -i 's/example2/${proxy2_IP}/' /home/ubuntu/default.local
-  - sudo mv /home/ubuntu/default.local /etc/cvmfs/default.local
-  - sudo systemctl restart autofs
-  - sudo cvmfs_config probe
   # Set up LDAP with openLDAP IP
   - sudo sed -i 's/ldap_ip/${openLDAP_IP}/' /etc/ldap.conf
   - echo ${LDAP_admin_pass} | sudo tee /etc/ldap.secret > /dev/null
