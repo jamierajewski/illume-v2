@@ -54,12 +54,12 @@ runcmd:
   - sudo cp -r /home/ubuntu/.ssh /backup
   # Set up NFS mount points
   - sudo mkdir /data /data2 /illume
-  - echo "${nfs_data1}           /data    nfs auto,nofail,noatime,nolock,intr,tcp,actimeo=1800 0 0" | sudo tee -a /etc/fstab
-  - echo "${nfs_data2}           /data2   nfs auto,nofail,noatime,nolock,intr,tcp,actimeo=1800 0 0" | sudo tee -a /etc/fstab
+  - echo "${nfs_data1}           /data    nfs _netdev,auto,nofail,noatime,nolock,intr,tcp,actimeo=1800 0 0" | sudo tee -a /etc/fstab
+  - echo "${nfs_data2}           /data2   nfs _netdev,auto,nofail,noatime,nolock,intr,tcp,actimeo=1800 0 0" | sudo tee -a /etc/fstab
   # The home NFS is a few nested directories deep, but it isn't directly mountable
   # Mount it first, then mount the subdir that actually maps to home
-  - echo "${nfs_home}            /illume  nfs auto,nofail,noatime,nolock,intr,tcp,actimeo=1800 0 0" | sudo tee -a /etc/fstab
-  - echo "/illume/illume/home    /home    none bind" | sudo tee -a /etc/fstab
+  - echo "${nfs_home}            /illume  nfs _netdev,auto,nofail,noatime,nolock,intr,tcp,actimeo=1800 0 0" | sudo tee -a /etc/fstab
+  - echo "/illume/illume/home    /home    none _netdev,bind" | sudo tee -a /etc/fstab
   # These will only take effect when the machine restarts, so force a remount
   - sudo mount -a
   # Since the original /home partition is hidden under the mount, the ubuntu user can no longer login. Fix that

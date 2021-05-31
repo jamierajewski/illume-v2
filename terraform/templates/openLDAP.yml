@@ -7,9 +7,9 @@ runcmd:
   # Mount the root first, then mount the subdirs that actually map to the LDAP locations
   - sudo systemctl stop slapd
   - sudo mkdir /illume /etc/ldap /var/lib/ldap
-  - echo "${nfs_home}                /illume        nfs auto,nofail,noatime,nolock,intr,tcp,actimeo=1800 0 0" | sudo tee -a /etc/fstab
-  - echo "/illume/illume/ldap/ldap_etc    /etc/ldap      none bind" | sudo tee -a /etc/fstab
-  - echo "/illume/illume/ldap/ldap_var    /var/lib/ldap  none bind" | sudo tee -a /etc/fstab
+  - echo "${nfs_home}                /illume        nfs _netdev,auto,nofail,noatime,nolock,intr,tcp,actimeo=1800 0 0" | sudo tee -a /etc/fstab
+  - echo "/illume/illume/ldap/ldap_etc    /etc/ldap      none _netdev,bind" | sudo tee -a /etc/fstab
+  - echo "/illume/illume/ldap/ldap_var    /var/lib/ldap  none _netdev,bind" | sudo tee -a /etc/fstab
   - sudo mount -a
   # Change permissions
   - sudo chown -R openldap /etc/ldap/slapd.d
