@@ -13,7 +13,9 @@ sudo apt-get install -y build-essential \
     postgresql mariadb-server sqlite3 \
     jq valgrind subversion htop \
     default-jre default-jdk \
-    bvi mc cmake msmtp rlwrap sshfs
+    bvi mc cmake msmtp rlwrap sshfs \
+    texlive-latex-extra texlive-science \
+    texlive-fonts-extra
 
 # Anaconda - includes all scientific tools that users may wish to use,
 # and can create both python2 and 3 environments
