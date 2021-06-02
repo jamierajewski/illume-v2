@@ -15,6 +15,8 @@ sudo sed -i 's/^PermitRootLogin.*/PermitRootLogin no\n/g' /etc/ssh/sshd_config
 sudo sed -i 's/^PasswordAuthentication.*/PasswordAuthentication no\n/g' /etc/ssh/sshd_config
 sudo sed -i 's/^ChallengeResponseAuthentication.*/ChallengeResponseAuthentication no\n/g' /etc/ssh/sshd_config
 sudo sed -i 's/^GSSAPIAuthentication.*/GSSAPIAuthentication no\n/g' /etc/ssh/sshd_config
+sudo sed -i 's/^#TCPKeepAlive.*/TCPKeepAlive yes\n/g' /etc/ssh/sshd_config
+echo "ClientAliveInterval 10" | sudo tee -a /etc/ssh/sshd_config
 
 # Install golang, used to compile Singularity among other things
 wget https://golang.org/dl/go${GOVERSION}.linux-amd64.tar.gz
