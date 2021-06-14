@@ -1,3 +1,4 @@
+//-----Basic Configuration-----//
 variable "username" {
   description = "OpenStack username"
   type = string
@@ -81,6 +82,7 @@ variable "id_endpoint" {
   type = string
 }
 
+//-----NFS Mounts-----//
 variable "nfs_data1" {
   description = "NFS location for /data1"
   type = string
@@ -96,17 +98,28 @@ variable "nfs_home" {
   type = string
 }
 
-// Instance counts
+//-----Static IPs-----//
+variable "ingress_ip" {
+  description = "Floating IP to assign to the ingress"
+  type = string
+}
+
+variable "bastion_ip" {
+  description = "Floating IP to assign to the bastion"
+  type = string
+}
+
+//-----Instance counts-----//
 variable "name_counts" {
   description = "A map containing the counts for each type of instance. Changing these will change the amount deployed"
   type = map(number)
   default = {
-    "interactive" = 1
-    "1080ti"      = 4
+    "interactive" = 0
+    "1080ti"      = 8
     "980"         = 0
     "980ti"       = 0
-    "titanxp"     = 6
-    "titanx"      = 6
+    "titanxp"     = 11
+    "titanx"      = 11
     "whole"       = 1
     "half"        = 0
     "quarter"     = 0
