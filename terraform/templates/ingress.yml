@@ -1,33 +1,38 @@
 #cloud-config
 disk_setup:
   ephemeral0:
-    table_type: 'gpt'
+    table_type: "gpt"
     layout:
-      - 85
-      - 5
-      - 5
-      - 5
+      - 80
+      - 10
+      - 10
     overwrite: true
+  /dev/vdc:
+    table_type: "gpt"
+    layout: true
+    overwrite: false
 
+# In addition to setting up ephemeral partitions, mount the condor-queue
+# volume
 fs_setup:
   - label: ephemeral0.1
-    filesystem: 'ext4'
-    device: 'ephemeral0.1'
+    filesystem: "ext4"
+    device: "ephemeral0.1"
   - label: ephemeral0.2
-    filesystem: 'ext4'
-    device: 'ephemeral0.2'
+    filesystem: "ext4"
+    device: "ephemeral0.2"
   - label: ephemeral0.3
-    filesystem: 'ext4'
-    device: 'ephemeral0.3'
-  - label: ephemeral0.4
-    filesystem: 'ext4'
-    device: 'ephemeral0.4'
+    filesystem: "ext4"
+    device: "ephemeral0.3"
+  - label: None
+    filesystem: "ext4"
+    device: "/dev/vdc"
 
 mounts:
-  - [ ephemeral0.1, /scratch ]
-  - [ ephemeral0.2, /var/log/condor ]
-  - [ ephemeral0.3, /var/spool/condor ]
-  - [ ephemeral0.4, /var/lib/cvmfs ]
+  - [ephemeral0.1, /scratch]
+  - [ephemeral0.2, /var/log/condor]
+  - [ephemeral0.3, /var/lib/cvmfs]
+  - [vdc, /var/spool/condor]
 
 runcmd:
   # Set up condor with control node's IP and the pool password
@@ -86,5 +91,5 @@ runcmd:
   # Reboot node to force LDAP modifications to take effect
 power_state:
   mode: reboot
-  message: 'cloud-init finished; now rebooting...'
+  message: "cloud-init finished; now rebooting..."
   delay: now
