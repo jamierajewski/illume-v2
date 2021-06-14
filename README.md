@@ -38,8 +38,8 @@ This is achieved with a two-stage process - using [Packer](https://www.packer.io
 In the `/terraform` directory, you will find a collection of `host-` profiles, which are the profiles of the instances we want to create on the hardware. These can easily be scaled and customized to fit your hardware, and even modified (with a bit of work) to suit other infrastructure providers like AWS, as [Terraform offers API's for many of them](https://registry.terraform.io/browse/providers).
 
 ## Prerequisites
-- Packer 1.7.0+
-- Terraform 0.15.3+
+- Packer 1.7.2+
+- Terraform 1.0.0+
 - OpenStack RC File (can be retrieved by logging into OpenStack -> click username in the top right -> Download `OpenStack RC File V3`)
 - An SSH key pair for provisioning
 - (Optional) [OpenStack Client](https://docs.openstack.org/newton/user-guide/common/cli-install-openstack-command-line-clients.html) - This is helpful for retrieving information from OpenStack like flavors etc.
