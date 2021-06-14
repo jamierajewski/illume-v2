@@ -3,6 +3,10 @@ data "openstack_images_image_v2" "ingress-image" {
   most_recent = true
 }
 
+data "openstack_blockstorage_volume_v3" "condor-queue" {
+  name = "condor-queue"
+}
+
 resource "openstack_blockstorage_volume_v3" "ingress-volume" {
   name = "ingress-volume"
   size = "250"
@@ -52,9 +56,16 @@ resource "openstack_compute_instance_v2" "illume-ingress-v2" {
   user_data = local.ingress-template
 }
 
+# Attach the condor-queue volume
+resource "openstack_compute_volume_attach_v2" "condor-queue-volume" {
+  instance_id = openstack_compute_instance_v2.illume-ingress-v2.id
+  volume_id = data.openstack_blockstorage_volume_v3.condor-queue.id
+}
+
 # Attach a floating IP to this instance
 resource "openstack_networking_floatingip_v2" "illume-ingress-v2" {
   pool = var.floating_ip_pool
+  address = var.ingress_ip
 }
 
 resource "openstack_compute_floatingip_associate_v2" "illume-ingress-v2" {
