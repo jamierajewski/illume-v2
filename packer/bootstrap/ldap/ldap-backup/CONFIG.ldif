@@ -1,0 +1,1152 @@
+dn: dc=illume,dc=systems
+objectClass: top
+objectClass: dcObject
+objectClass: organization
+o: Illume Systems
+dc: illume
+structuralObjectClass: organization
+entryUUID: 8275ad12-b39e-1037-84d6-d1658a416eb5
+creatorsName: cn=admin,dc=illume,dc=systems
+createTimestamp: 20180304022136Z
+entryCSN: 20180304022136.904081Z#000000#000#000000
+modifiersName: cn=admin,dc=illume,dc=systems
+modifyTimestamp: 20180304022136Z
+
+dn: cn=admin,dc=illume,dc=systems
+objectClass: simpleSecurityObject
+objectClass: organizationalRole
+cn: admin
+description: LDAP administrator
+structuralObjectClass: organizationalRole
+entryUUID: 8276cc4c-b39e-1037-84d7-d1658a416eb5
+creatorsName: cn=admin,dc=illume,dc=systems
+createTimestamp: 20180304022136Z
+userPassword:: e1NTSEF9MzY1OVZsSUR6U2wxYWh0dFpUd3IzUmx1Ukp5VnBnVUE=
+entryCSN: 20191115182240.448084Z#000000#000#000000
+modifiersName: cn=admin,dc=illume,dc=systems
+modifyTimestamp: 20191115182240Z
+
+dn: ou=groups,dc=illume,dc=systems
+objectClass: organizationalUnit
+objectClass: top
+ou: groups
+structuralObjectClass: organizationalUnit
+entryUUID: 47c56a7e-b3a1-1037-9c0e-d9d4764ded74
+creatorsName: cn=admin,dc=illume,dc=systems
+createTimestamp: 20180304024126Z
+entryCSN: 20180304024126.931275Z#000000#000#000000
+modifiersName: cn=admin,dc=illume,dc=systems
+modifyTimestamp: 20180304024126Z
+
+dn: cn=admin,ou=groups,dc=illume,dc=systems
+cn: admin
+gidNumber: 500
+memberUid: ckopper
+objectClass: posixGroup
+objectClass: top
+structuralObjectClass: posixGroup
+entryUUID: 47c7b2ac-b3a1-1037-9c0f-d9d4764ded74
+creatorsName: cn=admin,dc=illume,dc=systems
+createTimestamp: 20180304024126Z
+entryCSN: 20180304024126.946231Z#000000#000#000000
+modifiersName: cn=admin,dc=illume,dc=systems
+modifyTimestamp: 20180304024126Z
+
+dn: cn=users,ou=groups,dc=illume,dc=systems
+cn: users
+gidNumber: 501
+objectClass: posixGroup
+objectClass: top
+structuralObjectClass: posixGroup
+entryUUID: 47cdecf8-b3a1-1037-9c10-d9d4764ded74
+creatorsName: cn=admin,dc=illume,dc=systems
+createTimestamp: 20180304024126Z
+entryCSN: 20180304024126.987044Z#000000#000#000000
+modifiersName: cn=admin,dc=illume,dc=systems
+modifyTimestamp: 20180304024126Z
+
+dn: ou=users,dc=illume,dc=systems
+objectClass: organizationalUnit
+objectClass: top
+ou: users
+structuralObjectClass: organizationalUnit
+entryUUID: 47ce97d4-b3a1-1037-9c11-d9d4764ded74
+creatorsName: cn=admin,dc=illume,dc=systems
+createTimestamp: 20180304024126Z
+entryCSN: 20180304024126.991418Z#000000#000#000000
+modifiersName: cn=admin,dc=illume,dc=systems
+modifyTimestamp: 20180304024126Z
+
+dn: cn=Benedikt Riedel,ou=users,dc=illume,dc=systems
+cn: Benedikt Riedel
+gidNumber: 501
+givenName: Benedikt
+loginShell: /bin/bash
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: top
+sn: Riedel
+uid: briedel
+uidNumber: 1005
+userPassword:: e1NTSEF9eW1mQW9jdlNYdWo0Tlo1dXVsUXJCU3g2d2dnSHhhK2E=
+structuralObjectClass: inetOrgPerson
+entryUUID: 47d9d662-b3a1-1037-9c12-d9d4764ded74
+creatorsName: cn=admin,dc=illume,dc=systems
+createTimestamp: 20180304024127Z
+homeDirectory: /home/briedel
+entryCSN: 20180304192431.175256Z#000000#000#000000
+modifiersName: cn=admin,dc=illume,dc=systems
+modifyTimestamp: 20180304192431Z
+
+dn: cn=Christopher Weaver,ou=users,dc=illume,dc=systems
+cn: Christopher Weaver
+gidNumber: 501
+givenName: Christopher
+loginShell: /bin/bash
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: top
+sn: Weaver
+uid: cweaver
+uidNumber: 1001
+userPassword:: e1NTSEF9UjkrbXJoV2pkTTlwMnd0MHgzK2lVSDVxL0ZwRm9OeEc=
+structuralObjectClass: inetOrgPerson
+entryUUID: 47df76c6-b3a1-1037-9c13-d9d4764ded74
+creatorsName: cn=admin,dc=illume,dc=systems
+createTimestamp: 20180304024127Z
+homeDirectory: /home/cweaver
+entryCSN: 20180304192425.896037Z#000000#000#000000
+modifiersName: cn=admin,dc=illume,dc=systems
+modifyTimestamp: 20180304192425Z
+
+dn: cn=David Schultz,ou=users,dc=illume,dc=systems
+cn: David Schultz
+givenName: David
+loginShell: /bin/bash
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: top
+sn: Schultz
+uid: dschultz
+uidNumber: 1004
+structuralObjectClass: inetOrgPerson
+entryUUID: 47e90506-b3a1-1037-9c15-d9d4764ded74
+creatorsName: cn=admin,dc=illume,dc=systems
+createTimestamp: 20180304024127Z
+homeDirectory: /home/dschultz
+gidNumber: 500
+userPassword:: e2NyeXB0fSQxJDZSOC5DWXJLJGp5RXBoalgyVWw5ajdteGROb1l3YzE=
+entryCSN: 20210512155256.282562Z#000000#000#000000
+modifiersName: cn=admin,dc=illume,dc=systems
+modifyTimestamp: 20210512155256Z
+
+dn: cn=Sarah Nowicki,ou=users,dc=illume,dc=systems
+cn: Sarah Nowicki
+gidNumber: 501
+givenName: Sarah
+loginShell: /bin/bash
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: top
+sn: Nowicki
+uid: snowicki
+uidNumber: 1002
+userPassword:: e1NTSEF9RlRZc28wWUdxMTJQVnJqenBGczNua3F6VWd3MS9JVmg=
+structuralObjectClass: inetOrgPerson
+entryUUID: 47f0bd8c-b3a1-1037-9c16-d9d4764ded74
+creatorsName: cn=admin,dc=illume,dc=systems
+createTimestamp: 20180304024127Z
+homeDirectory: /home/snowicki
+entryCSN: 20180304192406.823373Z#000000#000#000000
+modifiersName: cn=admin,dc=illume,dc=systems
+modifyTimestamp: 20180304192406Z
+
+dn: cn=Sourav Sarkar,ou=users,dc=illume,dc=systems
+cn: Sourav Sarkar
+gidNumber: 501
+givenName: Sourav
+loginShell: /bin/bash
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: top
+sn: Sarkar
+uid: ssarkar
+uidNumber: 1006
+userPassword:: e1NTSEF9Qjl6UjFHNms3NmxZRkE1YkdvZXA1WEppSFFrZGJJTGI=
+structuralObjectClass: inetOrgPerson
+entryUUID: 47f55a68-b3a1-1037-9c17-d9d4764ded74
+creatorsName: cn=admin,dc=illume,dc=systems
+createTimestamp: 20180304024127Z
+homeDirectory: /home/ssarkar
+entryCSN: 20180304192400.064416Z#000000#000#000000
+modifiersName: cn=admin,dc=illume,dc=systems
+modifyTimestamp: 20180304192400Z
+
+dn: cn=Tania Wood,ou=users,dc=illume,dc=systems
+cn: Tania Wood
+gidNumber: 501
+givenName: Tania
+loginShell: /bin/bash
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: top
+sn: Wood
+uid: trwood
+uidNumber: 1003
+userPassword:: e1NTSEF9c0ErVjBZWUN0TE13Z0YrQjJZL25LdExSdk5sQ0Y4UnQ=
+structuralObjectClass: inetOrgPerson
+entryUUID: 47f9b41e-b3a1-1037-9c18-d9d4764ded74
+creatorsName: cn=admin,dc=illume,dc=systems
+createTimestamp: 20180304024127Z
+homeDirectory: /home/trwood
+entryCSN: 20180304192316.747167Z#000000#000#000000
+modifiersName: cn=admin,dc=illume,dc=systems
+modifyTimestamp: 20180304192316Z
+
+dn: cn=Tianlu Yuan,ou=users,dc=illume,dc=systems
+cn: Tianlu Yuan
+gidNumber: 501
+givenName: Tianlu
+loginShell: /bin/bash
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: top
+sn: Yuan
+uid: tyuan
+uidNumber: 1007
+userPassword:: e1NTSEF9MHNObTFwVGliNXM0Y0VlcXNkRjJZbzI4WUxtUWV6dWg=
+structuralObjectClass: inetOrgPerson
+entryUUID: 47fdca4a-b3a1-1037-9c19-d9d4764ded74
+creatorsName: cn=admin,dc=illume,dc=systems
+createTimestamp: 20180304024127Z
+homeDirectory: /home/tyuan
+entryCSN: 20180304192308.461737Z#000000#000#000000
+modifiersName: cn=admin,dc=illume,dc=systems
+modifyTimestamp: 20180304192308Z
+
+dn: cn=Karin Gilje,ou=users,dc=illume,dc=systems
+cn: Karin Gilje
+givenName: Karin
+gidNumber: 501
+homeDirectory: /home/users/kgilje
+sn: Gilje
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: top
+uidNumber: 1008
+uid: kgilje
+structuralObjectClass: inetOrgPerson
+entryUUID: 207e54ae-ba71-1037-8b03-d3a05dc9d598
+creatorsName: cn=admin,dc=illume,dc=systems
+createTimestamp: 20180312184423Z
+loginShell: /bin/bash
+userPassword:: e1NTSEF9dHdxUlEyNFdscVRvNXJDRll2NWlGdCsrb2VnemJrbEU=
+entryCSN: 20180312215818.767516Z#000000#000#000000
+modifiersName: cn=Karin Gilje,ou=users,dc=illume,dc=systems
+modifyTimestamp: 20180312215818Z
+
+dn: cn=OSG Account,ou=users,dc=illume,dc=systems
+cn: OSG Account
+givenName: OSG
+gidNumber: 501
+homeDirectory: /home/users/osg
+sn: Account
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: top
+userPassword:: e1NIQX1SN0lzZXBwR2FVUGxzVjJsTmJSMWQ4TTZyWHc9
+uidNumber: 1009
+uid: osg
+structuralObjectClass: inetOrgPerson
+entryUUID: 8299d712-ba71-1037-8b04-d3a05dc9d598
+creatorsName: cn=admin,dc=illume,dc=systems
+createTimestamp: 20180312184707Z
+loginShell: /bin/bash
+entryCSN: 20180312184716.715955Z#000000#000#000000
+modifiersName: cn=admin,dc=illume,dc=systems
+modifyTimestamp: 20180312184716Z
+
+dn: cn=Juan Pablo Yanez,ou=users,dc=illume,dc=systems
+cn: Juan Pablo Yanez
+givenName: Juan Pablo
+gidNumber: 501
+sn: Yanez
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: top
+uidNumber: 1010
+structuralObjectClass: inetOrgPerson
+entryUUID: 284ebd5c-c26b-1037-918f-d721868712e8
+creatorsName: cn=admin,dc=illume,dc=systems
+createTimestamp: 20180322222148Z
+homeDirectory: /home/users/jpyanez
+loginShell: /bin/bash
+uid: jpyanez
+userPassword:: e1NTSEF9eWd4b21CRFFlOXVNOXBQSHR6MG4yZk5RMmNKMSs4MGE=
+entryCSN: 20210309234751.220338Z#000000#000#000000
+modifiersName: cn=Juan Pablo Yanez,ou=users,dc=illume,dc=systems
+modifyTimestamp: 20210309234751Z
+
+dn: cn=Carlos Arguelles,ou=users,dc=illume,dc=systems
+cn: Carlos Arguelles
+givenName: Carlos
+gidNumber: 501
+homeDirectory: /home/users/carguelles
+sn: Arguelles
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: top
+uidNumber: 1013
+uid: carguelles
+structuralObjectClass: inetOrgPerson
+entryUUID: 1ce82b10-e8b8-1037-8b42-91c5bebf293f
+creatorsName: cn=admin,dc=illume,dc=systems
+createTimestamp: 20180510160825Z
+loginShell: /bin/bash
+userPassword:: e1NTSEF9RjE1Y2dhOWtBdFpiYzRCRmtsOUlVQm11MEdWd0o0dWY=
+entryCSN: 20180510163123.950656Z#000000#000#000000
+modifiersName: cn=Carlos Arguelles,ou=users,dc=illume,dc=systems
+modifyTimestamp: 20180510163123Z
+
+dn: cn=Austin Schneider,ou=users,dc=illume,dc=systems
+cn: Austin Schneider
+givenName: Austin
+gidNumber: 501
+homeDirectory: /home/users/aschneider
+sn: Schneider
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: top
+userPassword:: e1NTSEF9c3lkQ3NzZkVCT3ZHc1lYcE16Um5QTHhQYUtyY3BCc2o=
+uidNumber: 1015
+uid: aschneider
+structuralObjectClass: inetOrgPerson
+entryUUID: 2d9f8c56-e9b1-1037-8b44-91c5bebf293f
+creatorsName: cn=admin,dc=illume,dc=systems
+createTimestamp: 20180511215117Z
+loginShell: /bin/bash
+entryCSN: 20180511215125.237791Z#000000#000#000000
+modifiersName: cn=admin,dc=illume,dc=systems
+modifyTimestamp: 20180511215125Z
+
+dn: cn=Shivesh Mandalia,ou=users,dc=illume,dc=systems
+cn: Shivesh Mandalia
+givenName: Shivesh
+gidNumber: 501
+homeDirectory: /home/users/smandalia
+sn: Mandalia
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: top
+uidNumber: 1016
+uid: smandalia
+structuralObjectClass: inetOrgPerson
+entryUUID: 538257d2-e9b1-1037-8b45-91c5bebf293f
+creatorsName: cn=admin,dc=illume,dc=systems
+createTimestamp: 20180511215221Z
+loginShell: /bin/bash
+userPassword:: e1NTSEF9SFNOa3dHeW84Wi9lYVdpVjFCQ095ZndZUEdNM3R2cG8=
+entryCSN: 20190410144312.252126Z#000000#000#000000
+modifiersName: cn=Shivesh Mandalia,ou=users,dc=illume,dc=systems
+modifyTimestamp: 20190410144312Z
+
+dn: cn=Juliana Stachurska,ou=users,dc=illume,dc=systems
+cn: Juliana Stachurska
+givenName: Juliana
+gidNumber: 501
+homeDirectory: /home/users/jstachurska
+sn: Stachurska
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: top
+userPassword:: e1NTSEF9RnJNL05jdFJBdDlJY1Y4SllNK3dlVFM1QjlYaGVweDY=
+uidNumber: 1017
+uid: jstachurska
+structuralObjectClass: inetOrgPerson
+entryUUID: 6c9fd122-e9b1-1037-8b46-91c5bebf293f
+creatorsName: cn=admin,dc=illume,dc=systems
+createTimestamp: 20180511215303Z
+loginShell: /bin/bash
+entryCSN: 20180511215313.468402Z#000000#000#000000
+modifiersName: cn=admin,dc=illume,dc=systems
+modifyTimestamp: 20180511215313Z
+
+dn: cn=Hrvoje Dujmovic,ou=users,dc=illume,dc=systems
+cn: Hrvoje Dujmovic
+givenName: Hrvoje
+gidNumber: 501
+homeDirectory: /home/users/hdujmovic
+sn: Dujmovic
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: top
+userPassword:: e1NTSEF9cFM0ZzlmaUZ6RTAxZUQ0MDI3OTZnQ2E4WjVhNFhydWQ=
+uidNumber: 1018
+uid: hdujmovic
+structuralObjectClass: inetOrgPerson
+entryUUID: a6b65ef8-e9b1-1037-8b47-91c5bebf293f
+creatorsName: cn=admin,dc=illume,dc=systems
+createTimestamp: 20180511215440Z
+loginShell: /bin/bash
+entryCSN: 20180511215446.886761Z#000000#000#000000
+modifiersName: cn=admin,dc=illume,dc=systems
+modifyTimestamp: 20180511215446Z
+
+dn: cn=Joshua Hignight,ou=users,dc=illume,dc=systems
+cn: Joshua Hignight
+givenName: Joshua
+gidNumber: 501
+homeDirectory: /home/users/hignight
+sn: Hignight
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: top
+uidNumber: 1019
+uid: hignight
+structuralObjectClass: inetOrgPerson
+entryUUID: 9e1e2a54-ebe2-1037-8b48-91c5bebf293f
+creatorsName: cn=admin,dc=illume,dc=systems
+createTimestamp: 20180514165014Z
+loginShell: /bin/zsh
+userPassword:: e1NTSEF9enVKN2VQaHNLa2NmVGtuQkx6Z2J3eG9CNWJsS3FKSWs=
+entryCSN: 20200210214438.938756Z#000000#000#000000
+modifiersName: cn=Joshua Hignight,ou=users,dc=illume,dc=systems
+modifyTimestamp: 20200210214438Z
+
+dn: cn=Tetiana Kozynets,ou=users,dc=illume,dc=systems
+cn: Tetiana Kozynets
+givenName: Tetiana
+gidNumber: 501
+homeDirectory: /home/users/kozynets
+sn: Kozynets
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: top
+uidNumber: 1021
+uid: kozynets
+structuralObjectClass: inetOrgPerson
+entryUUID: 2d71ee56-5151-1038-8793-27f3150a288c
+creatorsName: cn=admin,dc=illume,dc=systems
+createTimestamp: 20180920184606Z
+loginShell: /bin/bash
+userPassword:: e1NTSEF9Nng5ZkZRMjE4QWdsWlhqYlBBRnlEU2l5OVhRRFhmZkw=
+entryCSN: 20180921162847.840938Z#000000#000#000000
+modifiersName: cn=Tetiana Kozynets,ou=users,dc=illume,dc=systems
+modifyTimestamp: 20180921162847Z
+
+dn: cn=Roger Moore,ou=users,dc=illume,dc=systems
+cn: Roger Moore
+givenName: Roger
+gidNumber: 501
+sn: Moore
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: top
+uidNumber: 1022
+structuralObjectClass: inetOrgPerson
+entryUUID: c6c0a3ea-cb40-1038-809a-fb3b7c0fa1a8
+creatorsName: cn=admin,dc=illume,dc=systems
+createTimestamp: 20190222225604Z
+loginShell: /bin/bash
+uid: rwmoore
+homeDirectory: /home/users/rmoore
+userPassword:: e1NTSEF9WjI4bWE4WE9EMVBtZVM1aitqZ2xtdy90V0trZVhFaFE=
+entryCSN: 20200219192447.125270Z#000000#000#000000
+modifiersName: cn=Roger Moore,ou=users,dc=illume,dc=systems
+modifyTimestamp: 20200219192447Z
+
+dn: cn=Joshua Guthrie,ou=users,dc=illume,dc=systems
+cn: Joshua Guthrie
+givenName: Joshua
+gidNumber: 501
+homeDirectory: /home/users/jguthrie
+sn: Guthrie
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: top
+uidNumber: 1023
+uid: jguthrie
+structuralObjectClass: inetOrgPerson
+entryUUID: 74e9f2f2-e52a-1038-9df2-d7a5d173feb5
+creatorsName: cn=admin,dc=illume,dc=systems
+createTimestamp: 20190327222148Z
+loginShell: /bin/bash
+userPassword:: e1NTSEF9NjhuNU9ENzh2TzhhK0h4d0xqelBDY0tKYUFiaFpaL0s=
+entryCSN: 20190405035446.471491Z#000000#000#000000
+modifiersName: cn=Joshua Guthrie,ou=users,dc=illume,dc=systems
+modifyTimestamp: 20190405035446Z
+
+dn: cn=Anatoli Fedynitch,ou=users,dc=illume,dc=systems
+cn: Anatoli Fedynitch
+givenName: Anatoli
+gidNumber: 501
+homeDirectory: /home/users/afedynitch
+sn: Fedynitch
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: top
+uidNumber: 1024
+uid: afedynitch
+structuralObjectClass: inetOrgPerson
+entryUUID: 403529f4-0d26-1039-9df3-d7a5d173feb5
+creatorsName: cn=admin,dc=illume,dc=systems
+createTimestamp: 20190517193228Z
+loginShell: /bin/bash
+userPassword:: e1NTSEF9djFoamN1MFdRSXcrNVlKa1MvbXpGblRXSWFob1VaU0M=
+entryCSN: 20190517193414.236333Z#000000#000#000000
+modifiersName: cn=Anatoli Fedynitch,ou=users,dc=illume,dc=systems
+modifyTimestamp: 20190517193414Z
+
+dn: cn=Jean Pierre Twagirayezu,ou=users,dc=illume,dc=systems
+cn: Jean Pierre Twagirayezu
+givenName: Jean Pierre
+gidNumber: 501
+homeDirectory: /home/users/twagiray
+sn: Twagirayezu
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: top
+uidNumber: 1025
+uid: twagiray
+structuralObjectClass: inetOrgPerson
+entryUUID: 58fa47d6-1040-1039-9df4-d7a5d173feb5
+creatorsName: cn=admin,dc=illume,dc=systems
+createTimestamp: 20190521181650Z
+loginShell: /bin/bash
+userPassword:: e1NTSEF9cXpPVktZNWJjZXBZTHp2UDRkWkZHdWlPUUZCb01wdGg=
+entryCSN: 20190521194432.133368Z#000000#000#000000
+modifiersName: cn=Jean Pierre Twagirayezu,ou=users,dc=illume,dc=systems
+modifyTimestamp: 20190521194432Z
+
+dn: cn=Sebastian Sanchez Herrera,ou=users,dc=illume,dc=systems
+cn: Sebastian Sanchez Herrera
+givenName: Sebastian
+gidNumber: 501
+homeDirectory: /home/users/sanchezh
+sn: Sanchez Herrera
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: top
+uidNumber: 1026
+uid: sanchezh
+structuralObjectClass: inetOrgPerson
+entryUUID: ce70995c-1040-1039-9df5-d7a5d173feb5
+creatorsName: cn=admin,dc=illume,dc=systems
+createTimestamp: 20190521182007Z
+loginShell: /bin/bash
+userPassword:: e1NTSEF9QVoxZkpId2ZNWEhqckFWMjNuUWhkWFVkY0taTDNpb04=
+entryCSN: 20190708112039.490981Z#000000#000#000000
+modifiersName: cn=Sebastian Sanchez Herrera,ou=users,dc=illume,dc=systems
+modifyTimestamp: 20190708112039Z
+
+dn: cn=Dominik Fuchsgruber,ou=users,dc=illume,dc=systems
+cn: Dominik Fuchsgruber
+givenName: Dominik
+gidNumber: 501
+homeDirectory: /home/users/fuchsgru
+sn: Fuchsgruber
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: top
+uidNumber: 1027
+uid: fuchsgru
+structuralObjectClass: inetOrgPerson
+entryUUID: 550f6122-224e-1039-9df6-d7a5d173feb5
+creatorsName: cn=admin,dc=illume,dc=systems
+createTimestamp: 20190613174217Z
+loginShell: /bin/bash
+userPassword:: e1NTSEF9QzgwTFltSFdDOE9Xc2hvemlRenlEVHJ2eDRmc24yTy8=
+entryCSN: 20190613174431.857997Z#000000#000#000000
+modifiersName: cn=Dominik Fuchsgruber,ou=users,dc=illume,dc=systems
+modifyTimestamp: 20190613174431Z
+
+dn: cn=Dvir Hilu,ou=users,dc=illume,dc=systems
+cn: Dvir Hilu
+givenName: Dvir
+gidNumber: 501
+homeDirectory: /home/users/dhilu
+sn: Hilu
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: top
+uidNumber: 1028
+uid: dhilu
+structuralObjectClass: inetOrgPerson
+entryUUID: 4ceb0f22-3159-1039-9df7-d7a5d173feb5
+creatorsName: cn=admin,dc=illume,dc=systems
+createTimestamp: 20190702210835Z
+loginShell: /bin/bash
+userPassword:: e1NTSEF9WXRjTDdITUw5RTl1TTBpNUlsNTFqZVhhRFBqdFVNNUc=
+entryCSN: 20190703164353.888415Z#000000#000#000000
+modifiersName: cn=Dvir Hilu,ou=users,dc=illume,dc=systems
+modifyTimestamp: 20190703164353Z
+
+dn: cn=Thomas DeMastri,ou=users,dc=illume,dc=systems
+cn: Thomas DeMastri
+givenName: Thomas
+gidNumber: 501
+homeDirectory: /home/users/tdemastri
+sn: DeMastri
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: top
+uidNumber: 1029
+uid: tdemastri
+structuralObjectClass: inetOrgPerson
+entryUUID: 1bb3a394-3de6-1039-9df8-d7a5d173feb5
+creatorsName: cn=admin,dc=illume,dc=systems
+createTimestamp: 20190718202646Z
+loginShell: /bin/bash
+userPassword:: e1NTSEF9UFFRRE95QittYTh2Nk9CMWdtMzg1T1pOcHZkMDhBano=
+entryCSN: 20191114171005.712828Z#000000#000#000000
+modifiersName: cn=Thomas DeMastri,ou=users,dc=illume,dc=systems
+modifyTimestamp: 20191114171005Z
+
+dn: cn=Jamie Rajewski,ou=users,dc=illume,dc=systems
+cn: Jamie Rajewski
+givenName: Jamie
+gidNumber: 501
+homeDirectory: /home/users/jrajewski
+sn: Rajewski
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: top
+uidNumber: 1030
+uid: jrajewski
+structuralObjectClass: inetOrgPerson
+entryUUID: bedcd434-6adf-1039-9df9-d7a5d173feb5
+creatorsName: cn=admin,dc=illume,dc=systems
+createTimestamp: 20190914020435Z
+loginShell: /bin/bash
+userPassword:: e1NTSEF9d0ZNS1FvbExwODBYa2U1SVVDL1NsMzhBUmpNSEdpYmU=
+mail: jrajewsk@ualberta.ca
+description: University of Alberta
+entryCSN: 20200817222704.133014Z#000000#000#000000
+modifiersName: cn=admin,dc=illume,dc=systems
+modifyTimestamp: 20200817222704Z
+
+dn: cn=Jonathan Chalaturnyk,ou=users,dc=illume,dc=systems
+cn: Jonathan Chalaturnyk
+givenName: Jonathan
+gidNumber: 501
+homeDirectory: /home/users/jchalatu
+sn: Chalaturnyk
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: top
+uidNumber: 1031
+uid: jchalatu
+structuralObjectClass: inetOrgPerson
+entryUUID: cbf295d8-9e8c-1039-8bfc-9b276a784869
+creatorsName: cn=admin,dc=illume,dc=systems
+createTimestamp: 20191118202150Z
+loginShell: /bin/bash
+userPassword:: e1NTSEF9bmJtWWx4Vnh1VVBpOXdRR1d5NUJjU09vVWgrL21jbzM=
+entryCSN: 20191219183806.451962Z#000000#000#000000
+modifiersName: cn=Jonathan Chalaturnyk,ou=users,dc=illume,dc=systems
+modifyTimestamp: 20191219183806Z
+
+dn: cn=snoprod,ou=users,dc=illume,dc=systems
+cn: snoprod
+givenName: snoprod
+gidNumber: 501
+sn: snoprod
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: top
+uidNumber: 1032
+uid: snoprod
+structuralObjectClass: inetOrgPerson
+entryUUID: ce3797be-a1aa-1039-8bfd-9b276a784869
+creatorsName: cn=admin,dc=illume,dc=systems
+createTimestamp: 20191122193412Z
+loginShell: /bin/bash
+homeDirectory: /home/snoprod
+userPassword:: e01ENX1nNUIyc3lGRVlCWndZd0pCYU9Ma2ZRPT0=
+entryCSN: 20200302183340.049919Z#000000#000#000000
+modifiersName: cn=admin,dc=illume,dc=systems
+modifyTimestamp: 20200302183340Z
+
+dn: cn=Jessie Micallef,ou=users,dc=illume,dc=systems
+cn: Jessie Micallef
+givenName: Jessie
+gidNumber: 501
+homeDirectory: /home/users/jmicallef
+sn: Micallef
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: top
+uidNumber: 1033
+uid: jmicallef
+structuralObjectClass: inetOrgPerson
+entryUUID: 245c0608-b497-1039-8bfe-9b276a784869
+creatorsName: cn=admin,dc=illume,dc=systems
+createTimestamp: 20191216213119Z
+loginShell: /bin/bash
+userPassword:: e1NTSEF9RUZWV0VDU0F1aVI4UzcyNytweGxzQzl1YzhOU0lEYlk=
+entryCSN: 20191216213354.717311Z#000000#000#000000
+modifiersName: cn=Jessie Micallef,ou=users,dc=illume,dc=systems
+modifyTimestamp: 20191216213354Z
+
+dn: cn=Kayla Leonard,ou=users,dc=illume,dc=systems
+cn: Kayla Leonard
+givenName: Kayla
+gidNumber: 501
+homeDirectory: /home/users/kleonard
+sn: Leonard
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: top
+uidNumber: 1034
+uid: kleonard
+structuralObjectClass: inetOrgPerson
+entryUUID: 495bf236-c5ba-1039-8bff-9b276a784869
+creatorsName: cn=admin,dc=illume,dc=systems
+createTimestamp: 20200107165543Z
+loginShell: /bin/bash
+userPassword:: e1NTSEF9a3g1WUZMUjRrYkdGbklxQkpFM283b0ZJb1RpMTJYK1Q=
+entryCSN: 20200107194048.581209Z#000000#000#000000
+modifiersName: cn=Kayla Leonard,ou=users,dc=illume,dc=systems
+modifyTimestamp: 20200107194048Z
+
+dn: cn=Andreas Gaertner,ou=users,dc=illume,dc=systems
+cn: Andreas Gaertner
+givenName: Andreas
+gidNumber: 501
+homeDirectory: /home/users/gaertner
+sn: Gaertner
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: top
+uidNumber: 1035
+structuralObjectClass: inetOrgPerson
+entryUUID: 4403c1b8-c774-1039-8c00-9b276a784869
+creatorsName: cn=admin,dc=illume,dc=systems
+createTimestamp: 20200109213931Z
+loginShell: /bin/bash
+uid: gaertner
+userPassword:: e1NTSEF9SlAycElrcEJtOWcwWVJoQ1gvOVBQSG40VUkydzdMSE4=
+entryCSN: 20200109215949.109606Z#000000#000#000000
+modifiersName: cn=Andreas Gaertner,ou=users,dc=illume,dc=systems
+modifyTimestamp: 20200109215949Z
+
+dn: cn=Akanksha Katil,ou=users,dc=illume,dc=systems
+cn: Akanksha Katil
+givenName: Akanksha
+gidNumber: 501
+homeDirectory: /home/users/akatil
+sn: Katil
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: top
+uidNumber: 1036
+uid: akatil
+structuralObjectClass: inetOrgPerson
+entryUUID: bfea9eea-ca9a-1039-8c01-9b276a784869
+creatorsName: cn=admin,dc=illume,dc=systems
+createTimestamp: 20200113215234Z
+loginShell: /bin/bash
+userPassword:: e1NTSEF9Q1VTRmhyWU5GMW1FdDNrTk9KUW03Q2d5amxtWDB2Nkk=
+entryCSN: 20200113222819.274410Z#000000#000#000000
+modifiersName: cn=Akanksha Katil,ou=users,dc=illume,dc=systems
+modifyTimestamp: 20200113222819Z
+
+dn: cn=Brian Clark,ou=users,dc=illume,dc=systems
+cn: Brian Clark
+givenName: Brian
+gidNumber: 501
+homeDirectory: /home/users/baclark
+sn: Clark
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: top
+uidNumber: 1037
+uid: baclark
+structuralObjectClass: inetOrgPerson
+entryUUID: 0d4c679a-dd4c-1039-9e91-dbd1c6263ab5
+creatorsName: cn=admin,dc=illume,dc=systems
+createTimestamp: 20200206164705Z
+loginShell: /bin/bash
+userPassword:: e1NTSEF9aWNXYkRRbTBkb3Q3bVlXdUFLZktyNE4zbFJzUDdXQk0=
+entryCSN: 20200206172223.425525Z#000000#000#000000
+modifiersName: cn=Brian Clark,ou=users,dc=illume,dc=systems
+modifyTimestamp: 20200206172223Z
+
+dn: cn=Dilraj Ghuman,ou=users,dc=illume,dc=systems
+cn: Dilraj Ghuman
+givenName: Dilraj
+gidNumber: 501
+homeDirectory: /home/users/ghuman
+sn: Ghuman
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: top
+uidNumber: 1038
+uid: ghuman
+structuralObjectClass: inetOrgPerson
+entryUUID: 7d2fbeae-de19-1039-9e97-dbd1c6263ab5
+creatorsName: cn=admin,dc=illume,dc=systems
+createTimestamp: 20200207171740Z
+loginShell: /bin/bash
+userPassword:: e1NTSEF9cm5QN3RLSC9LbDduUFE0ZkpLYTBJRDZ6ak9DTXpTSTc=
+entryCSN: 20200224193441.270912Z#000000#000#000000
+modifiersName: cn=Dilraj Ghuman,ou=users,dc=illume,dc=systems
+modifyTimestamp: 20200224193441Z
+
+dn: cn=Sasha Stesnyash,ou=users,dc=illume,dc=systems
+cn: Sasha Stesnyash
+givenName: Sasha
+gidNumber: 501
+homeDirectory: /home/users/sstesnyash
+sn: Stesnyash
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: top
+uidNumber: 1039
+uid: sstesnyash
+structuralObjectClass: inetOrgPerson
+entryUUID: 8f1e85d2-e6bb-1039-92a9-eb94a6404a16
+creatorsName: cn=admin,dc=illume,dc=systems
+createTimestamp: 20200218165758Z
+loginShell: /bin/bash
+userPassword:: e1NTSEF9NFlUVTRqcHZyb21ZWUFreW96aUFPQUJxMVprRkh5bXM=
+entryCSN: 20200318163126.242346Z#000000#000#000000
+modifiersName: cn=Sasha Stesnyash,ou=users,dc=illume,dc=systems
+modifyTimestamp: 20200318163126Z
+
+dn: cn=Igor Nepp,ou=users,dc=illume,dc=systems
+cn: Igor Nepp
+givenName: Igor
+gidNumber: 501
+homeDirectory: /home/users/inepp
+sn: Nepp
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: top
+uidNumber: 1040
+uid: inepp
+structuralObjectClass: inetOrgPerson
+entryUUID: 79ca22b2-e6bc-1039-92aa-eb94a6404a16
+creatorsName: cn=admin,dc=illume,dc=systems
+createTimestamp: 20200218170431Z
+loginShell: /bin/bash
+userPassword:: e1NTSEF9Q04ybTZOY1FqS1hGT2l5SkdISkJEbkFWTkU1Q3krWGY=
+entryCSN: 20200219212938.557396Z#000000#000#000000
+modifiersName: cn=Igor Nepp,ou=users,dc=illume,dc=systems
+modifyTimestamp: 20200219212938Z
+
+dn: cn=snoproddirac,ou=users,dc=illume,dc=systems
+givenName: snoproddirac
+gidNumber: 501
+homeDirectory: /home/snoproddirac
+sn: snoproddirac
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: top
+userPassword:: e01ENX1nNUIyc3lGRVlCWndZd0pCYU9Ma2ZRPT0=
+uidNumber: 1041
+uid: snoproddirac
+structuralObjectClass: inetOrgPerson
+entryUUID: 705654a0-fdad-1039-92ac-eb94a6404a16
+creatorsName: cn=admin,dc=illume,dc=systems
+createTimestamp: 20200318214450Z
+cn: snoproddirac
+loginShell: /bin/bash
+entryCSN: 20200318214545.152842Z#000000#000#000000
+modifiersName: cn=admin,dc=illume,dc=systems
+modifyTimestamp: 20200318214545Z
+
+dn: cn=Matthias Danninger Danninger,ou=users,dc=illume,dc=systems
+cn: Matthias Danninger Danninger
+givenName: Matthias Danninger
+gidNumber: 501
+homeDirectory: /home/users/mdanninger
+sn: Danninger
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: top
+uidNumber: 1042
+uid: mdanninger
+structuralObjectClass: inetOrgPerson
+entryUUID: 71580410-23fb-103a-92ad-eb94a6404a16
+creatorsName: cn=admin,dc=illume,dc=systems
+createTimestamp: 20200506153856Z
+loginShell: /bin/bash
+userPassword:: e1NTSEF9ZktIQktnN2FHNDA2NnJHRVl3K29wREZiKyszanR3SHo=
+entryCSN: 20200507005001.372803Z#000000#000#000000
+modifiersName: cn=Matthias Danninger Danninger,ou=users,dc=illume,dc=systems
+modifyTimestamp: 20200507005001Z
+
+dn: cn=Matthew Ens,ou=users,dc=illume,dc=systems
+cn: Matthew Ens
+givenName: Matthew
+gidNumber: 501
+homeDirectory: /home/users/mens
+sn: Ens
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: top
+uidNumber: 1043
+uid: mens
+structuralObjectClass: inetOrgPerson
+entryUUID: 38627a2c-23fc-103a-92ae-eb94a6404a16
+creatorsName: cn=admin,dc=illume,dc=systems
+createTimestamp: 20200506154430Z
+loginShell: /bin/bash
+userPassword:: e1NTSEF9ZXFjQlRZTEVIeHlBZG05azl6STFsbWJrZGdZUVh5WnM=
+entryCSN: 20200506154900.685683Z#000000#000#000000
+modifiersName: cn=Matthew Ens,ou=users,dc=illume,dc=systems
+modifyTimestamp: 20200506154900Z
+
+dn: cn=Lauren Smart,ou=users,dc=illume,dc=systems
+cn: Lauren Smart
+givenName: Lauren
+gidNumber: 501
+homeDirectory: /home/users/lsmart
+sn: Smart
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: top
+uidNumber: 1044
+uid: lsmart
+structuralObjectClass: inetOrgPerson
+entryUUID: ebbb33a2-2591-103a-92af-eb94a6404a16
+creatorsName: cn=admin,dc=illume,dc=systems
+createTimestamp: 20200508160837Z
+loginShell: /bin/bash
+userPassword:: e1NTSEF9OVVweE80bDR3VVcrUzE1eWxwa1NESysvZWRaK0FlQlQ=
+entryCSN: 20200512205819.238830Z#000000#000#000000
+modifiersName: cn=Lauren Smart,ou=users,dc=illume,dc=systems
+modifyTimestamp: 20200512205819Z
+
+dn: cn=Taisiia Tysak,ou=users,dc=illume,dc=systems
+cn: Taisiia Tysak
+givenName: Taisiia
+gidNumber: 501
+homeDirectory: /home/users/ttysak
+sn: Tysak
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: top
+uidNumber: 1045
+uid: ttysak
+structuralObjectClass: inetOrgPerson
+entryUUID: 633a3cd4-2e66-103a-92b0-eb94a6404a16
+creatorsName: cn=admin,dc=illume,dc=systems
+createTimestamp: 20200519214941Z
+loginShell: /bin/bash
+userPassword:: e1NTSEF9eWZkUDRPeFA3U1JmbWk3SW4zODZCbFEycnUwaU92cnE=
+entryCSN: 20200520110855.623375Z#000000#000#000000
+modifiersName: cn=Taisiia Tysak,ou=users,dc=illume,dc=systems
+modifyTimestamp: 20200520110855Z
+
+dn: cn=Hieu Le,ou=users,dc=illume,dc=systems
+cn: Hieu Le
+givenName: Hieu
+gidNumber: 501
+homeDirectory: /home/users/hieule
+sn: Le
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: top
+uidNumber: 1046
+uid: hieule
+structuralObjectClass: inetOrgPerson
+entryUUID: fd1f5676-4384-103a-92b1-eb94a6404a16
+creatorsName: cn=admin,dc=illume,dc=systems
+createTimestamp: 20200615185138Z
+loginShell: /bin/bash
+userPassword:: e1NTSEF9UHA2VVVBR3pwWExoUEFaMmg4OERYNWc5dW5zQmlPdFo=
+entryCSN: 20200615185327.869032Z#000000#000#000000
+modifiersName: cn=Hieu Le,ou=users,dc=illume,dc=systems
+modifyTimestamp: 20200615185327Z
+
+dn: cn=Maria Liubarska,ou=users,dc=illume,dc=systems
+cn: Maria Liubarska
+givenName: Maria
+gidNumber: 501
+homeDirectory: /home/users/mliubarska
+sn: Liubarska
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: top
+uidNumber: 1047
+uid: mliubarska
+structuralObjectClass: inetOrgPerson
+entryUUID: d3e2644c-45e1-103a-92b2-eb94a6404a16
+creatorsName: cn=admin,dc=illume,dc=systems
+createTimestamp: 20200618190114Z
+loginShell: /bin/bash
+userPassword:: e1NTSEF9UVRTTGJ1WjdVY1V1SkJaTXJmSUl2a1ZjK1VYekYyS3o=
+entryCSN: 20200618191648.749685Z#000000#000#000000
+modifiersName: cn=Maria Liubarska,ou=users,dc=illume,dc=systems
+modifyTimestamp: 20200618191648Z
+
+dn: cn=Thomas McElroy,ou=users,dc=illume,dc=systems
+cn: Thomas McElroy
+givenName: Thomas
+gidNumber: 501
+homeDirectory: /home/users/tmcelroy
+sn: McElroy
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: top
+userPassword:: e01ENX16aDBrR3lzQ3Y3b0xrUzk1N0piMThBPT0=
+uidNumber: 1048
+uid: tmcelroy
+structuralObjectClass: inetOrgPerson
+entryUUID: 93b7fdcc-53f7-103a-92b3-eb94a6404a16
+creatorsName: cn=admin,dc=illume,dc=systems
+createTimestamp: 20200706171212Z
+loginShell: /bin/bash
+entryCSN: 20200706171222.955400Z#000000#000#000000
+modifiersName: cn=admin,dc=illume,dc=systems
+modifyTimestamp: 20200706171222Z
+
+dn: cn=Wing Yan Ma,ou=users,dc=illume,dc=systems
+cn: Wing Yan Ma
+givenName: Wing
+gidNumber: 501
+homeDirectory: /home/users/wyanma
+sn: Yan Ma
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: top
+uidNumber: 1049
+uid: wyanma
+structuralObjectClass: inetOrgPerson
+entryUUID: 9aae6bcc-5710-103a-92b4-eb94a6404a16
+creatorsName: cn=admin,dc=illume,dc=systems
+createTimestamp: 20200710154855Z
+loginShell: /bin/bash
+userPassword:: e1NTSEF9WS9NTHBhY0FiOE5YQ2p3T2daOVB4Zms5eVlmbU5qdzQ=
+entryCSN: 20200710160250.632881Z#000000#000#000000
+modifiersName: cn=Wing Yan Ma,ou=users,dc=illume,dc=systems
+modifyTimestamp: 20200710160250Z
+
+dn: cn=Theo Glauch,ou=users,dc=illume,dc=systems
+cn: Theo Glauch
+givenName: Theo
+gidNumber: 501
+homeDirectory: /home/users/tglauch
+sn: Glauch
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: top
+uidNumber: 1011
+uid: tglauch
+structuralObjectClass: inetOrgPerson
+entryUUID: b314d8c2-92b1-103a-92b5-eb94a6404a16
+creatorsName: cn=admin,dc=illume,dc=systems
+createTimestamp: 20200924130043Z
+loginShell: /bin/bash
+userPassword:: e1NTSEF9aTJraU1LNGpCVlpRbXNkOXdpRkNPais1Z0xxcHYzSWI=
+entryCSN: 20200924133026.000716Z#000000#000#000000
+modifiersName: cn=Theo Glauch,ou=users,dc=illume,dc=systems
+modifyTimestamp: 20200924133026Z
+
+dn: cn=Pablo Ruiz,ou=users,dc=illume,dc=systems
+cn: Pablo Ruiz
+givenName: Pablo
+gidNumber: 501
+homeDirectory: /home/users/pruiz
+sn: Ruiz
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: top
+uidNumber: 1012
+uid: pruiz
+structuralObjectClass: inetOrgPerson
+entryUUID: 1a000bf6-9780-103a-92b6-eb94a6404a16
+creatorsName: cn=admin,dc=illume,dc=systems
+createTimestamp: 20200930154817Z
+loginShell: /bin/bash
+userPassword:: e1NTSEF9cS9iZUp3Um1ISzBqK29nVWQyOUxCaXFHWjFDRllUVDc=
+entryCSN: 20201001104231.432018Z#000000#000#000000
+modifiersName: cn=Pablo Ruiz,ou=users,dc=illume,dc=systems
+modifyTimestamp: 20201001104231Z
+
+dn: cn=Jakub Stacho,ou=users,dc=illume,dc=systems
+cn: Jakub Stacho
+givenName: Jakub
+gidNumber: 501
+homeDirectory: /home/users/jstacho
+sn: Stacho
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: top
+uidNumber: 1014
+uid: jstacho
+structuralObjectClass: inetOrgPerson
+entryUUID: 2044328e-9c6d-103a-8370-6b5d5dfe92a3
+creatorsName: cn=admin,dc=illume,dc=systems
+createTimestamp: 20201006221503Z
+loginShell: /bin/bash
+userPassword:: e1NTSEF9ekdDWVMyblMra0szSW96R2ZhUHprcUV0SEg5TGNQUFQ=
+entryCSN: 20201109232217.362196Z#000000#000#000000
+modifiersName: cn=Jakub Stacho,ou=users,dc=illume,dc=systems
+modifyTimestamp: 20201109232217Z
+
+dn: cn=Nakul Aggarwal,ou=users,dc=illume,dc=systems
+cn: Nakul Aggarwal
+givenName: Nakul
+gidNumber: 501
+homeDirectory: /home/users/naggarwal
+sn: Aggarwal
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: top
+userPassword:: e01ENX1WMDFqM1BvOEpObXk3dXFVUnR4ei9nPT0=
+uidNumber: 1020
+uid: naggarwal
+structuralObjectClass: inetOrgPerson
+entryUUID: 98a0798c-a68f-103a-8371-6b5d5dfe92a3
+creatorsName: cn=admin,dc=illume,dc=systems
+createTimestamp: 20201019194659Z
+loginShell: /bin/bash
+entryCSN: 20201019194707.795103Z#000000#000#000000
+modifiersName: cn=admin,dc=illume,dc=systems
+modifyTimestamp: 20201019194707Z
+
+dn: cn=Hamish Johnson,ou=users,dc=illume,dc=systems
+cn: Hamish Johnson
+givenName: Hamish
+gidNumber: 501
+homeDirectory: /home/users/hjohnson
+sn: Johnson
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: top
+uidNumber: 1050
+uid: hjohnson
+structuralObjectClass: inetOrgPerson
+entryUUID: b4a68a50-1709-103b-8bc3-816755ecdac7
+creatorsName: cn=admin,dc=illume,dc=systems
+createTimestamp: 20210311230315Z
+loginShell: /bin/bash
+userPassword:: e1NTSEF9bkdqZVI4cjBIOXJnUUlSWWs1Umw2bUd1YlJUN01iTWE=
+entryCSN: 20210311235429.395247Z#000000#000#000000
+modifiersName: cn=Hamish Johnson,ou=users,dc=illume,dc=systems
+modifyTimestamp: 20210311235429Z
+
+dn: cn=Claudio Kopper,ou=users,dc=illume,dc=systems
+cn: Claudio Kopper
+givenName: Claudio
+gidNumber: 500
+homeDirectory: /home/ckopper
+sn: Kopper
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: top
+uidNumber: 1051
+uid: ckopper
+structuralObjectClass: inetOrgPerson
+entryUUID: 4164a980-46f9-103b-9ac4-19eb70d9a07d
+creatorsName: cn=admin,dc=illume,dc=systems
+createTimestamp: 20210511230625Z
+loginShell: /bin/bash
+userPassword:: e2NyeXB0fSQxJGtBbGs5Q1dhJE0xaDJWelAzeHVtYlFOck5YUWRIaS4=
+entryCSN: 20210511231304.298229Z#000000#000#000000
+modifiersName: cn=admin,dc=illume,dc=systems
+modifyTimestamp: 20210511231304Z
+
