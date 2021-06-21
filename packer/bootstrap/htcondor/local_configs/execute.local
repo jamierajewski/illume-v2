@@ -30,4 +30,6 @@ JOB_DEFAULT_REQUESTDISK = 1024
 
 # Singularity options
 SINGULARITY = /usr/local/bin/singularity
-SINGULARITY_BIND_EXPR = "/home /data /data2 /cvmfs"
+SINGULARITY_BIND_EXPR = "/home /data /data2 /cvmfs /scratch /etc/OpenCL"
+SINGULARITY_JOB = !isUndefined(TARGET.SingularityImage)
+SINGULARITY_IMAGE_EXPR = TARGET.SingularityImage
