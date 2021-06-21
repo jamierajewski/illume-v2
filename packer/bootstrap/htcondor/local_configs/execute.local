@@ -27,3 +27,7 @@ GPU_DISCOVERY_EXTRA = -extra
 JOB_DEFAULT_REQUESTMEMORY = 2048
 JOB_DEFAULT_REQUESTCPUS = 1
 JOB_DEFAULT_REQUESTDISK = 1024
+
+# Singularity options
+SINGULARITY = /usr/local/bin/singularity
+SINGULARITY_BIND_EXPR = "/home /data /data2 /cvmfs"
