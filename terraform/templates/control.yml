@@ -1,18 +1,16 @@
 #cloud-config
 disk_setup:
   ephemeral0:
-    table_type: 'gpt'
-    layout:
-      - 100
+    table_type: gpt
+    layout: true
     overwrite: true
 
 fs_setup:
-  - label: ephemeral0.1
-    filesystem: 'ext4'
-    device: 'ephemeral0.1'
+  - device: ephemeral0.1
+    filesystem: ext4
 
 mounts:
-  - [ ephemeral0.1 /var/lib/condor ]
+  - ["ephemeral0.1", "/var/lib/condor"]
 
 runcmd:
   # Set up condor with control node's IP and the pool password

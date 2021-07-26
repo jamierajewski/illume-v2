@@ -1,38 +1,31 @@
 #cloud-config
 disk_setup:
   ephemeral0:
-    table_type: "gpt"
-    layout:
-      - 80
-      - 10
-      - 10
+    table_type: gpt
+    layout: [80, 10, 10]
     overwrite: true
   /dev/vdc:
-    table_type: "gpt"
+    table_type: gpt
     layout: true
     overwrite: false
 
 # In addition to setting up ephemeral partitions, mount the condor-queue
 # volume
 fs_setup:
-  - label: ephemeral0.1
-    filesystem: "ext4"
-    device: "ephemeral0.1"
-  - label: ephemeral0.2
-    filesystem: "ext4"
-    device: "ephemeral0.2"
-  - label: ephemeral0.3
-    filesystem: "ext4"
-    device: "ephemeral0.3"
-  - label: None
-    filesystem: "ext4"
-    device: "/dev/vdc"
+  - device: ephemeral0.1
+    filesystem: ext4
+  - device: ephemeral0.2
+    filesystem: ext4
+  - device: ephemeral0.3
+    filesystem: ext4
+  - device: /dev/vdc
+    filesystem: ext4
 
 mounts:
-  - [ephemeral0.1, /scratch]
-  - [ephemeral0.2, /var/log/condor]
-  - [ephemeral0.3, /var/lib/cvmfs]
-  - [vdc, /var/spool/condor]
+  - ["ephemeral0.1", "/scratch"]
+  - ["ephemeral0.2", "/var/log/condor"]
+  - ["ephemeral0.3", "/var/lib/cvmfs"]
+  - ["/dev/vdc", "/var/spool/condor"]
 
 runcmd:
   # Set up condor with control node's IP and the pool password

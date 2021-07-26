@@ -1,28 +1,22 @@
 #cloud-config
 disk_setup:
   ephemeral0:
-    table_type: 'gpt'
-    layout:
-      - ${partition_1}
-      - ${partition_2}
-      - ${partition_3}
+    table_type: "gpt"
+    layout: [${partition_1}, ${partition_2}, ${partition_3}]
     overwrite: true
 
 fs_setup:
-  - label: ephemeral0.1
-    filesystem: 'ext4'
-    device: 'ephemeral0.1'
-  - label: ephemeral0.2
-    filesystem: 'ext4'
-    device: 'ephemeral0.2'
-  - label: ephemeral0.3
-    filesystem: 'ext4'
-    device: 'ephemeral0.3'
+  - device: ephemeral0.1
+    filesystem: ext4
+  - device: ephemeral0.2
+    filesystem: ext4
+  - device: ephemeral0.3
+    filesystem: ext4
 
 mounts:
-  - [ ephemeral0.1 /scratch ]
-  - [ ephemeral0.2 /var/lib/condor ]
-  - [ ephemeral0.3 /var/lib/cvmfs ]
+  - ["ephemeral0.1", "/scratch"]
+  - ["ephemeral0.2", "/var/log/condor"]
+  - ["ephemeral0.3", "/var/lib/cvmfs"]
 
 runcmd:
   # Set up condor with control node's IP and the pool password
@@ -89,5 +83,5 @@ runcmd:
   # Reboot node to get the Nvidia stuff to work
 power_state:
   mode: reboot
-  message: 'cloud-init finished; now rebooting...'
+  message: "cloud-init finished; now rebooting..."
   delay: now
