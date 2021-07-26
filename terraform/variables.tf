@@ -121,12 +121,12 @@ variable "name_counts" {
   type = map(number)
   default = {
     "interactive" = 0
-    "1080ti"      = 8
+    "1080ti"      = 0
     "980"         = 0
     "980ti"       = 0
-    "titanxp"     = 11
-    "titanx"      = 11
-    "whole"       = 1
+    "titanxp"     = 0
+    "titanx"      = 0
+    "whole"       = 0
     "half"        = 0
     "quarter"     = 0
   }
