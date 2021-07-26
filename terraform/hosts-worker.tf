@@ -28,7 +28,7 @@ resource "openstack_compute_instance_v2" "illume-workers-v2" {
     delete_on_termination = true
     destination_type      = "local"
     source_type           = "blank"
-    volume_size           = split("-", each.value.flavor)[2]
+    volume_size           = element(split("-", each.value.flavor), 2)
   }
 
   metadata = {
