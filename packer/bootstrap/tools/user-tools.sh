@@ -26,7 +26,7 @@ echo 'export PATH=$PATH:/opt/anaconda3/bin' | sudo tee -a /etc/profile.d/custom.
 rm -f ~/anaconda.sh
 
 # Python 3
-sudo apt-get install -y python3-dev python3-pip
+sudo apt-get install -y python3-dev python3-pip python3.8-venv
 python3 -m pip install virtualenv
 
 # Python 2, libs, tools
