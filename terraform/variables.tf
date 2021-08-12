@@ -109,18 +109,24 @@ variable "bastion_ip" {
   type = string
 }
 
+variable "testing" {
+  description = "Whether or not testing mode is enabled (changes instance names)"
+  type = bool
+  default = false
+}
+
 //-----Instance counts-----//
 variable "name_counts" {
   description = "A map containing the counts for each type of instance. Changing these will change the amount deployed"
   type = map(number)
   default = {
     "interactive" = 0
-    "1080ti"      = 8
+    "1080ti"      = 0
     "980"         = 0
     "980ti"       = 0
-    "titanxp"     = 11
-    "titanx"      = 11
-    "whole"       = 1
+    "titanxp"     = 0
+    "titanx"      = 0
+    "whole"       = 0
     "half"        = 0
     "quarter"     = 0
   }

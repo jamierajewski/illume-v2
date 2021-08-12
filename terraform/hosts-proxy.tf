@@ -6,11 +6,11 @@ data "openstack_images_image_v2" "proxy-image" {
 resource "openstack_compute_instance_v2" "illume-proxy-v2" {
 
   count = 2
-  name  = format("illume-proxy-%02d-v2", count.index + 1)
+  name  = format("%sillume-proxy-%02d-v2", (var.testing == true ? "TEST-" : ""), count.index + 1)
 
   flavor_name = "c2-8GB-90"
   key_pair    = "illume-new"
-  security_groups = ["illume-internal-v2", "egress"]
+  security_groups = [format("%s%s", "illume-internal", (var.testing == true ? "" : "-v2")), "egress"]
   depends_on = [ openstack_compute_instance_v2.illume-bastion-v2 ]
   image_id = data.openstack_images_image_v2.proxy-image.id
 

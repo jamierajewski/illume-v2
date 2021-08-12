@@ -6,10 +6,10 @@ data "openstack_images_image_v2" "control-image" {
 }
 
 resource "openstack_compute_instance_v2" "illume-control-v2" {
-  name = "illume-control-v2"
+  name = format("%s%s", (var.testing == true ? "TEST-" : ""), "illume-control-v2")
   flavor_name     = "c2-8GB-90"
   key_pair        = "illume-new"
-  security_groups = ["illume-internal-v2"]
+  security_groups = [format("%s%s", "illume-internal", (var.testing == true ? "" : "-v2"))]
   depends_on = [ openstack_compute_instance_v2.illume-proxy-v2 ]
 
   # Boot from volume (created from image)

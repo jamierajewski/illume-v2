@@ -13,10 +13,10 @@ resource "openstack_blockstorage_volume_v3" "bastion-volume" {
 }
 
 resource "openstack_compute_instance_v2" "illume-bastion-v2" {
-  name = "illume-bastion-v2"
+  name = format("%s%s", (var.testing == true ? "TEST-" : ""), "illume-bastion-v2")
   flavor_name     = "p2-8gb"
   key_pair        = "illume-new"
-  security_groups = ["illume-bastion", "illume-internal-v2"]
+  security_groups = ["illume-bastion", format("%s%s", "illume-internal", (var.testing == true ? "" : "-v2"))]
 
   # boot from volume (created from image)
   block_device {
@@ -39,11 +39,13 @@ resource "openstack_compute_instance_v2" "illume-bastion-v2" {
   user_data = local.bastion-template
 }
 
+# Get the reference to the floating IP we want to use...
 resource "openstack_networking_floatingip_v2" "illume-bastion-v2" {
   pool = var.floating_ip_pool
   address = var.bastion_ip
 }
 
+# ...and attach it
 resource "openstack_compute_floatingip_associate_v2" "illume-bastion-v2" {
   floating_ip = openstack_networking_floatingip_v2.illume-bastion-v2.address
   instance_id = openstack_compute_instance_v2.illume-bastion-v2.id
