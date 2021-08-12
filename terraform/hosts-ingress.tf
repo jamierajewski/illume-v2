@@ -4,21 +4,20 @@ data "openstack_images_image_v2" "ingress-image" {
 }
 
 data "openstack_blockstorage_volume_v3" "condor-queue" {
-  name = "condor-queue"
+  name = format("%s%s", (var.testing == true ? "TEST-" : ""), "condor-queue")
 }
 
 resource "openstack_blockstorage_volume_v3" "ingress-volume" {
-  name = "ingress-volume"
+  name = format("%s%s", (var.testing == true ? "TEST-" : ""), "ingress-volume")
   size = "250"
   image_id = data.openstack_images_image_v2.ingress-image.id
 }
 
 resource "openstack_compute_instance_v2" "illume-ingress-v2" {
-
-  name  = "illume-ingress-v2"
+  name = format("%s%s", (var.testing == true ? "TEST-" : ""), "illume-ingress-v2")
   flavor_name = "c10-128GB-1440"
   key_pair    = "illume-new"
-  security_groups = [ "illume-internal-v2", "illume" ]
+  security_groups = [format("%s%s", "illume-internal", (var.testing == true ? "" : "-v2")), "illume"]
   depends_on = [ openstack_compute_instance_v2.illume-control-v2 ]
 
   # boot device (volume)
@@ -62,14 +61,14 @@ resource "openstack_compute_volume_attach_v2" "condor-queue-volume" {
   volume_id = data.openstack_blockstorage_volume_v3.condor-queue.id
 }
 
-# Attach a floating IP to this instance
-resource "openstack_networking_floatingip_v2" "illume-ingress-v2" {
-  pool = var.floating_ip_pool
-  address = var.ingress_ip
-}
+// # Get the reference to the floating IP we want to use...
+// data "openstack_networking_floatingip_v2" "illume-ingress-v2" {
+//   pool = var.floating_ip_pool
+// }
 
-resource "openstack_compute_floatingip_associate_v2" "illume-ingress-v2" {
-  floating_ip = openstack_networking_floatingip_v2.illume-ingress-v2.address
-  instance_id = openstack_compute_instance_v2.illume-ingress-v2.id
-}
+// # ...and attach it
+// resource "openstack_compute_floatingip_associate_v2" "illume-ingress-v2" {
+//   floating_ip = data.openstack_networking_floatingip_v2.illume-ingress-v2.address
+//   instance_id = openstack_compute_instance_v2.illume-ingress-v2.id
+// }
 

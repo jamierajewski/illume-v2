@@ -4,11 +4,11 @@ resource "openstack_compute_instance_v2" "illume-workers-v2" {
   # Since it is a list, we need to project it into a map
   for_each = local.worker_instances
 
-  name = each.key
+  name = format("%s%s", (var.testing == true ? "TEST-" : ""), each.key)
   flavor_name = each.value.flavor
   image_id = (each.value.gpu ? data.openstack_images_image_v2.worker-image-gpu.id : data.openstack_images_image_v2.worker-image-nogpu.id)
   key_pair    = "illume-new"
-  security_groups = [ "illume-internal-v2" ]
+  security_groups = [format("%s%s", "illume-internal", (var.testing == true ? "" : "-v2"))]
   # Depends on the control as it has to be started up first so that we can
   # automatically authenticate to it
   depends_on = [ openstack_compute_instance_v2.illume-ingress-v2 ]

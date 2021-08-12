@@ -6,21 +6,17 @@ data "openstack_images_image_v2" "openLDAP-image" {
 }
 
 resource "openstack_blockstorage_volume_v3" "openLDAP-volume" {
-  name = "openLDAP-volume"
+  name = format("%s%s", (var.testing == true ? "TEST-" : ""), "openLDAP-volume")
   size = "30"
   image_id = data.openstack_images_image_v2.openLDAP-image.id
 }
 
 resource "openstack_compute_instance_v2" "illume-openLDAP-v2" {
-  name = "illume-openLDAP-v2"
+  name = format("%s%s", (var.testing == true ? "TEST-" : ""), "illume-openLDAP-v2")
   flavor_id       = "11"
   key_pair        = "illume-new"
-  security_groups = [
-    "illume-internal-v2",
-  ]
-  depends_on = [
-    openstack_compute_instance_v2.illume-bastion-v2
-  ]
+  security_groups = [format("%s%s", "illume-internal", (var.testing == true ? "" : "-v2"))]
+  depends_on = [openstack_compute_instance_v2.illume-bastion-v2]
 
   # Boot volume (created from image)
   block_device {

@@ -6,16 +6,16 @@ data "openstack_images_image_v2" "monitor-image" {
 }
 
 resource "openstack_blockstorage_volume_v3" "monitor-volume" {
-  name = "monitor-volume"
+  name = format("%s%s", (var.testing == true ? "TEST-" : ""), "monitor-volume")
   size = "30"
   image_id = data.openstack_images_image_v2.monitor-image.id
 }
 
 resource "openstack_compute_instance_v2" "illume-monitor-v2" {
-  name = "illume-monitor-v2"
+  name = format("%s%s", (var.testing == true ? "TEST-" : ""), "illume-monitor-v2")
   flavor_name     = "c2-4GB-45"
   key_pair        = "illume-new"
-  security_groups = ["illume-internal-v2"]
+  security_groups = [format("%s%s", "illume-internal", (var.testing == true ? "" : "-v2"))]
 
   # Boot from volume (created from image)
   block_device {
