@@ -32,6 +32,12 @@ variable "auth_url" {
   type = string
 }
 
+variable "id_endpoint" {
+  description = "Same as auth_url, but with forward slashes delimited (to avoid issues with sed in the monitor.yml cloud-init). To
+  delimit a backslash, use two back slashes like \\/"
+  type = string
+}
+
 variable "ssh_key_file" {
   description = "Absolute path to SSH key to add to instances"
   type = string
@@ -74,11 +80,6 @@ variable "project_id" {
 
 variable "tenant_name" {
   description = "Name of the tenant (found in the OpenStack RC file)"
-  type = string
-}
-
-variable "id_endpoint" {
-  description = "Same as auth_url, but with backslashes delimited (to avoid issues with sed in the monitor.yml cloud-init)"
   type = string
 }
 
