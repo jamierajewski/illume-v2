@@ -18,7 +18,10 @@ EOF
 
 sudo apt-get install -y slapd ldap-utils
 
+# ==== CURRENTLY UNUSED DUE TO MOUNTING FROM AN NFS ==== #
+
 # Restore the configuration and database from the copy in this repo
+# This requires having a backed up DATABASE.ldif and CONFIG.ldif in ldap/ldap-backup directory
 # Source: https://serverfault.com/a/796163
 # Steps are followed from 4 onward from the above source
 

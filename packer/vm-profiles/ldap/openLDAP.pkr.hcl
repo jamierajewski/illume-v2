@@ -16,10 +16,11 @@ source "openstack" "openLDAP" {
 build {
   sources = ["source.openstack.openLDAP"]
 
-  provisioner "file" {
-    destination = "/home/ubuntu/"
-    sources     = ["../../bootstrap/ldap/ldap-backup/CONFIG.ldif", "../../bootstrap/ldap/ldap-backup/DATABASE.ldif"]
-  }
+  // ONLY USED IF RESTORING A BACKUP LDAP DB - SEE openLDAP.sh FOR MORE INFO
+  // provisioner "file" {
+  //   destination = "/home/ubuntu/"
+  //   sources     = ["../../bootstrap/ldap/ldap-backup/CONFIG.ldif", "../../bootstrap/ldap/ldap-backup/DATABASE.ldif"]
+  // }
 
   provisioner "shell" {
     script = "../../bootstrap/ldap/openLDAP.sh"
