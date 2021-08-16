@@ -74,7 +74,7 @@ variable "domain_name" {
 }
 
 variable "project_id" {
-  description = "Project ID, found on OpenStack"
+  description = "Project ID (found in OpenStack RC file)"
   type = string
 }
 
