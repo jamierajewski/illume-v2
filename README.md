@@ -13,10 +13,11 @@ Rebuilding Illume cluster using VM workflow. Created to be as generic as possibl
 - [Build VM images](#build-vm-images)
 - [Deploying to OpenStack](#deploying-to-openstack)
 - [Monitoring](#monitoring)
-- [How to perform maintenance](#how-to-perform-maintenance)
-- [How to access LDAP interface](#how-to-access-ldap-interface)
-- [How to Debug](#how-to-debug)
-  * [LDAP](#ldap)
+- [How-to Guides](#how-to-guides)
+  - [How to perform maintenance](#how-to-perform-maintenance)
+  - [How to access LDAP interface](#how-to-access-ldap-interface)
+  - [How to debug LDAP](#how-to-debug-ldap)
+  - [How to deploy a test cluster](#how-to-deploy-a-test-cluster)
 - [Authors and acknowledgements](#authors-and-acknowledgements)
 
 
@@ -70,6 +71,8 @@ The VM images are located under `/packer/vm-profiles`. The images are dependent 
 This organization also makes it easier to make changes to multiple images while only modifying one.
 For example, if you wanted to add `numpy`, you could add it to `interactive` and then rebuild the
 images that depend on it, giving them all numpy.
+
+**NOTE** - When rebuilding the `worker-gpu` image, at least 1 GPU must be unassigned in OpenStack. This is because Packer will spin up an instance with a GPU to build the image, since it needs one in order for CUDA and other GPU packages to install and be tested correctly.
 
 ## Deploying to OpenStack
 As with the VM images, the Terraform deployment profiles are set up with dependencies so that post-provisioning can be done once the appropriate instances are deployed. However, Terraform takes care of building them in the correct order so you only need to:
@@ -131,7 +134,9 @@ You will be prompted to change the password - do so now.
 
 Once saved, the dashboards are successfully set up.
 
-## How to perform maintenance
+## How-to Guides
+
+### How to perform maintenance
 If you want to perform software updates or install new software/tools, this will be done by modifying the corresponding Packer files; if you instead need to simply scale the number of nodes up/down, or make changes to a configuration within the Terraform directory, you can skip this section and move on to the Terraform section.
 
 **Packer**
@@ -144,7 +149,7 @@ If you want to perform software updates or install new software/tools, this will
 2. After making any changes, you can provision the cluster with `terraform apply -var-file="variables.tfvars"`. Terraform will scan the currently deployed cluster and compare it against your local profiles to find any changes. If any are found, it will redeploy the relevant instance(s). **IMPORTANT** - If a change is made to a template (under `terraform/templates`), Terraform may not be able to detect it as it is "user data" that is used as the cloud-config file to perform first-boot setup. In these cases, you can delete the instance(s) first, and then provision fresh ones.
 
 
-## How to access LDAP interface
+### How to access LDAP interface
 Illume v2 uses **phpLDAPadmin** as an interface over **openLDAP**. To access the web interface for easy account management:
 1. Create (if it doesn't already exist) `~/.ssh/config`
 2. Create an entry for the `bastion` host that looks something like this with the public IP and path to key filled in:
@@ -172,8 +177,7 @@ http://localhost:8080/phpldapadmin/
 ```
 If everything was done correctly then you should have landed on the phpLDAPadmin login page.
 
-# How to Debug
-## LDAP
+### How to debug LDAP
 LDAP is one of the more complicated parts of the cluster. To ensure that it is working, you can `ssh` into the `openLDAP` instance (via the Bastion since it isn't exposed to the internet) and run
 ```
 ldapsearch -x -b cn=First Last,ou=users,dc=illume,dc=systems
@@ -211,6 +215,12 @@ result: 0 Success
 # numResponses: 2
 # numEntries: 1
 ```
+### How to deploy a test cluster
+1. Clone the repository again, and rename it to `illume-v2-testing` to differentiate it from the production one
+2. Follow the steps in [Prerequisites](#prerequisites) and [Deploying to OpenStack](#deploying-to-openstack) BUT DON'T PROVISION IT YET
+3. Once the repo is populated with OpenStack credentials and initialized for Terraform, navigate to `terraform/variables.tfvars` and set `testing` to `true`. Then, set `local_subnet` to the illume-v1 subnet (to keep the test cluster isolated from the prod one). The `testing` variable will modify the instance names to have `-TESTING` appended to the end, along with switching the secgroups to using the illume-v1 variants
+4. While still looking at `terraform/variables.tfvars`, set the appropriate number of worker instances at the bottom. Currently we want all GPUs (except for 1; see note in [Build VM images](#build-vm-images)) to be dedicated to production use, so you can likely only enable CPU-only configurations
+5. Ensure you are in the `terraform` directory, then run `terraform apply -var-file="variables.tfvars"` to apply your configuration, which should deploy the test cluster without touching the production one. Verify that everything went as anticipated in the Cirrus control panel
 
 ## Authors and acknowledgements
 Thanks to Claudio Kopper and David Schultz for mentoring and helping me - without them, this would not have been possible.
