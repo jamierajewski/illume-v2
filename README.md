@@ -10,9 +10,10 @@ Rebuilding Illume cluster using VM workflow. Created to be as generic as possibl
 
 - [Overview](#overview)
 - [Prerequisites](#prerequisites)
-- [Build VM Images](#build-vm-images)
+- [Build VM images](#build-vm-images)
 - [Deploying to OpenStack](#deploying-to-openstack)
 - [Monitoring](#monitoring)
+- [How to perform maintenance](#how-to-perform-maintenance)
 - [How to access LDAP interface](#how-to-access-ldap-interface)
 - [How to Debug](#how-to-debug)
   * [LDAP](#ldap)
@@ -129,6 +130,19 @@ You will be prompted to change the password - do so now.
 13. Repeat the above steps for importing but this time use the ID **10703** which is for the Nvidia exporter.
 
 Once saved, the dashboards are successfully set up.
+
+## How to perform maintenance
+If you want to perform software updates or install new software/tools, this will be done by modifying the corresponding Packer files; if you instead need to simply scale the number of nodes up/down, or make changes to a configuration within the Terraform directory, you can skip this section and move on to the Terraform section.
+
+**Packer**
+1. Make the changes to the relevant file(s); for example, if you wanted to install `htop` across the entire cluster, you would add it to `packer/bootstrap/common/common.sh`. If you only want to add it to user-facing instances, you can instead place it in `packer/bootstrap/tools/user-tools.sh`, which will install it on the ingress and all workers. If you simply want to perform an update to the currently installed software, move on to the next step.
+2. After any changes have been made, you can rebuild the image(s). **IMPORTANT** - OpenStack doesn't seem to provide a timestamp to images, and a rebuild won't overwrite the older image, so it may be very confusing if you don't delete the current image(s) before rebuilding. I did include a condition in Terraform to choose the most recent image when provisioning, but it is best to delete old images that aren't needed anymore. Note the diagram in the [Build VM images](#build-vm-images) section for the order. You can also use the helper script `packer/vm-profiles/build-all.sh`, which contains the appropriate order for rebuilding the VMs. By rebuilding the images, you will also be performing a package update, so any pending security and package updates will be applied.
+3. Now that the images are all rebuilt, you can move on to Terraform to provision instances with these images.
+
+**Terraform**
+1. Make changes to the relevant file(s); for example, to increase the number of 1080ti workers, modify the "1080ti" value in the "name_counts" variable in `variables.tf`. 
+2. After making any changes, you can provision the cluster with `terraform apply -var-file="variables.tfvars"`. Terraform will scan the currently deployed cluster and compare it against your local profiles to find any changes. If any are found, it will redeploy the relevant instance(s). **IMPORTANT** - If a change is made to a template (under `terraform/templates`), Terraform may not be able to detect it as it is "user data" that is used as the cloud-config file to perform first-boot setup. In these cases, you can delete the instance(s) first, and then provision fresh ones.
+
 
 ## How to access LDAP interface
 Illume v2 uses **phpLDAPadmin** as an interface over **openLDAP**. To access the web interface for easy account management:
