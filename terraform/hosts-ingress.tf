@@ -61,14 +61,12 @@ resource "openstack_compute_volume_attach_v2" "condor-queue-volume" {
   volume_id = data.openstack_blockstorage_volume_v3.condor-queue.id
 }
 
-// # Get the reference to the floating IP we want to use...
-// data "openstack_networking_floatingip_v2" "illume-ingress-v2" {
-//   pool = var.floating_ip_pool
-// }
+resource "openstack_networking_floatingip_v2" "illume-ingress-v2" {
+  pool = var.floating_ip_pool
+  address = var.ingress_ip
+}
 
-// # ...and attach it
-// resource "openstack_compute_floatingip_associate_v2" "illume-ingress-v2" {
-//   floating_ip = data.openstack_networking_floatingip_v2.illume-ingress-v2.address
-//   instance_id = openstack_compute_instance_v2.illume-ingress-v2.id
-// }
-
+resource "openstack_compute_floatingip_associate_v2" "illume-ingress-v2" {
+  floating_ip = openstack_networking_floatingip_v2.illume-ingress-v2.address
+  instance_id = openstack_compute_instance_v2.illume-ingress-v2.id
+}
