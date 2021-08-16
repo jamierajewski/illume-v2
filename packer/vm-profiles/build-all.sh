@@ -56,7 +56,7 @@ fi
 
 if [[ $STAGES -eq 8 ]]; then
     cd worker
-    packer build -force worker-gpu.pkr.hcl
     packer build -force worker-nogpu.pkr.hcl
+    packer build -force worker-gpu.pkr.hcl
     cd ..
 fi
