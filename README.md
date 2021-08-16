@@ -55,6 +55,11 @@ Fill in `/setup-env.sh` with your SSH key location and the path to the OpenStack
 
 if you want to be prompted for them each time you run a Terraform command. DO NOT FILL IN `/terraform/variables.tf`; instead, fill in `/terraform/variables.tfvars` which allows you to keep your credentials separated from the variable template. **DO NOT COMMIT WITH YOUR INFORMATION FILLED IN**.
 
+**NOTE** - Certain information is not included in the repository, as it is hosted in an NFS drive which gets mounted when provisioned. This includes:
+- LDAP configuration and database
+- User home directories (that correspond to the LDAP accounts)
+- Grafana and Prometheus dashboards and configuration
+
 ## Build VM Images
 The VM images are located under `/packer/vm-profiles`. The images are dependent on one another in sensical ways to keep build times down the higher up the stack you go, while also keeping the profiles themselves concise and lacking repetition. The hierarchy is as follows:
 
